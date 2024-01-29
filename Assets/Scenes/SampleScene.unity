@@ -9488,7 +9488,7 @@ Transform:
   m_GameObject: {fileID: 817489649}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.53, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16002,7 +16002,7 @@ MonoBehaviour:
     m_Bits: 311
   m_GroundCheck: {fileID: 158147086}
   m_CeilingCheck: {fileID: 305218834}
-  m_CrouchDisableCollider: {fileID: 0}
+  m_CrouchDisableCollider: {fileID: 1763364868}
   OnLandEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -16082,9 +16082,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.035032183, y: -0.3719741}
+  m_Offset: {x: -0.07848084, y: -0.42174274}
   serializedVersion: 2
-  m_Radius: 0.49281105
+  m_Radius: 0.5280969
 --- !u!61 &1763364868
 BoxCollider2D:
   m_ObjectHideFlags: 0
