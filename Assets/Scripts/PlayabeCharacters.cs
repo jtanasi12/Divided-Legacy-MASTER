@@ -2,49 +2,52 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterControl : MonoBehaviour
+// Parent class of Split & Cloud Boy
+public class PlayableCharacters : Characters
 {
-    // Variables 
-    private float horizontalInput;
    
-    private bool isFacingRight = true;
-    private bool doubleJump;
+   [SerializeField]
+   protected Rigidbody2D body;
+   [SerializeField]
+   protected Transform groundCheck;
+   [SerializeField]
+   protected LayerMask groundLayer;
+   [SerializeField]
+   protected float speed; 
+
+   [SerializeField]
+    protected float jumpingPower;
+
+
+      // Variables 
+   protected float horizontalInput;
+   
+   protected bool isFacingRight = true;
+   protected bool doubleJump;
 
     // After the player leaves the ground, it gives us 0.2 seconds to still make a jump 
-    private float coyoteTime = 0.2f;
+   protected float coyoteTime = 0.2f;
 
     // A buffer that allows us to jump .2 seconds before we land
-    private float jumpBufferTime = 0.2f;
-    private float jumpBufferCounter;
+   protected float jumpBufferTime = 0.2f;
+   protected float jumpBufferCounter;
 
-    // A short window of time allowing the player to jump again after leaving the ground
-    private float coyoteTimeCounter;
-
-   [SerializeField]
-    private Rigidbody2D body;
-   [SerializeField]
-   private Transform groundCheck;
-   [SerializeField]
-   private LayerMask groundLayer;
-   [SerializeField]
-    private float speed; 
-
-   [SerializeField]
-    private float jumpingPower;
-
+    // A short window of time allowing the player to jump again after walking off a plateform
+   protected float coyoteTimeCounter;
 
     // Update is called once per frame
-    private void Update()
-    {
-        horizontalInput = Input.GetAxisRaw("Horizontal");
+    protected virtual void Update(){
 
-        // If we are on the ground and the jump button isn't pressed
+         horizontalInput = Input.GetAxisRaw("Horizontal");
+        // -1 = LEFT, 0 = NO MOVEMENT, 1 = RIGHT
+
+    
         if(IsGrounded() && !Input.GetButton("Jump")){
             doubleJump = false;
+            // When the player returns to the ground, we must set doubleJump back to false
         }
-        // Left: -1 / No Movement: 0 / Right: 1
 
-         // If we are grounded we can jump, or if 
+         // If we are grounded, set the coyote TIMER 
         if(IsGrounded()){
             coyoteTimeCounter = coyoteTime;
             // If we are grounded we set a 0.2 second timer
@@ -53,24 +56,14 @@ public class CharacterControl : MonoBehaviour
         else{
             coyoteTimeCounter -= Time.deltaTime;
             // As soon as the player walks off a platform and there is no collision detection on the ground we start decrementing the timer
+            // Giving the player .2 seconds to still make a last second jump
         }
-
-        // If we have pressed jump start the timer
-     
+          
         if(Input.GetButtonDown("Jump")){
 
-            if(IsGrounded() || doubleJump){
-
-            // Set to 0.02 seconds everytime we jump 
-
-                body.velocity = new Vector2(body.velocity.x, jumpingPower);
-
-            // Set to the opposite  
-            doubleJump = !doubleJump;
-            }
-
             jumpBufferCounter = jumpBufferTime;
-
+            // As soon as we jump, we have .2 seconds to jump again 
+            // Creating this effect where we can jump again before hitting the ground
             
         }
         else{
@@ -78,9 +71,10 @@ public class CharacterControl : MonoBehaviour
             // In the air, the timer will decrement
         }
 
-        // Check if we are pressing to jump
-        // and the player has to be on the ground
-        // check if the timer is active allowing for more jumps
+        // When we jump the jumpBuffer goes to 0.2 and starts decrementing and coyoteTime decrements when are in the air 
+        // If we are in the air AND jump was clicked we open the window for another jump 
+        // This prevents us from falling off a platform and allowing us to jump before hitting the ground 
+        // This should only be triggered after  
         if(jumpBufferCounter > 0f && coyoteTimeCounter > 0f){
 
             // Velocity is delta magnitude (speed) and direction
@@ -89,24 +83,27 @@ public class CharacterControl : MonoBehaviour
             jumpBufferCounter = 0f; // RESET
         }
 
-        // Allow the player to increase faster if they hold the jump button down, and jump less if they only tap it
         if(Input.GetButtonUp("Jump") && body.velocity.y > 0f){
-           
-            coyoteTimeCounter = 0f;
-            // Reset the coyote jump only when the player has released from jump to prevent spamming
+         // Reduce the upward velocity in half when the jump button is released 
+         // So if we tap the jump button, your velocity will be immediently cut in half
+         // if you hold the jump button longer you will be allowed to go higher
+          body.velocity = new Vector2(body.velocity.x, body.velocity.y * 0.5f);
+          // Multiplication by a decimal makes the upward velocity smaller
+
+          coyoteTimeCounter = 0f;
+            // As soon as we jump we must reset the timer, reduce spamming
         }
 
          Flip(); // Check if we need to fip the character
-
     }
 
-    // Used for physics, uses a fix step of 0.002 seconds
+      // Used for physics, uses a fix step of 0.002 seconds
     // Time.FixedDeltaTime is implied = 0.002
-    private void FixedUpdate(){
+    protected virtual void FixedUpdate(){
         body.velocity = new Vector2( (horizontalInput * speed), body.velocity.y);
     }
 
-    private void Flip(){
+    protected void Flip(){
         // If we are facing right and the user hits left
         // Or if we are facing left and input is 1 we need to flip
         if(isFacingRight && horizontalInput < 0f || !isFacingRight && horizontalInput > 0f ){
@@ -119,10 +116,12 @@ public class CharacterControl : MonoBehaviour
             // Flip the coordinates
         }
     }
-    private bool IsGrounded(){
+    protected bool IsGrounded(){
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        // Returns true if there is collision on the ground and false means that we are in the air
 
         // Physics2D.OverlapCircle checks for overlapping colliders within a circular area 
         // Get the position of our 'groundCheck' which is positioned at our players feet. The players feet will be the center inside of the circular area we are creating. The radius of the circle is 0.2 units. And we are checking if a groundLayer overlaps with the collider we created. If we collide with the ground we return true that we are on the ground if not false and we are in the air
     }
+
 }
