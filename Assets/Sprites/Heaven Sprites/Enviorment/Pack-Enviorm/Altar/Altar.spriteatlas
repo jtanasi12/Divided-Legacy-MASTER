@@ -78,20 +78,17 @@ SpriteAtlas:
     packedSpriteRenderDataKeys:
     - 8c928754abdf6cd44a4e89ed4f4c3263: 21300000
     - ebc973e54b1ac124a90cc192463647b6: 21300000
-    - af2354080675e6044b7cb8ec86b3f3f0: 21300000
     - 23f9958b9c709bb48923bea13d4a70d6: 21300000
     - ab3b9ffd103931f4abfd8ac6b34a098e: 21300000
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 8c928754abdf6cd44a4e89ed4f4c3263, type: 3}
   - {fileID: 21300000, guid: ebc973e54b1ac124a90cc192463647b6, type: 3}
-  - {fileID: 21300000, guid: af2354080675e6044b7cb8ec86b3f3f0, type: 3}
   - {fileID: 21300000, guid: 23f9958b9c709bb48923bea13d4a70d6, type: 3}
   - {fileID: 21300000, guid: ab3b9ffd103931f4abfd8ac6b34a098e, type: 3}
   m_PackedSpriteNamesToIndex:
   - Sprite_Altar_4
   - Sprite_Altar_2
-  - Sprite_Altar_Base
   - Sprite_Altar_1
   - Sprite_Altar_3
   m_RenderDataMap: {}
