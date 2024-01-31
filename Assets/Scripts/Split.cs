@@ -10,6 +10,14 @@ public class Split : PlayableCharacters
     {
         base.Update();
 
+        DoubleJump(); // Split has the ability to perform double jumps
+    }
+
+    protected override void FixedUpdate(){
+        base.FixedUpdate();
+    }
+
+    private void DoubleJump(){
         if(Input.GetButtonDown("Jump")){
              // We want to execute jumpingPower if the player is on the ground OR in the air during a double jump if its' true
             if(IsGrounded() || doubleJump){ 
@@ -22,9 +30,5 @@ public class Split : PlayableCharacters
             doubleJump = !doubleJump;
             }
         }
-    }
-
-    protected override void FixedUpdate(){
-        base.FixedUpdate();
     }
 }
