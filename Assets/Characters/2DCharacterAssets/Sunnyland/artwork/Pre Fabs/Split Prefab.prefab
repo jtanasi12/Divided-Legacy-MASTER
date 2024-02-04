@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 1973107756632098772}
   - component: {fileID: 1551890805889862344}
   m_Layer: 9
-  m_Name: Cloud Boy
+  m_Name: Split Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
