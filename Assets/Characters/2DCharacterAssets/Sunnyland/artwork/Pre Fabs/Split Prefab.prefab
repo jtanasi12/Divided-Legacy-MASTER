@@ -43,7 +43,6 @@ GameObject:
   - component: {fileID: 8765707906626294952}
   - component: {fileID: 3729062015311041311}
   - component: {fileID: 652105907462804739}
-  - component: {fileID: 1973107756632098772}
   - component: {fileID: 1551890805889862344}
   m_Layer: 9
   m_Name: Split Prefab
@@ -192,25 +191,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.83722115, y: 1.012098}
   m_EdgeRadius: 0
---- !u!114 &1973107756632098772
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3599380507649597585}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab80b716f6a3e4ea9bf01e0afa290dc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  body: {fileID: 3729062015311041311}
-  groundCheck: {fileID: 8844381699648933662}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  speed: 6
-  jumpingPower: 8.5
 --- !u!58 &1551890805889862344
 CircleCollider2D:
   m_ObjectHideFlags: 0

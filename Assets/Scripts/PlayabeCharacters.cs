@@ -6,7 +6,12 @@ using UnityEngine;
 // Parent class of Split & Cloud Boy
 public class PlayableCharacters : Characters
 {
-    private IA_Controller gamepad;
+    #region Controller Support
+    private IA_Controller gamepad; // Reference to the IA_Controller (mappings for input to controller)
+    private Vector2 gpMove;
+    private Vector2 gpPan;
+
+    #endregion
 
     [SerializeField]
     protected Rigidbody2D body;
@@ -40,8 +45,9 @@ public class PlayableCharacters : Characters
     {
         // Register the gamepad (Xbox, PlayStation, etc...)
         gamepad = new IA_Controller();
-
-        gamepad.Gameplay.Jump.performed += ctx => Jump();
+        gamepad.Gameplay.Jump.performed += ctx => Jump(); // Register Jump action to a function
+        gamepad.Gameplay.Skill.performed += ctx => ExecuteSkill(); // Register skill to a funtion
+        gamepad.Gameplay.SwapActiveCharacter.performed += ctx => SwapCharacter(); // Register character swap to a funtion
     }
 
     void OnEnable()
@@ -53,7 +59,9 @@ public class PlayableCharacters : Characters
     {
         gamepad.Gameplay.Disable();
     }
-
+    
+    // FIXME: This function should really be cleand up.
+    // Cont.: We should have "Update()" simply calling other functions for clarity of responsiblity
     // Update is called once per frame
     protected virtual void Update()
     {
@@ -73,7 +81,6 @@ public class PlayableCharacters : Characters
         {
             coyoteTimeCounter = coyoteTime;
             // If we are grounded we set a 0.2 second timer
-
         }
         else
         {
@@ -102,6 +109,10 @@ public class PlayableCharacters : Characters
         Flip(); // Check if we need to fip the character
     }
 
+    void ExecuteSkill() {
+        print("this is where we would do some action stuff wooo");
+    }
+
     void Jump()
     {
         jumpBufferCounter = jumpBufferTime;
@@ -114,6 +125,10 @@ public class PlayableCharacters : Characters
 
             jumpBufferCounter = 0f; // RESET
         }
+    }
+
+    void SwapCharacter() {
+        print("Character Swap Logic");
     }
 
     // Used for physics, uses a fix step of 0.002 seconds
