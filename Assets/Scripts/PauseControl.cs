@@ -28,4 +28,10 @@ public class PauseControl : MonoBehaviour
         Time.timeScale = 1;
         gameIsPaused = false;
     }
+    public void GoToMainMenu (){
+        //This is where we should route to the main menu when we make one
+    }
+    public void QuitGame (){
+        //This is where we need to make a method to close the application
+    }
 }
