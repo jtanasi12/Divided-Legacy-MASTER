@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName ="State Objects/Shared Game State")]
 public class SharedState : ScriptableObject
 {
     public Boolean isPaused = false;
