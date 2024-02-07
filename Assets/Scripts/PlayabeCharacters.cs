@@ -13,6 +13,11 @@ public class PlayableCharacters : Characters
 
     #endregion
 
+    #region GameState
+    [SerializeField]
+    private SharedState gameState;
+    #endregion
+
     [SerializeField]
     protected Rigidbody2D body;
     [SerializeField]
@@ -65,48 +70,49 @@ public class PlayableCharacters : Characters
     // Update is called once per frame
     protected virtual void Update()
     {
+        if (!gameState.isPaused){
+            horizontalInput = Input.GetAxisRaw("Horizontal");
+            // -1 = LEFT, 0 = NO MOVEMENT, 1 = RIGHT
 
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        // -1 = LEFT, 0 = NO MOVEMENT, 1 = RIGHT
 
+            if (IsGrounded() && !Input.GetButton("Jump"))
+            {
+                doubleJump = false;
+                // When the player returns to the ground, we must set doubleJump back to false
+            }
 
-        if (IsGrounded() && !Input.GetButton("Jump"))
-        {
-            doubleJump = false;
-            // When the player returns to the ground, we must set doubleJump back to false
+            // If we are grounded, set the coyote TIMER 
+            if (IsGrounded())
+            {
+                coyoteTimeCounter = coyoteTime;
+                // If we are grounded we set a 0.2 second timer
+            }
+            else
+            {
+                coyoteTimeCounter -= Time.deltaTime;
+                // As soon as the player walks off a platform and there is no collision detection on the ground we start decrementing the timer
+                // Giving the player .2 seconds to still make a last second jump
+            }
+
+            if (Input.GetButtonDown("Jump"))
+                Jump();
+            else
+                jumpBufferCounter -= Time.deltaTime;
+
+            if (Input.GetButtonUp("Jump") && body.velocity.y > 0f)
+            {
+                // Reduce the upward velocity in half when the jump button is released 
+                // So if we tap the jump button, your velocity will be immediently cut in half
+                // if you hold the jump button longer you will be allowed to go higher
+                body.velocity = new Vector2(body.velocity.x, body.velocity.y * 0.5f);
+                // Multiplication by a decimal makes the upward velocity smaller
+
+                coyoteTimeCounter = 0f;
+                // As soon as we jump we must reset the timer, reduce spamming
+            }
+
+            Flip(); // Check if we need to fip the character
         }
-
-        // If we are grounded, set the coyote TIMER 
-        if (IsGrounded())
-        {
-            coyoteTimeCounter = coyoteTime;
-            // If we are grounded we set a 0.2 second timer
-        }
-        else
-        {
-            coyoteTimeCounter -= Time.deltaTime;
-            // As soon as the player walks off a platform and there is no collision detection on the ground we start decrementing the timer
-            // Giving the player .2 seconds to still make a last second jump
-        }
-
-        if (Input.GetButtonDown("Jump"))
-            Jump();
-        else
-            jumpBufferCounter -= Time.deltaTime;
-
-        if (Input.GetButtonUp("Jump") && body.velocity.y > 0f)
-        {
-            // Reduce the upward velocity in half when the jump button is released 
-            // So if we tap the jump button, your velocity will be immediently cut in half
-            // if you hold the jump button longer you will be allowed to go higher
-            body.velocity = new Vector2(body.velocity.x, body.velocity.y * 0.5f);
-            // Multiplication by a decimal makes the upward velocity smaller
-
-            coyoteTimeCounter = 0f;
-            // As soon as we jump we must reset the timer, reduce spamming
-        }
-
-        Flip(); // Check if we need to fip the character
     }
 
     void ExecuteSkill() {
