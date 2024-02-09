@@ -22,7 +22,7 @@ public class PlayableCharacters : Characters
    [SerializeField]
    protected LayerMask wallLayer;
 
-       #region Controller Support
+      #region Controller Support
     private IA_Controller gamepad; // Reference to the IA_Controller (mappings for input to controller)
     private Vector2 gpMove;
     private Vector2 gpPan;
@@ -32,7 +32,7 @@ public class PlayableCharacters : Characters
     #region GameState
     [SerializeField]
     private SharedState gameState;
-
+    #endregion
     // Variables 
     protected float horizontalInput;
 
@@ -179,10 +179,14 @@ public class PlayableCharacters : Characters
             body.velocity = new Vector2((horizontalInput * speed), body.velocity.y);
         }
 
-          void SwapCharacter() {
+         
+    }
+
+    void SwapCharacter()
+    {
         print("Character Swap Logic");
     }
-    
+
 
     protected void Flip()
     {
