@@ -38,27 +38,24 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Sky
+  - name: background
     uniqueID: 3936676035
     locked: 0
-  - name: Far Trees
-    uniqueID: 222040141
+  - name: far
+    uniqueID: 2049732687
     locked: 0
-  - name: Middle Trees
-    uniqueID: 1752682665
+  - name: middle
+    uniqueID: 2727812175
+    locked: 0
+  - name: close
+    uniqueID: 222040141
     locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: ground layer
+  - name: foreground
     uniqueID: 1950422495
     locked: 0
-  - name: fore-ground-1
-    uniqueID: 2727812175
-    locked: 0
-  - name: fore-ground-2
-    uniqueID: 2049732687
-    locked: 0
-  - name: fore-ground-3
+  - name: closest
     uniqueID: 1875799107
     locked: 0
