@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 
 // Parent class of Split & Cloud Boy
@@ -21,10 +22,23 @@ public class PlayableCharacters : Characters
    [SerializeField]
    protected LayerMask wallLayer;
 
+       #region Controller Support
+    private IA_Controller gamepad; // Reference to the IA_Controller (mappings for input to controller)
+    private Vector2 gpMove;
+    private Vector2 gpPan;
+
+    #endregion
+
+    #region GameState
+    [SerializeField]
+    private SharedState gameState;
+
+    // Variables 
+    protected float horizontalInput;
 
 
     // Variables 
-   protected float horizontalInput;
+
    protected bool isFacingRight = true;
    protected bool doubleJump;
     private float wallJumpingDirection;
@@ -38,56 +52,94 @@ public class PlayableCharacters : Characters
    private Vector2 wallJumpingPower = new Vector2(6f, 12f);
 
     // After the player leaves the ground, it gives us 0.2 seconds to still make a jump 
-   protected float coyoteTime = 0.2f;
+    protected float coyoteTime = 0.2f;
 
     // A buffer that allows us to jump .2 seconds before we land
-   protected float jumpBufferTime = 0.2f;
-   protected float jumpBufferCounter;
+    protected float jumpBufferTime = 0.2f;
+    protected float jumpBufferCounter;
 
     // A short window of time allowing the player to jump again after walking off a plateform
-   protected float coyoteTimeCounter;
+    protected float coyoteTimeCounter;
 
-    // Update is called once per frame
-    protected virtual void Update(){
+    void Awake()
+    {
+        // Register the gamepad (Xbox, PlayStation, etc...)
+        gamepad = new IA_Controller();
+        gamepad.Gameplay.Jump.performed += ctx => Jump(); // Register Jump action to a function
+        gamepad.Gameplay.Skill.performed += ctx => ExecuteSkill(); // Register skill to a funtion
+        gamepad.Gameplay.SwapActiveCharacter.performed += ctx => SwapCharacter(); // Register character swap to a funtion
+    }
 
-         horizontalInput = Input.GetAxisRaw("Horizontal");
-        // -1 = LEFT, 0 = NO MOVEMENT, 1 = RIGHT
+    void OnEnable()
+    {
+        gamepad.Gameplay.Enable();
+    }
 
+    void OnDisable()
+    {
+        gamepad.Gameplay.Disable();
+    }
     
-        if(IsGrounded() && !Input.GetButton("Jump")){
-            doubleJump = false;
-            // When the player returns to the ground, we must set doubleJump back to false
-        }
+    // FIXME: This function should really be cleand up.
+    // Cont.: We should have "Update()" simply calling other functions for clarity of responsiblity
+    // Update is called once per frame
+    protected virtual void Update()
+    {
+        if (!gameState.isPaused){
+            horizontalInput = Input.GetAxisRaw("Horizontal");
+            // -1 = LEFT, 0 = NO MOVEMENT, 1 = RIGHT
 
-         // If we are grounded, set the coyote TIMER 
-        if(IsGrounded()){
-            coyoteTimeCounter = coyoteTime;
-            // If we are grounded we set a 0.2 second timer
-            
-        }
-        else{
-            coyoteTimeCounter -= Time.deltaTime;
-            // As soon as the player walks off a platform and there is no collision detection on the ground we start decrementing the timer
-            // Giving the player .2 seconds to still make a last second jump
-        }
-          
-        if(Input.GetButtonDown("Jump")){
 
-            jumpBufferCounter = jumpBufferTime;
-            // As soon as we jump, we have .2 seconds to jump again 
-            // Creating this effect where we can jump again before hitting the ground
-            
-        }
-        else{
-            jumpBufferCounter -= Time.deltaTime;
-            // In the air, the timer will decrement
-        }
+            if (IsGrounded() && !Input.GetButton("Jump"))
+            {
+                doubleJump = false;
+                // When the player returns to the ground, we must set doubleJump back to false
+            }
 
-        // When we jump the jumpBuffer goes to 0.2 and starts decrementing and coyoteTime decrements when are in the air 
-        // If we are in the air AND jump was clicked we open the window for another jump 
-        // This prevents us from falling off a platform and allowing us to jump before hitting the ground 
-        // This should only be triggered after  
-        if(jumpBufferCounter > 0f && coyoteTimeCounter > 0f){
+            // If we are grounded, set the coyote TIMER 
+            if (IsGrounded())
+            {
+                coyoteTimeCounter = coyoteTime;
+                // If we are grounded we set a 0.2 second timer
+            }
+            else
+            {
+                coyoteTimeCounter -= Time.deltaTime;
+                // As soon as the player walks off a platform and there is no collision detection on the ground we start decrementing the timer
+                // Giving the player .2 seconds to still make a last second jump
+            }
+
+            if (Input.GetButtonDown("Jump"))
+                Jump();
+            else
+                jumpBufferCounter -= Time.deltaTime;
+
+            if (Input.GetButtonUp("Jump") && body.velocity.y > 0f)
+            {
+                // Reduce the upward velocity in half when the jump button is released 
+                // So if we tap the jump button, your velocity will be immediently cut in half
+                // if you hold the jump button longer you will be allowed to go higher
+                body.velocity = new Vector2(body.velocity.x, body.velocity.y * 0.5f);
+                // Multiplication by a decimal makes the upward velocity smaller
+
+                coyoteTimeCounter = 0f;
+                // As soon as we jump we must reset the timer, reduce spamming
+            }
+
+            Flip(); // Check if we need to fip the character
+        }
+    }
+
+    void ExecuteSkill() {
+        print("this is where we would do some action stuff wooo");
+    }
+
+    void Jump()
+    {
+        jumpBufferCounter = jumpBufferTime;
+
+        if (jumpBufferCounter > 0f && coyoteTimeCounter > 0f)
+        {
 
             // Velocity is delta magnitude (speed) and direction
             body.velocity = new Vector2(body.velocity.x, jumpingPower);
@@ -126,7 +178,11 @@ public class PlayableCharacters : Characters
         {
             body.velocity = new Vector2((horizontalInput * speed), body.velocity.y);
         }
+
+          void SwapCharacter() {
+        print("Character Swap Logic");
     }
+    
 
     protected void Flip()
     {
@@ -143,8 +199,8 @@ public class PlayableCharacters : Characters
             // Flip the coordinates
         }
     }
-
-    protected bool IsGrounded(){
+    protected bool IsGrounded()
+    {
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
         // Returns true if there is collision on the ground and false means that we are in the air
 
