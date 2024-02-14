@@ -49,7 +49,7 @@ public class PlayableCharacters : Characters
    private float wallJumpingTime = 0.2f;
     private float wallJumpingCounter;
    private float wallJumpingDuration = 0.4f;  // This variable will set the wallJumpingCounter
-   private Vector2 wallJumpingPower = new Vector2(6f, 12f);
+   private Vector2 wallJumpingPower = new Vector2(4f, 12f);
 
     // After the player leaves the ground, it gives us 0.2 seconds to still make a jump 
     protected float coyoteTime = 0.2f;
