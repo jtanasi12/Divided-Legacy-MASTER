@@ -6,8 +6,12 @@ using UnityEngine;
 // Parent class of Split & Cloud Boy
 public class PlayableCharacters : Characters
 {
-   
-   [SerializeField]
+    public float maxSpeed;
+    public float accelerationRate;
+    public float decelerationRate;
+    public float baseSpeed = 0f;
+
+    [SerializeField]
    protected Rigidbody2D body;
    [SerializeField]
    protected Transform groundCheck;
@@ -37,17 +41,16 @@ public class PlayableCharacters : Characters
     protected float horizontalInput;
 
 
-    // Variables 
-
    protected bool isFacingRight = true;
    protected bool doubleJump;
-    private float wallJumpingDirection;
+   private float wallJumpingDirection;
 
+   private float moveSpeed = 5f;
    protected bool isWallSliding;
    protected bool isWallJumping;
    protected float wallSlidingSpeed = 2f;
    private float wallJumpingTime = 0.2f;
-    private float wallJumpingCounter;
+   private float wallJumpingCounter;
    private float wallJumpingDuration = 0.4f;  // This variable will set the wallJumpingCounter
    private Vector2 wallJumpingPower = new Vector2(4f, 12f);
 
@@ -63,6 +66,8 @@ public class PlayableCharacters : Characters
 
     void Awake()
     {
+        baseSpeed = speed; // Get the current speed before we move
+
         // Register the gamepad (Xbox, PlayStation, etc...)
         gamepad = new IA_Controller();
         gamepad.Gameplay.Jump.performed += ctx => Jump(); // Register Jump action to a function
@@ -85,9 +90,43 @@ public class PlayableCharacters : Characters
     // Update is called once per frame
     protected virtual void Update()
     {
+        bool isRunButtonDown = Input.GetKey(KeyCode.X);
+
+        bool isLeftOrRightPressed = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow);
+
+
+
         if (!gameState.isPaused){
             horizontalInput = Input.GetAxisRaw("Horizontal");
             // -1 = LEFT, 0 = NO MOVEMENT, 1 = RIGHT
+
+
+            if (isRunButtonDown && isLeftOrRightPressed)
+            {
+                // If the player is holding down the X key and moving left or right, accelerate
+                if (isLeftOrRightPressed)
+                {
+                  speed = Mathf.MoveTowards(speed, maxSpeed, Time.deltaTime * accelerationRate);
+                }
+                // If the player is only holding down the X key, but not moving left or right, gradually increase speed until maxSpeed
+                else
+                {
+                  speed = Mathf.Min(speed + Time.deltaTime * accelerationRate, maxSpeed);
+                }
+            }
+            else
+            {
+                // If the player is not holding down the X key and not moving left or right, reset speed to base speed
+                if (!isLeftOrRightPressed)
+                {
+                    speed = baseSpeed;
+                }
+                // If the player is not holding down the X key but moving left or right, decelerate
+                else
+                {
+                    speed = Mathf.MoveTowards(speed, 5f, Time.deltaTime * decelerationRate);
+                }
+            }
 
 
             if (IsGrounded() && !Input.GetButton("Jump"))
@@ -151,8 +190,12 @@ public class PlayableCharacters : Characters
         if (jumpBufferCounter > 0f && coyoteTimeCounter > 0f)
         {
 
+         
             // Velocity is delta magnitude (speed) and direction
             body.velocity = new Vector2(body.velocity.x, jumpingPower);
+
+          
+
 
             jumpBufferCounter = 0f; // RESET
         }
@@ -178,7 +221,8 @@ public class PlayableCharacters : Characters
 
         if (!isWallJumping)
         {
-            body.velocity = new Vector2((horizontalInput * speed), body.velocity.y);
+            speed = Mathf.MoveTowards(speed, maxSpeed, Time.fixedDeltaTime * accelerationRate);
+            body.velocity = new Vector2(horizontalInput * speed, body.velocity.y);
         }
 
          
