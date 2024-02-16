@@ -27,7 +27,7 @@ public class Split : PlayableCharacters
             // *** IMPORTANT ***
             // If we jump, we will then set double jumping to be true and the code will run again allowing us to jump again if the jump button is clicked
             // Once we jump again it will become false / Allows us not to spam the double jump 
-            doubleJump = !doubleJump;
+             doubleJump = !doubleJump;
             }
         }
     }

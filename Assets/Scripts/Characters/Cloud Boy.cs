@@ -4,17 +4,21 @@ using UnityEngine;
 
 public class CloudBoy : PlayableCharacters
 {
-    // Variables 
+    #region dashMechanics
+
     private bool canDash = true;
     private bool isDashing;
-    private float dashingPower = 24f;
-    private float dashingTime = 0.2f;
-    private float dashingCooldown = 1f;
+    private readonly float dashingPower = 24f;
+    private readonly float dashingTime = 0.2f;
+    private readonly float dashingCooldown = 1f;
 
 
+    // Serialized Fields
     [SerializeField]
     private TrailRenderer dashTrail;
-    
+
+    #endregion
+
     void Start(){
         dashTrail.emitting = false;
     }
