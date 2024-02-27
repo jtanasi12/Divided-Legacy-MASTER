@@ -1,15 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Rendering.LookDev;
+using System.Linq;
+using HeroEditor.Common.Enums;
+
 using UnityEngine;
+using Assets.HeroEditor.Common.Scripts.CharacterScripts;
+using Assets.HeroEditor.Common.Scripts.Common;
+using System;
+
 
 // Parent class of Split & Cloud Boy
 public class PlayableCharacters : Characters
 {
+    #region animatorRegion
+    public Character character;
+
+
+
+
+    #endregion
+
     #region basicMechanics
     private float horizontalInput;
     private bool isFacingRight = true;
     private bool isGrounded = true;
+    private string characterName;
 
     [SerializeField]
     protected Rigidbody2D body;
@@ -61,7 +76,7 @@ public class PlayableCharacters : Characters
     private float speed;
 
     #endregion
-  
+
     #region Controller Support
     private IA_Controller gamepad; // Reference to the IA_Controller (mappings for input to controller)
     private Vector2 gpMove;
@@ -73,10 +88,12 @@ public class PlayableCharacters : Characters
     [SerializeField]
     private SharedState gameState;
     #endregion
-  
 
+  
     void Awake()
     {
+
+
         baseSpeed = speed; // Get the current speed before we move
 
         // Register the gamepad (Xbox, PlayStation, etc...)
@@ -84,6 +101,10 @@ public class PlayableCharacters : Characters
         gamepad.Gameplay.Jump.performed += ctx => Jump(); // Register Jump action to a function
         gamepad.Gameplay.Skill.performed += ctx => ExecuteSkill(); // Register skill to a funtion
         gamepad.Gameplay.SwapActiveCharacter.performed += ctx => SwapCharacter(); // Register character swap to a funtion
+
+        // Set Character to an idle state when we first load up 
+        character.SetState(CharacterState.Idle);
+
     }
 
     void OnEnable()
@@ -103,9 +124,12 @@ public class PlayableCharacters : Characters
         {
             horizontalInput = Input.GetAxisRaw("Horizontal"); // -1 = LEFT, 0 = NO MOVEMENT, 1 = RIGHT
 
-            SpeedMechanics(); 
+            // Render walking or idle animations
+            HandleAllAnimations(horizontalInput);
 
-            JumpMechanics(); 
+            SpeedMechanics();
+
+            JumpMechanics();
 
             WallSlide(); // Allows player to slide down the wall
 
@@ -120,7 +144,7 @@ public class PlayableCharacters : Characters
         }
     }
 
-  
+
     // Use for Physics - Time.FixedDeltaTime is implied = 0.002
     protected virtual void FixedUpdate()
     {
@@ -128,6 +152,7 @@ public class PlayableCharacters : Characters
         {
             speed = Mathf.MoveTowards(speed, maxSpeed, Time.fixedDeltaTime * accelerationRate);
             body.velocity = new Vector2(horizontalInput * speed, body.velocity.y);
+
         }
 
     }
@@ -212,8 +237,10 @@ public class PlayableCharacters : Characters
         print("this is where we would do some action stuff wooo");
     }
 
+
     void Jump()
     {
+
         jumpBufferCounter = jumpBufferTime;
 
         if (jumpBufferCounter > 0f && coyoteTimeCounter > 0f)
@@ -365,5 +392,74 @@ public class PlayableCharacters : Characters
         isWallJumping = false;
     }
 
+    protected void SetCharacterName(string name)
+    {
+        characterName = name;
+    }
+
+
+    // Handle Idle animations 
+    void HandleIdleAnimation(float horizontalInput)
+    {
+
+        // Only Idle if we are not moving 
+        if (IsGrounded())
+        {
+
+            // Change Mouth Sprites 
+            if (characterName == "Cloud Boy")
+            {
+                FindSpriteItem("Common.Bonus.Mouth.10"); 
+            }
+            else
+            {
+                FindSpriteItem("Common.Emoji.Mouth.Injured");
+
+            }
+        }
+
+        // Set Animations 
+        if (horizontalInput == 0)
+        {
+            character.SetState(CharacterState.Idle);
+        }
+
+        else
+        {
+            character.SetState(CharacterState.Walk);
+        }
+    }
+
+    void HandleJumpAnimation()
+    {
+
+        if (!IsGrounded())
+        {
+            FindSpriteItem("Common.Bonus.Mouth.11");
+
+        }
+
+    }
+
+    void HandleAllAnimations(float horizontalInput)
+    {
+        HandleIdleAnimation(horizontalInput);
+        HandleJumpAnimation();
+    }
+    // Search for sprites - body parts we want to swap 
+
+    void FindSpriteItem(string spriteId)
+    {
+        for (int index = 0; index < character.SpriteCollection.Mouth.Count; ++index)
+        {
+            if (character.SpriteCollection.Mouth[index].Id == spriteId)
+            {
+                var mouthIndex = character.SpriteCollection.Mouth[index];
+                character.SetBody(mouthIndex, BodyPart.Mouth);
+
+            }
+
+        }
+    }
 
 }

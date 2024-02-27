@@ -21,8 +21,11 @@ public class CloudBoy : PlayableCharacters
 
     void Start(){
         dashTrail.emitting = false;
+
+        SetCharacterName("Cloud Boy");
     }
 
+   
     // Update is called once per frame
     protected override void Update()
     {
@@ -31,7 +34,8 @@ public class CloudBoy : PlayableCharacters
         }
    
         base.Update();
-        
+
+
 
         if(Input.GetKeyDown(KeyCode.LeftShift) && canDash){
 
@@ -78,7 +82,7 @@ public class CloudBoy : PlayableCharacters
         // Prevents spamming the dash 
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
-         dashTrail.emitting = false;
+        dashTrail.emitting = false;
 
     }
 
