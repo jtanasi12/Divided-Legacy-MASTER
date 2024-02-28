@@ -18,7 +18,7 @@ public class PlayableCharacters : MonoBehaviour
     private string characterName;
 
     [SerializeField]
-    protected PlayerController controller;
+    public PlayerController controller;
 
 
     #endregion
