@@ -8,6 +8,7 @@ using Assets.HeroEditor.Common.Scripts.CharacterScripts;
 using Assets.HeroEditor.Common.Scripts.Common;
 using System;
 using UnityEngine.TextCore.Text;
+using HeroEditor.Common;
 
 public class PlayerAnimationController : MonoBehaviour
 {
@@ -17,8 +18,11 @@ public class PlayerAnimationController : MonoBehaviour
 
     #endregion
 
+  
 
-    private void FindSpriteItem(string spriteId)
+
+
+    public void FindSpriteItem(string spriteId)
     {
         for (int index = 0; index < character.SpriteCollection.Mouth.Count; ++index)
         {
@@ -29,28 +33,51 @@ public class PlayerAnimationController : MonoBehaviour
 
             }
 
+
         }
     }
 
-   public void SetIdleState()
+   public void SetIdleState(PlayerAnimationController controller)
     {
         character.SetState(CharacterState.Idle);
 
+        
     }
-    public void SetWalkAnimation(float horizontalInput)
+
+    public void SetClimbState()
+    {
+        character.SetState(CharacterState.Climb);
+    }
+
+    public void SetJumpState()
     {
 
+        character.SetState(CharacterState.Jump);
+
+        
+    }
+
+    public void SetRunState()
+    {
+        character.SetState(CharacterState.Run);
+
+    }
+
+   
+
+    public void SetWalkAnimation(float horizontalInput, bool isGrounded)
+    {
         // Set Animations 
-        if (horizontalInput == 0)
+        if (horizontalInput == 0 && isGrounded && !Input.GetButton("Jump"))
         {
             character.SetState(CharacterState.Idle);
         }
-
-        else
+        else if(horizontalInput != 0 && isGrounded)
         {
             character.SetState(CharacterState.Walk);
         }
     }
+
 }
 
 
