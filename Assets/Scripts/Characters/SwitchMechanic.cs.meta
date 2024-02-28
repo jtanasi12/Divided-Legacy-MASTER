@@ -3,7 +3,10 @@ guid: 31ffcbbca3ae821469f0a1b4310845b0
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - cloudBoy: {fileID: 4295572101493875487, guid: 290426429a4264995bd25ab0f271760b,
+      type: 3}
+  - split: {fileID: 629060727956337159, guid: c7fad19d92f4a460bb2e2a317c56eb77, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

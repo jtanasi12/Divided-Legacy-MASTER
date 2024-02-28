@@ -7349,6 +7349,7 @@ GameObject:
   - component: {fileID: 4295572101493875487}
   - component: {fileID: 2097524410626508634}
   - component: {fileID: 8986015143610421702}
+  - component: {fileID: -8519757559223995442}
   m_Layer: 0
   m_Name: CloudBoyPrefab2
   m_TagString: Untagged
@@ -7719,7 +7720,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a774e97782b904840a04c82bf0bac1a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 0}
+  controller: {fileID: -8519757559223995442}
   gameState: {fileID: 11400000, guid: 36c94a5239dc8e240989c346ac24f9a0, type: 2}
 --- !u!50 &2097524410626508634
 Rigidbody2D:
@@ -7861,6 +7862,35 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &-8519757559223995442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2875674880914025597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43f1f83588ebf4d2cac21ca6cf0fc2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  body: {fileID: 0}
+  groundCheck: {fileID: 0}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  playerAnimation: {fileID: 0}
+  character: {fileID: 0}
+  jumpingPower: 0
+  wallCheck: {fileID: 0}
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  maxSpeed: 0
+  accelerationRate: 0
+  decelerationRate: 0
+  speed: 0
+  dashTrail: {fileID: 0}
 --- !u!1 &2899250663788669264
 GameObject:
   m_ObjectHideFlags: 0
