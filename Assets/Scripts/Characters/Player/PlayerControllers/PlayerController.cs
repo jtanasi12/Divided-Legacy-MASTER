@@ -1,131 +1,115 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using HeroEditor.Common.Enums;
-
-using UnityEngine;
 using Assets.HeroEditor.Common.Scripts.CharacterScripts;
-using Assets.HeroEditor.Common.Scripts.Common;
-using System;
+using HeroEditor.Common;
+using Unity.Burst.Intrinsics;
+using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
-
-// Parent class of Split & Cloud Boy
-public class PlayableCharacters : Characters
+public class PlayerController : MonoBehaviour
 {
-    #region animatorRegion
-    public Character character;
-
-
-
-
-    #endregion
-
-    #region basicMechanics
-    private float horizontalInput;
-    private bool isFacingRight = true;
-    private bool isGrounded = true;
-    private string characterName;
-
+    #region BasicMovement
     [SerializeField]
     protected Rigidbody2D body;
     [SerializeField]
-    private Transform groundCheck;
+    protected Transform groundCheck;
     [SerializeField]
-    private LayerMask groundLayer;
+    protected LayerMask groundLayer;
+
+    protected bool isFacingRight = true;
+    protected bool isGrounded = true;
+
+    [SerializeField]
+    private PlayerAnimationController playerAnimation;
+
+    [SerializeField]
+    private Character character;
 
     #endregion
 
     #region jumpAndWallMechanics
 
     protected bool doubleJump;
-    private float wallJumpingDirection;
-    private bool isWallSliding;
-    private bool isWallJumping;
-    private readonly float wallSlidingSpeed = 2f;
-    private readonly float wallJumpingTime = 0.2f;
-    private float wallJumpingCounter;
-    private readonly float wallJumpingDuration = 0.4f;  // set wallJumpingCounter
+    private string characterName;
+    protected float wallJumpingDirection;
+    protected bool isWallSliding;
+    protected bool isWallJumping;
+    protected readonly float wallSlidingSpeed = 2f;
+    protected readonly float wallJumpingTime = 0.2f;
+    protected float wallJumpingCounter;
+    protected readonly float wallJumpingDuration = 0.4f;  // set wallJumpingCounter
     protected Vector2 wallJumpingPower = new(4f, 12f);
-    private readonly float coyoteTime = 0.2f; // 0.2 seconds to make a jump after leaving ground
-    private readonly float jumpBufferTime = 0.2f; // allows us to jump .2 seconds before we land
-    private float jumpBufferCounter;
+    protected readonly float coyoteTime = 0.2f; // 0.2 seconds to make a jump after leaving ground
+    protected readonly float jumpBufferTime = 0.2f; // allows us to jump .2 seconds before we land
+    protected float jumpBufferCounter;
     protected float coyoteTimeCounter; // A short window after falling off plateform to jump
 
     // Serialized Fields
     [SerializeField]
     protected float jumpingPower;
     [SerializeField]
-    private Transform wallCheck;
+    protected Transform wallCheck;
     [SerializeField]
-    private LayerMask wallLayer;
+    protected LayerMask wallLayer;
+    #endregion
+
+    #region basicMechanics
+    private float horizontalInput;
+
     #endregion
 
     #region speedMechanics
 
-    private float baseSpeed;
+    protected float baseSpeed;
 
 
     // Serialized Fields 
     [SerializeField]
-    private float maxSpeed;
+    protected float maxSpeed;
     [SerializeField]
-    private float accelerationRate;
+    protected float accelerationRate;
     [SerializeField]
-    private float decelerationRate;
+    protected float decelerationRate;
     [SerializeField]
-    private float speed;
+    protected float speed;
 
     #endregion
 
-    #region Controller Support
-    private IA_Controller gamepad; // Reference to the IA_Controller (mappings for input to controller)
-    private Vector2 gpMove;
-    private Vector2 gpPan;
+
+    #region GetterMethods
+
+    public bool GetDoubleJump() { return doubleJump; }
+    public Rigidbody2D GetBody() { return body; }
+    public float GetJumpingPower() { return jumpingPower; }
+    public float GetHorizontalInput() { return horizontalInput;  }
 
     #endregion
 
-    #region GameState
-    [SerializeField]
-    private SharedState gameState;
-    #endregion
-
-  
-    void Awake()
+    protected virtual void Awake()
     {
-
-
+       
         baseSpeed = speed; // Get the current speed before we move
-
-        // Register the gamepad (Xbox, PlayStation, etc...)
-        gamepad = new IA_Controller();
-        gamepad.Gameplay.Jump.performed += ctx => Jump(); // Register Jump action to a function
-        gamepad.Gameplay.Skill.performed += ctx => ExecuteSkill(); // Register skill to a funtion
-        gamepad.Gameplay.SwapActiveCharacter.performed += ctx => SwapCharacter(); // Register character swap to a funtion
-
-        // Set Character to an idle state when we first load up 
-        character.SetState(CharacterState.Idle);
-
+      
     }
 
-    void OnEnable()
+    public void InputMechanics()
     {
-        gamepad.Gameplay.Enable();
-    }
 
-    void OnDisable()
-    {
-        gamepad.Gameplay.Disable();
-    }
+        // -1 = LEFT, 0 = NO MOVEMENT, 1 = RIGHT
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+        isGrounded = IsGrounded(); // Update isGrounded
 
-    // Update is called once per frame
-    protected virtual void Update()
-    {
-        if (!gameState.isPaused)
+        // Don't allow player to move and flip during the state of wallJumping
+        if (!isWallJumping)
         {
-            horizontalInput = Input.GetAxisRaw("Horizontal"); // -1 = LEFT, 0 = NO MOVEMENT, 1 = RIGHT
+            if (isGrounded && !Input.GetButton("Jump"))
+            { 
+                // Call SetWalkAnimation after isGrounded has been updated
+                playerAnimation.SetWalkAnimation(horizontalInput, isGrounded);
+                IdleAnimation();
+            }
 
-            // Render walking or idle animations
-            HandleAllAnimations(horizontalInput);
+            AttackMechanics();
 
             SpeedMechanics();
 
@@ -135,31 +119,35 @@ public class PlayableCharacters : Characters
 
             WallJump(); // Allow player to wall jump
 
-
             // Don't allow player to move and flip during the state of wallJumping
             if (!isWallJumping)
             {
                 Flip(); // Check if we need to fip the character
             }
         }
+
+       
     }
 
-
-    // Use for Physics - Time.FixedDeltaTime is implied = 0.002
-    protected virtual void FixedUpdate()
+    protected void Flip()
     {
-        if (!isWallJumping)
+        // If we are facing right and the user hits left
+        // Or if we are facing left and input is 1 we need to flip
+        if (!isWallJumping && (isFacingRight && horizontalInput < 0f || !isFacingRight && horizontalInput > 0f))
         {
-            speed = Mathf.MoveTowards(speed, maxSpeed, Time.fixedDeltaTime * accelerationRate);
-            body.velocity = new Vector2(horizontalInput * speed, body.velocity.y);
+            isFacingRight = !isFacingRight; // Opposite value 
 
+            // Retrieve the dimensions of the game objects coordinates
+            Vector3 localScale = transform.localScale;
+            localScale.x *= -1f;
+            transform.localScale = localScale;
+            // Flip the coordinates
         }
-
     }
 
-    void SpeedMechanics()
-    {
 
+    protected void SpeedMechanics()
+    {
         bool isRunButtonDown = Input.GetKey(KeyCode.X);
 
         bool isLeftOrRightPressed = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow);
@@ -167,6 +155,8 @@ public class PlayableCharacters : Characters
 
         if (isRunButtonDown && isLeftOrRightPressed)
         {
+            playerAnimation.SetRunState();
+
             // If the player is holding down the X key and moving left or right, accelerate
             if (isLeftOrRightPressed)
             {
@@ -176,6 +166,8 @@ public class PlayableCharacters : Characters
             else
             {
                 speed = Mathf.Min(speed + Time.deltaTime * accelerationRate, maxSpeed);
+
+               
             }
         }
         else
@@ -184,6 +176,7 @@ public class PlayableCharacters : Characters
             if (!isLeftOrRightPressed)
             {
                 speed = baseSpeed;
+                
             }
             // If the player is not holding down the X key but moving left or right, decelerate
             else
@@ -193,7 +186,9 @@ public class PlayableCharacters : Characters
         }
     }
 
-    void JumpMechanics()
+    #region JumpRegion
+
+    protected void JumpMechanics()
     {
         if (IsGrounded() && !Input.GetButton("Jump"))
         {
@@ -232,14 +227,11 @@ public class PlayableCharacters : Characters
         }
     }
 
-    void ExecuteSkill()
-    {
-        print("this is where we would do some action stuff wooo");
-    }
 
-
-    void Jump()
+    public void Jump()
     {
+        playerAnimation.SetJumpState();
+        JumpAnimation();
 
         jumpBufferCounter = jumpBufferTime;
 
@@ -262,34 +254,12 @@ public class PlayableCharacters : Characters
             coyoteTimeCounter = 0f;
             // As soon as we jump we must reset the timer, reduce spamming
         }
-
-
-
+        
     }
 
+#endregion
 
-    void SwapCharacter()
-    {
-        print("Character Swap Logic");
-    }
-
-
-    protected void Flip()
-    {
-        // If we are facing right and the user hits left
-        // Or if we are facing left and input is 1 we need to flip
-        if (!isWallJumping && (isFacingRight && horizontalInput < 0f || !isFacingRight && horizontalInput > 0f))
-        {
-            isFacingRight = !isFacingRight; // Opposite value 
-
-            // Retrieve the dimensions of the game objects coordinates
-            Vector3 localScale = transform.localScale;
-            localScale.x *= -1f;
-            transform.localScale = localScale;
-            // Flip the coordinates
-        }
-    }
-    protected bool IsGrounded()
+    public bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
         // Returns true if there is collision on the ground and false means that we are in the air
@@ -297,6 +267,8 @@ public class PlayableCharacters : Characters
         // Physics2D.OverlapCircle checks for overlapping colliders within a circular area 
         // Get the position of our 'groundCheck' which is positioned at our players feet. The players feet will be the center inside of the circular area we are creating. The radius of the circle is 0.2 units. And we are checking if a groundLayer overlaps with the collider we created. If we collide with the ground we return true that we are on the ground if not false and we are in the air
     }
+
+    #region WallRegion
 
     private bool IsWalled()
     {
@@ -310,6 +282,8 @@ public class PlayableCharacters : Characters
         // If there is wall collision, the player is no grounded and they are actively pushing left or right 
         if (IsWalled() && !IsGrounded() && horizontalInput != 0f)
         {
+            
+
             isWallSliding = true;
             body.velocity = new Vector2(body.velocity.x, Mathf.Clamp(body.velocity.y, -wallSlidingSpeed, float.MaxValue));
 
@@ -328,10 +302,21 @@ public class PlayableCharacters : Characters
         }
     }
 
+    private void StopWallJumping()
+    {
+        isWallJumping = false;
+
+    }
+
+   
+
     private void WallJump()
     {
+
         if (isWallSliding)
         {
+            playerAnimation.SetClimbState();
+
             isWallJumping = false;
             wallJumpingDirection = -transform.localScale.x; // invert the characters position. -1 is left and 1 the character is facing the right
 
@@ -352,7 +337,8 @@ public class PlayableCharacters : Characters
         // If the player jumps and wallSliding counter is > 0f either the player is wall sliding and it never lowered from 0.4 or the character let go of the wall slide and still above the .4 seconds and decides to jump
         if (Input.GetButtonDown("Jump") && wallJumpingCounter > 0f)
         {
-
+            playerAnimation.SetJumpState();
+            JumpAnimation();
 
             {
                 isWallJumping = true;
@@ -387,79 +373,48 @@ public class PlayableCharacters : Characters
 
     }
 
-    private void StopWallJumping()
+    #endregion
+
+    public void CalculatePhysics()
     {
-        isWallJumping = false;
+        if (!isWallJumping)
+        {
+            speed = Mathf.MoveTowards(speed, maxSpeed, Time.fixedDeltaTime * accelerationRate);
+            body.velocity = new Vector2(horizontalInput * speed, body.velocity.y);
+
+        }
     }
 
-    protected void SetCharacterName(string name)
-    {
-        characterName = name;
+    private void JumpAnimation() {
+
+         playerAnimation.FindSpriteItem("Common.Bonus.Mouth.11");
+       
     }
 
-
-    // Handle Idle animations 
-    void HandleIdleAnimation(float horizontalInput)
+    private void IdleAnimation()
     {
-
-        // Only Idle if we are not moving 
-        if (IsGrounded())
+        if (playerAnimation is SplitAnimations)
         {
-
-            // Change Mouth Sprites 
-            if (characterName == "Cloud Boy")
-            {
-                FindSpriteItem("Common.Bonus.Mouth.10"); 
-            }
-            else
-            {
-                FindSpriteItem("Common.Emoji.Mouth.Injured");
-
-            }
+            playerAnimation.FindSpriteItem("Common.Emoji.Mouth.Injured");
         }
-
-        // Set Animations 
-        if (horizontalInput == 0)
-        {
-            character.SetState(CharacterState.Idle);
-        }
-
         else
         {
-            character.SetState(CharacterState.Walk);
-        }
-    }
-
-    void HandleJumpAnimation()
-    {
-
-        if (!IsGrounded())
-        {
-            FindSpriteItem("Common.Bonus.Mouth.11");
+            playerAnimation.FindSpriteItem("Common.Bonus.Mouth.10");
 
         }
-
     }
-
-    void HandleAllAnimations(float horizontalInput)
+    private void AttackMechanics()
     {
-        HandleIdleAnimation(horizontalInput);
-        HandleJumpAnimation();
-    }
-    // Search for sprites - body parts we want to swap 
-
-    void FindSpriteItem(string spriteId)
-    {
-        for (int index = 0; index < character.SpriteCollection.Mouth.Count; ++index)
+        if (Input.GetMouseButtonDown(0)) // 0 for left mouse button, 1 for right mouse button, 2 for middle mouse button
         {
-            if (character.SpriteCollection.Mouth[index].Id == spriteId)
+
+            if (playerAnimation is SplitAnimations splitAnimator)
             {
-                var mouthIndex = character.SpriteCollection.Mouth[index];
-                character.SetBody(mouthIndex, BodyPart.Mouth);
-
+                splitAnimator.SetAttackState();
             }
-
+            Debug.Log("Clicked");
         }
     }
-
+        
+    
 }

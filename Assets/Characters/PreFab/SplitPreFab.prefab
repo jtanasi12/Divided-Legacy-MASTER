@@ -1664,6 +1664,8 @@ GameObject:
   - component: {fileID: 6064557265553256689}
   - component: {fileID: 629060727956337159}
   - component: {fileID: -330581678610181821}
+  - component: {fileID: 5413328424941544849}
+  - component: {fileID: 2628004429805623195}
   m_Layer: 9
   m_Name: SplitPreFab
   m_TagString: Untagged
@@ -2025,21 +2027,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab80b716f6a3e4ea9bf01e0afa290dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 0}
-  body: {fileID: 6064557265553256689}
-  groundCheck: {fileID: 6500779668187830849}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  jumpingPower: 10
-  wallCheck: {fileID: 828003277515577691}
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 1024
-  maxSpeed: 8.5
-  accelerationRate: 2
-  decelerationRate: 15
-  speed: 5
+  controller: {fileID: 2628004429805623195}
   gameState: {fileID: 11400000, guid: 36c94a5239dc8e240989c346ac24f9a0, type: 2}
 --- !u!70 &-330581678610181821
 CapsuleCollider2D:
@@ -2076,6 +2064,47 @@ CapsuleCollider2D:
   m_Offset: {x: -0.0451835, y: 1.1917241}
   m_Size: {x: 1.2229378, y: 2.7930832}
   m_Direction: 0
+--- !u!114 &5413328424941544849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594826846315242055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bbe5c016dc646739cdfa38b11798c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  character: {fileID: 2544099299912566945}
+--- !u!114 &2628004429805623195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594826846315242055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd3f69bc1c57d4e128e2aa2dbfc6b42c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  body: {fileID: 6064557265553256689}
+  groundCheck: {fileID: 6500779668187830849}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  playerAnimation: {fileID: 5413328424941544849}
+  character: {fileID: 2544099299912566945}
+  jumpingPower: 10
+  wallCheck: {fileID: 828003277515577691}
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  maxSpeed: 10
+  accelerationRate: 5
+  decelerationRate: 15
+  speed: 5
 --- !u!1 &1840651950872662876
 GameObject:
   m_ObjectHideFlags: 0

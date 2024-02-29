@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CloudBoy : PlayableCharacters
+public class CloudBoyController : PlayerController
 {
-    #region dashMechanics
-
     private bool canDash = true;
     private bool isDashing;
     private readonly float dashingPower = 24f;
@@ -17,45 +15,15 @@ public class CloudBoy : PlayableCharacters
     [SerializeField]
     private TrailRenderer dashTrail;
 
-    #endregion
-
-    void Start(){
+    protected new void Awake()
+    {
+        base.Awake();
         dashTrail.emitting = false;
 
-        SetCharacterName("Cloud Boy");
     }
 
-   
-    // Update is called once per frame
-    protected override void Update()
+    public IEnumerator Dash()
     {
-        if(isDashing){
-            return; // If dashing - prevent moving, flipping and dashing again while in dash 
-        }
-   
-        base.Update();
-
-
-
-        if(Input.GetKeyDown(KeyCode.LeftShift) && canDash){
-
-            // Start a co-routine for dashing
-            StartCoroutine(Dash()); 
-        }
-    }
-
-     protected override void FixedUpdate(){
-
-        if(isDashing)
-        {
-            return;
-        }
-
-        base.FixedUpdate();
-    }
-
-
-    private IEnumerator Dash(){
         canDash = false;
         isDashing = true;
 
@@ -84,6 +52,23 @@ public class CloudBoy : PlayableCharacters
         canDash = true;
         dashTrail.emitting = false;
 
+
     }
 
+    public bool GetIsDashing()
+    {
+        return isDashing;
+    }
+
+    public void StartDashCoRoutine()
+    {
+
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+        {
+
+            // Start a co-routine for dashing
+            StartCoroutine(Dash());
+        }
+    }
 }

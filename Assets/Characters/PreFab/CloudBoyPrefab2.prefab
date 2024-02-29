@@ -7349,6 +7349,8 @@ GameObject:
   - component: {fileID: 4295572101493875487}
   - component: {fileID: 2097524410626508634}
   - component: {fileID: 8986015143610421702}
+  - component: {fileID: 1938704407209218071}
+  - component: {fileID: 9026402020591334552}
   m_Layer: 0
   m_Name: CloudBoyPrefab2
   m_TagString: Untagged
@@ -7365,7 +7367,7 @@ Transform:
   m_GameObject: {fileID: 2875674880914025597}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.1, y: 0.825, z: 0}
+  m_LocalPosition: {x: -20.05, y: 3.39, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7719,23 +7721,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a774e97782b904840a04c82bf0bac1a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 0}
-  body: {fileID: 2097524410626508634}
-  groundCheck: {fileID: 1295293505958673754}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  jumpingPower: 10
-  wallCheck: {fileID: 8097038008821109752}
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 1024
-  maxSpeed: 8.5
-  accelerationRate: 2
-  decelerationRate: 15
-  speed: 5
+  controller: {fileID: 9026402020591334552}
   gameState: {fileID: 11400000, guid: 36c94a5239dc8e240989c346ac24f9a0, type: 2}
-  dashTrail: {fileID: 8986015143610421702}
 --- !u!50 &2097524410626508634
 Rigidbody2D:
   serializedVersion: 4
@@ -7876,6 +7863,48 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &1938704407209218071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2875674880914025597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d71e92b36e2d41f1a88659cf0d447b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  character: {fileID: 6346689393398767643}
+--- !u!114 &9026402020591334552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2875674880914025597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43f1f83588ebf4d2cac21ca6cf0fc2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  body: {fileID: 2097524410626508634}
+  groundCheck: {fileID: 1295293505958673754}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  playerAnimation: {fileID: 1938704407209218071}
+  character: {fileID: 6346689393398767643}
+  jumpingPower: 10
+  wallCheck: {fileID: 8097038008821109752}
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  maxSpeed: 10
+  accelerationRate: 5
+  decelerationRate: 15
+  speed: 5
+  dashTrail: {fileID: 8986015143610421702}
 --- !u!1 &2899250663788669264
 GameObject:
   m_ObjectHideFlags: 0
