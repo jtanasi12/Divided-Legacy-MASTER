@@ -2026,8 +2026,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab80b716f6a3e4ea9bf01e0afa290dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 4346378081506189578}
-  gameState: {fileID: 11400000, guid: 36c94a5239dc8e240989c346ac24f9a0, type: 2}
+  controller: {fileID: 0}
+  gameState: {fileID: 0}
 --- !u!70 &-330581678610181821
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

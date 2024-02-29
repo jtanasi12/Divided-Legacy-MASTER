@@ -65,8 +65,7 @@ public class PlayableCharacters : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        if (!gameState.isPaused)
-        {
+        if (!gameState.isPaused){
             controller.InputMechanics();
         }
     }
