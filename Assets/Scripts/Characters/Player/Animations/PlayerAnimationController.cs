@@ -44,6 +44,18 @@ public class PlayerAnimationController : MonoBehaviour
         
     }
 
+    public void SetVictoryState() {
+        character.Animator.SetBool("Victory", true);
+
+    }
+
+
+    public void EatSupplyState()
+    {
+        character.Animator.SetBool("UseSupply", true);
+
+    }
+
     public void SetClimbState()
     {
         character.SetState(CharacterState.Climb);
@@ -81,14 +93,3 @@ public class PlayerAnimationController : MonoBehaviour
 }
 
 
-/*
-      if (characterName.Equals("Cloud Boy"))
-      {
-          FindSpriteItem("Common.Bonus.Mouth.10");
-      }
-      else
-      {
-          FindSpriteItem("Common.Emoji.Mouth.Injured");
-
-      }
- */

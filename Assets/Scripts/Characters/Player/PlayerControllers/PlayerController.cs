@@ -8,6 +8,8 @@ using UnityEngine.InputSystem.XR;
 
 public class PlayerController : MonoBehaviour
 {
+  
+
     #region BasicMovement
     [SerializeField]
     protected Rigidbody2D body;
@@ -87,13 +89,13 @@ public class PlayerController : MonoBehaviour
 
     protected virtual void Awake()
     {
-       
         baseSpeed = speed; // Get the current speed before we move
       
     }
 
     public void InputMechanics()
     {
+
 
         // -1 = LEFT, 0 = NO MOVEMENT, 1 = RIGHT
         horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -108,6 +110,8 @@ public class PlayerController : MonoBehaviour
                 playerAnimation.SetWalkAnimation(horizontalInput, isGrounded);
                 IdleAnimation();
             }
+
+            EatSupplies();
 
             AttackMechanics();
 
@@ -391,6 +395,17 @@ public class PlayerController : MonoBehaviour
        
     }
 
+    private void EatSupplies() {
+
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            {
+                playerAnimation.EatSupplyState();
+            }
+        }
+    }
+
+
     private void IdleAnimation()
     {
         if (playerAnimation is SplitAnimations)
@@ -405,16 +420,34 @@ public class PlayerController : MonoBehaviour
     }
     private void AttackMechanics()
     {
-        if (Input.GetMouseButtonDown(0)) // 0 for left mouse button, 1 for right mouse button, 2 for middle mouse button
+        // ***** Split *****
+
+        if (playerAnimation is SplitAnimations splitAnimator)
         {
 
-            if (playerAnimation is SplitAnimations splitAnimator)
+            if (Input.GetMouseButtonDown(0)) // 0 for left mouse button, 1 for right mouse button, 2
             {
                 splitAnimator.SetAttackState();
             }
-            Debug.Log("Clicked");
+
+            else if (Input.GetMouseButton(1))
+            {
+                splitAnimator.SetJab();
+
+            }
+
         }
+
+        // ***** Cloudboy *****
+        if (playerAnimation is CloudBoyAnimations cloudBoyAnimator)
+        {
+            if (Input.GetMouseButtonDown(0)) // 0 for left mouse button, 1 for right mouse button, 2
+            {
+                cloudBoyAnimator.ShootBowState();
+            }
+
+        }
+
     }
-        
-    
-}
+
+    }
