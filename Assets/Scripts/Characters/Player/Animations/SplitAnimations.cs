@@ -8,4 +8,9 @@ public class SplitAnimations : PlayerAnimationController
     {
         character.Slash();
     }
+
+    public void SetJab()
+    {
+        character.Animator.SetTrigger("Jab");
+    }
 }
