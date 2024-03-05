@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class SwitchMechanic : MonoBehaviour
 {
-    //public PlayableCharacters cloudBoy;
-    //public PlayableCharacters split;
-    public CloudBoyController cloudBoy;
-    public SplitController split;
+    public PlayableCharacters cloudBoy;
+    public PlayableCharacters split;
     
     public bool player1Active = true;
     
