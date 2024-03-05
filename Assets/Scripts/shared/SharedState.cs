@@ -5,6 +5,9 @@ using UnityEngine;
 public class SharedState : ScriptableObject
 {
     public Boolean isPaused = false;
+    public Boolean isCloudBoyActivePlayer = true;
+
+    public void toggleControl() {isCloudBoyActivePlayer = !isCloudBoyActivePlayer;}
 
 
     public void togglePause() {isPaused = !isPaused;}

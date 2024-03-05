@@ -12,7 +12,6 @@ using System;
 // Parent class of Split & Cloud Boy
 public class PlayableCharacters : MonoBehaviour
 { 
-
     #region basicMechanics
 
     private string characterName;
@@ -47,18 +46,13 @@ public class PlayableCharacters : MonoBehaviour
 
         // Set Character to an idle state when we first load up 
         //character.SetState(CharacterState.Idle);
-
-
-
     }
 
-    void OnEnable()
-    {
+    void OnEnable(){
         gamepad?.Gameplay.Enable();
     }
 
-    void OnDisable()
-    {
+    void OnDisable(){
         gamepad?.Gameplay.Disable();
     }
 
