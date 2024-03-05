@@ -37,6 +37,7 @@ public class PlayableCharacters : MonoBehaviour
      
      void Awake()
     {
+        
 
         // Register the gamepad (Xbox, PlayStation, etc...)
         gamepad = new IA_Controller();
@@ -91,6 +92,6 @@ public class PlayableCharacters : MonoBehaviour
 
 
 
-
+  
 
 }

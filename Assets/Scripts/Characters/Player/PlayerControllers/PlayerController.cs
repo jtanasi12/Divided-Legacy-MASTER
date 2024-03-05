@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Assets.HeroEditor.Common.Scripts.CharacterScripts;
 using HeroEditor.Common;
+using Unity.Burst.Intrinsics;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 
 public class PlayerController : MonoBehaviour
 {
+  
+
     #region BasicMovement
     [SerializeField]
     protected Rigidbody2D body;
@@ -86,22 +89,31 @@ public class PlayerController : MonoBehaviour
 
     protected virtual void Awake()
     {
-       
         baseSpeed = speed; // Get the current speed before we move
-        playerAnimation.SetIdleState(); // Set Player in the idle state
+      
     }
 
     public void InputMechanics()
     {
 
+
         // -1 = LEFT, 0 = NO MOVEMENT, 1 = RIGHT
         horizontalInput = Input.GetAxisRaw("Horizontal");
+        isGrounded = IsGrounded(); // Update isGrounded
 
         // Don't allow player to move and flip during the state of wallJumping
         if (!isWallJumping)
         {
+            if (isGrounded && !Input.GetButton("Jump"))
+            { 
+                // Call SetWalkAnimation after isGrounded has been updated
+                playerAnimation.SetWalkAnimation(horizontalInput, isGrounded);
+                IdleAnimation();
+            }
 
-            WalkAnimation();
+            EatSupplies();
+
+            AttackMechanics();
 
             SpeedMechanics();
 
@@ -117,6 +129,8 @@ public class PlayerController : MonoBehaviour
                 Flip(); // Check if we need to fip the character
             }
         }
+
+       
     }
 
     protected void Flip()
@@ -138,7 +152,6 @@ public class PlayerController : MonoBehaviour
 
     protected void SpeedMechanics()
     {
-
         bool isRunButtonDown = Input.GetKey(KeyCode.X);
 
         bool isLeftOrRightPressed = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow);
@@ -146,6 +159,8 @@ public class PlayerController : MonoBehaviour
 
         if (isRunButtonDown && isLeftOrRightPressed)
         {
+            playerAnimation.SetRunState();
+
             // If the player is holding down the X key and moving left or right, accelerate
             if (isLeftOrRightPressed)
             {
@@ -155,6 +170,8 @@ public class PlayerController : MonoBehaviour
             else
             {
                 speed = Mathf.Min(speed + Time.deltaTime * accelerationRate, maxSpeed);
+
+               
             }
         }
         else
@@ -163,6 +180,7 @@ public class PlayerController : MonoBehaviour
             if (!isLeftOrRightPressed)
             {
                 speed = baseSpeed;
+                
             }
             // If the player is not holding down the X key but moving left or right, decelerate
             else
@@ -216,6 +234,8 @@ public class PlayerController : MonoBehaviour
 
     public void Jump()
     {
+        playerAnimation.SetJumpState();
+        JumpAnimation();
 
         jumpBufferCounter = jumpBufferTime;
 
@@ -238,9 +258,7 @@ public class PlayerController : MonoBehaviour
             coyoteTimeCounter = 0f;
             // As soon as we jump we must reset the timer, reduce spamming
         }
-
-
-
+        
     }
 
 #endregion
@@ -268,6 +286,8 @@ public class PlayerController : MonoBehaviour
         // If there is wall collision, the player is no grounded and they are actively pushing left or right 
         if (IsWalled() && !IsGrounded() && horizontalInput != 0f)
         {
+            
+
             isWallSliding = true;
             body.velocity = new Vector2(body.velocity.x, Mathf.Clamp(body.velocity.y, -wallSlidingSpeed, float.MaxValue));
 
@@ -289,14 +309,18 @@ public class PlayerController : MonoBehaviour
     private void StopWallJumping()
     {
         isWallJumping = false;
+
     }
 
-
+   
 
     private void WallJump()
     {
+
         if (isWallSliding)
         {
+            playerAnimation.SetClimbState();
+
             isWallJumping = false;
             wallJumpingDirection = -transform.localScale.x; // invert the characters position. -1 is left and 1 the character is facing the right
 
@@ -317,7 +341,8 @@ public class PlayerController : MonoBehaviour
         // If the player jumps and wallSliding counter is > 0f either the player is wall sliding and it never lowered from 0.4 or the character let go of the wall slide and still above the .4 seconds and decides to jump
         if (Input.GetButtonDown("Jump") && wallJumpingCounter > 0f)
         {
-
+            playerAnimation.SetJumpState();
+            JumpAnimation();
 
             {
                 isWallJumping = true;
@@ -363,12 +388,66 @@ public class PlayerController : MonoBehaviour
 
         }
     }
-   
-    private void WalkAnimation()
-    {
-        if(IsGrounded() && !isWallSliding && !isWallJumping)
+
+    private void JumpAnimation() {
+
+         playerAnimation.FindSpriteItem("Common.Bonus.Mouth.11");
+       
+    }
+
+    private void EatSupplies() {
+
+        if (Input.GetKeyDown(KeyCode.N))
         {
-            playerAnimation.SetWalkAnimation(horizontalInput);
+            {
+                playerAnimation.EatSupplyState();
+            }
         }
     }
-}
+
+
+    private void IdleAnimation()
+    {
+        if (playerAnimation is SplitAnimations)
+        {
+            playerAnimation.FindSpriteItem("Common.Emoji.Mouth.Injured");
+        }
+        else
+        {
+            playerAnimation.FindSpriteItem("Common.Bonus.Mouth.10");
+
+        }
+    }
+    private void AttackMechanics()
+    {
+        // ***** Split *****
+
+        if (playerAnimation is SplitAnimations splitAnimator)
+        {
+
+            if (Input.GetMouseButtonDown(0)) // 0 for left mouse button, 1 for right mouse button, 2
+            {
+                splitAnimator.SetAttackState();
+            }
+
+            else if (Input.GetMouseButton(1))
+            {
+                splitAnimator.SetJab();
+
+            }
+
+        }
+
+        // ***** Cloudboy *****
+        if (playerAnimation is CloudBoyAnimations cloudBoyAnimator)
+        {
+            if (Input.GetMouseButtonDown(0)) // 0 for left mouse button, 1 for right mouse button, 2
+            {
+                cloudBoyAnimator.ShootBowState();
+            }
+
+        }
+
+    }
+
+    }
