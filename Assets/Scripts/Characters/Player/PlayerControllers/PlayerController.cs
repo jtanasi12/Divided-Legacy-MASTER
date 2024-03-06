@@ -441,6 +441,7 @@ public class PlayerController : MonoBehaviour
         // ***** Cloudboy *****
         if (playerAnimation is CloudBoyAnimations cloudBoyAnimator)
         {
+
             if (Input.GetMouseButtonDown(0)) // 0 for left mouse button, 1 for right mouse button, 2
             {
                 cloudBoyAnimator.ShootBowState();
