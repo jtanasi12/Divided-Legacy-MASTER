@@ -18,9 +18,6 @@ public class PlayerAnimationController : MonoBehaviour
 
     #endregion
 
-  
-
-
 
     public void FindSpriteItem(string spriteId)
     {
@@ -37,7 +34,7 @@ public class PlayerAnimationController : MonoBehaviour
         }
     }
 
-   public void SetIdleState(PlayerAnimationController controller)
+   public void SetIdleState()
     {
         character.SetState(CharacterState.Idle);
 

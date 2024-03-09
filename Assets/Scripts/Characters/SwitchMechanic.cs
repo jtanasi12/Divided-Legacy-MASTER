@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class SwitchMechanic : MonoBehaviour
 {
-    public PlayableCharacters cloudBoy;
-    public PlayableCharacters split;
+    public GameObject cloudBoy;
+    public GameObject split;
     
-    public bool player1Active = true;
+    public bool isCloudBoyActive = true;
 
     private void Awake()
     {
-        split.enabled = false;
+
+        split.GetComponent<PlayableCharacters>().enabled = false;
+
+        split.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+
     }
 
     // Update is called once per frame
@@ -24,10 +28,33 @@ public class SwitchMechanic : MonoBehaviour
     }
 
     private void SwitchPlayer(){
-        player1Active = !player1Active;
-        cloudBoy.enabled = player1Active;
-        split.enabled = !player1Active;
+
+        isCloudBoyActive = !isCloudBoyActive;
+
+        if (isCloudBoyActive)
+        {
+            cloudBoy.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+
+            split.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+
+            split.GetComponent<SplitAnimations>().SetIdleState();
+
+        }
+        else 
+        {
+            split.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+
+            cloudBoy.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+
+            cloudBoy.GetComponent<CloudBoyAnimations>().SetIdleState();
+
+
+        }
+        cloudBoy.GetComponent<PlayableCharacters>().enabled = isCloudBoyActive;
+
+        split.GetComponent<PlayableCharacters>().enabled = !isCloudBoyActive;
         Debug.Log("SHOULD have toggled controls");
+
 
     }
 }
