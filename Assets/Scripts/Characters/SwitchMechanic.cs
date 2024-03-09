@@ -11,7 +11,7 @@ public class SwitchMechanic : MonoBehaviour
 
     private void Awake()
     {
-
+        
         split.GetComponent<PlayableCharacters>().enabled = false;
 
         split.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
