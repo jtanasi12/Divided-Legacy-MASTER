@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCs : Characters
+public class Enemy : Characters
 {
+    [SerializeField]
+    private EnemyController controller;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +15,5 @@ public class NPCs : Characters
     // Update is called once per frame
     void Update()
     {
-        
     }
 }
