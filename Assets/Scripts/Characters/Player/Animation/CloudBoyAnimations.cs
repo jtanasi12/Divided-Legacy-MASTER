@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CloudBoyAnimations : PlayerAnimationController
+public class CloudBoyAnimations : MainAnimationController
 {
   public void ShootBowState()
     {

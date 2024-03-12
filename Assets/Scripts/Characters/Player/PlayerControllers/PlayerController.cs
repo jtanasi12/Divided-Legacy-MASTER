@@ -6,23 +6,15 @@ using Unity.Burst.Intrinsics;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : BasicController
 {
   
 
     #region BasicMovement
-    [SerializeField]
-    protected Rigidbody2D body;
-    [SerializeField]
-    protected Transform groundCheck;
-    [SerializeField]
-    protected LayerMask groundLayer;
-
-    protected bool isFacingRight = true;
-    protected bool isGrounded = true;
+   
 
     [SerializeField]
-    private PlayerAnimationController playerAnimation;
+    private MainAnimationController playerAnimation;
 
     [SerializeField]
     private Character character;
@@ -60,24 +52,7 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
-    #region speedMechanics
-
-    protected float baseSpeed;
-
-
-    // Serialized Fields 
-    [SerializeField]
-    protected float maxSpeed;
-    [SerializeField]
-    protected float accelerationRate;
-    [SerializeField]
-    protected float decelerationRate;
-    [SerializeField]
-    protected float speed;
-
-    #endregion
-
-
+ 
     #region GetterMethods
 
     public bool GetDoubleJump() { return doubleJump; }
@@ -86,13 +61,6 @@ public class PlayerController : MonoBehaviour
     public float GetHorizontalInput() { return horizontalInput;  }
 
     #endregion
-
-    protected virtual void Awake()
-    {
-        baseSpeed = speed; // Get the current speed before we move
-      
-    }
-
     public void InputMechanics()
     {
 
@@ -133,19 +101,19 @@ public class PlayerController : MonoBehaviour
        
     }
 
+    public bool GetIsFacingRight()
+    {
+        return isFacingRight;
+    }
+
     protected void Flip()
     {
         // If we are facing right and the user hits left
         // Or if we are facing left and input is 1 we need to flip
         if (!isWallJumping && (isFacingRight && horizontalInput < 0f || !isFacingRight && horizontalInput > 0f))
         {
-            isFacingRight = !isFacingRight; // Opposite value 
-
-            // Retrieve the dimensions of the game objects coordinates
-            Vector3 localScale = transform.localScale;
-            localScale.x *= -1f;
-            transform.localScale = localScale;
-            // Flip the coordinates
+            FlipCharacter();
+         
         }
     }
 
@@ -263,14 +231,7 @@ public class PlayerController : MonoBehaviour
 
 #endregion
 
-    public bool IsGrounded()
-    {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
-        // Returns true if there is collision on the ground and false means that we are in the air
-
-        // Physics2D.OverlapCircle checks for overlapping colliders within a circular area 
-        // Get the position of our 'groundCheck' which is positioned at our players feet. The players feet will be the center inside of the circular area we are creating. The radius of the circle is 0.2 units. And we are checking if a groundLayer overlaps with the collider we created. If we collide with the ground we return true that we are on the ground if not false and we are in the air
-    }
+    
 
     #region WallRegion
 

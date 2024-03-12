@@ -10,7 +10,7 @@ using System;
 using UnityEngine.TextCore.Text;
 using HeroEditor.Common;
 
-public class PlayerAnimationController : MonoBehaviour
+public class MainAnimationController : MonoBehaviour
 {
 
     #region animatorRegion
@@ -85,6 +85,11 @@ public class PlayerAnimationController : MonoBehaviour
         {
             character.SetState(CharacterState.Walk);
         }
+    }
+
+    public void WalkAnimation()
+    {
+        character.SetState(CharacterState.Walk);
     }
 
 }
