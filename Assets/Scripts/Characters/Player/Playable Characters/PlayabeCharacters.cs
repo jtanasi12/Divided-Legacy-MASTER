@@ -10,18 +10,22 @@ using System;
 
 
 // Parent class of Split & Cloud Boy
-public class PlayableCharacters : MonoBehaviour
+public class PlayableCharacters : Characters
 { 
     #region basicMechanics
 
-    private string characterName;
+    protected string characterName;
 
     [SerializeField]
     public PlayerController controller;
 
 
+
+
     #endregion
 
+
+    [SerializeField]
 
     #region Controller Support
     private IA_Controller gamepad; // Reference to the IA_Controller (mappings for input to controller)
@@ -60,8 +64,12 @@ public class PlayableCharacters : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
+      
         if (!gameState.isPaused){
-            controller.InputMechanics();
+
+          controller.InputMechanics();
+           
+            
         }
     }
 
@@ -90,8 +98,11 @@ public class PlayableCharacters : MonoBehaviour
         characterName = name;
     }
 
+    public String GetCharacterName()
+    {
+        return characterName;
+    }
 
 
-  
 
 }

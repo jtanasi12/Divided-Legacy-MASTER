@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class EnemyController : BasicController
 {
+    #region Variables
+
     [SerializeField]
     private Transform[] patrolPoints;
     [SerializeField]
@@ -46,13 +48,17 @@ public class EnemyController : BasicController
 
     private bool playerDetected;
 
+    #endregion
+
+    [SerializeField]
+    private PlayerHealth playerHealth;
     private void Start()
     {
         // A place holder for our regular speed 
         normalSpeed = speed;
     }
     // Update is called once per frame
-    void Update()
+    public void InputMechanics()
     {
         // If we land on the enemys head we have the enemy not move
         // Then break out the method so no enemy rotation is applied 
@@ -64,9 +70,10 @@ public class EnemyController : BasicController
 
         if (isChasing)
         {
-            alert.SetActive(true);
 
-            ChasePlayer();
+         
+         ChasePlayer();
+         
 
         }
         else
@@ -139,7 +146,8 @@ public class EnemyController : BasicController
         speed = chaseSpeed;
 
         // If we start chasing the player and he goes out of bounds go back to patrolling
-        if (PlayerOutOfBounds()) {
+        // If the player is dead, stop chasing 
+        if (PlayerOutOfBounds() || playerHealth.GetIsPlayerDead() == true) {
 
             EnemyPatrol();
 
@@ -148,6 +156,10 @@ public class EnemyController : BasicController
         // Enemy is in bounds 
         else
         {
+
+            alert.SetActive(true);
+            enemyAnimation.SetRunState(); // Have the enemy enter running state 
+
             // If the player is on the enemies left side, monster is on our right 
             if (transform.position.x > playerTransform.position.x)
             {

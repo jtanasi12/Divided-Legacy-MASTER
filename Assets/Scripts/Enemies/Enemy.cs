@@ -5,7 +5,11 @@ using UnityEngine;
 public class Enemy : Characters
 {
     [SerializeField]
-    private EnemyController controller;
+    private EnemyController enemyController;
+
+    [SerializeField]
+    private EnemyDamage enemyDamage;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,5 +19,12 @@ public class Enemy : Characters
     // Update is called once per frame
     void Update()
     {
+        enemyController.InputMechanics();
     }
+
+  void OnCollisionEnter2D(Collision2D collision)
+    {
+        enemyDamage.DealDamage(collision);
+    }
+
 }
