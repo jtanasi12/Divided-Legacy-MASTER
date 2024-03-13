@@ -6,7 +6,13 @@ public class SwitchMechanic : MonoBehaviour
 {
     public GameObject cloudBoy;
     public GameObject split;
-    
+
+    [SerializeField]
+    private PlayerHealth cloudBoyHealth;
+
+    [SerializeField]
+    private PlayerHealth splitHealth;
+
     public bool isCloudBoyActive = true;
 
     private void Awake()
@@ -37,7 +43,12 @@ public class SwitchMechanic : MonoBehaviour
 
             split.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
 
-            split.GetComponent<SplitAnimations>().SetIdleState();
+            // If the player is dead, we do not want to switch the animataion
+            if (!splitHealth.GetIsPlayerDead())
+            {
+                split.GetComponent<SplitAnimations>().SetIdleState();
+
+            }
 
         }
         else 
@@ -46,7 +57,12 @@ public class SwitchMechanic : MonoBehaviour
 
             cloudBoy.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
 
-            cloudBoy.GetComponent<CloudBoyAnimations>().SetIdleState();
+            // If the player is dead, we do not want to switch the animataion
+            if (!cloudBoyHealth.GetIsPlayerDead())
+            {
+                cloudBoy.GetComponent<CloudBoyAnimations>().SetIdleState();
+
+            }
 
 
         }

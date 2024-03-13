@@ -7,10 +7,14 @@ public class Split : PlayableCharacters
 {
 
 
+    void Awake()
+    {
 
+        SetCharacterName("Split");
+    }
 
-// Called once per frame
-protected override void Update()
+    // Called once per frame
+    protected override void Update()
     {
         base.Update();
 

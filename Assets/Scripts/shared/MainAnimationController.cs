@@ -34,7 +34,13 @@ public class MainAnimationController : MonoBehaviour
         }
     }
 
-   public void SetIdleState()
+    public void SetDeadEyes()
+    {
+       // FindSpriteItem("Common.Basic.Mouth.Zombie");
+      //  playerAnimation.FindSpriteItem("Common.Bonus.Mouth.11");
+
+    }
+    public void SetIdleState()
     {
         character.SetState(CharacterState.Idle);
 
@@ -72,7 +78,21 @@ public class MainAnimationController : MonoBehaviour
 
     }
 
-   
+    public void SetAttackDamageState()
+    {
+        Debug.Log("ANIMATION");
+        character.Animator.SetTrigger("Hit");
+    }
+
+    public void DeathAState()
+    {
+        character.SetState(CharacterState.DeathB);
+    }
+
+    public void DeathBState()
+    {
+        character.SetState(CharacterState.DeathF);
+    }
 
     public void SetWalkAnimation(float horizontalInput, bool isGrounded)
     {

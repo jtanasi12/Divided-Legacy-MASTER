@@ -8,7 +8,9 @@ using UnityEngine.InputSystem.XR;
 
 public class PlayerController : BasicController
 {
-  
+
+    [SerializeField]
+    PlayerHealth playerHealth;
 
     #region BasicMovement
    
@@ -63,39 +65,15 @@ public class PlayerController : BasicController
     #endregion
     public void InputMechanics()
     {
-
-
-        // -1 = LEFT, 0 = NO MOVEMENT, 1 = RIGHT
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        isGrounded = IsGrounded(); // Update isGrounded
-
-        // Don't allow player to move and flip during the state of wallJumping
-        if (!isWallJumping)
+        if (!playerHealth.GetIsPlayerDead())
         {
-            if (isGrounded && !Input.GetButton("Jump"))
-            { 
-                // Call SetWalkAnimation after isGrounded has been updated
-                playerAnimation.SetWalkAnimation(horizontalInput, isGrounded);
-                IdleAnimation();
-            }
+            PlayerIsAlive();
+        }
 
-            EatSupplies();
-
-            AttackMechanics();
-
-            SpeedMechanics();
-
-            JumpMechanics();
-
-            WallSlide(); // Allows player to slide down the wall
-
-            WallJump(); // Allow player to wall jump
-
-            // Don't allow player to move and flip during the state of wallJumping
-            if (!isWallJumping)
-            {
-                Flip(); // Check if we need to fip the character
-            }
+        // Only runs if the player is dead 
+        else
+        {
+            PlayerIsDead();
         }
 
        
@@ -411,5 +389,66 @@ public class PlayerController : BasicController
         }
 
     }
+    private void PlayerIsDead()
+    {
+       
+        // Allow the player to fall on the ground before we lock positions and
+        // rotations
+        if (IsGrounded()) {
+
+            body.constraints = RigidbodyConstraints2D.FreezeAll;
+
+            // Stop the players velocity
+            body.velocity = Vector3.zero;
+        }
+
+
+
+        gameObject.layer = LayerMask.NameToLayer("DeadPlayer");
+
 
     }
+
+    private void PlayerIsAlive()
+    {
+
+        // -1 = LEFT, 0 = NO MOVEMENT, 1 = RIGHT
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+        isGrounded = IsGrounded(); // Update isGrounded
+
+        // Don't allow player to move and flip during the state of wallJumping
+        if (!isWallJumping)
+        {
+            if (isGrounded && !Input.GetButton("Jump"))
+            {
+                // Call SetWalkAnimation after isGrounded has been updated
+                playerAnimation.SetWalkAnimation(horizontalInput, isGrounded);
+                IdleAnimation();
+            }
+
+            EatSupplies();
+
+            AttackMechanics();
+
+            SpeedMechanics();
+
+            JumpMechanics();
+
+            WallSlide(); // Allows player to slide down the wall
+
+            WallJump(); // Allow player to wall jump
+
+            // Don't allow player to move and flip during the state of wallJumping
+            if (!isWallJumping)
+            {
+                Flip(); // Check if we need to fip the character
+            }
+        }
+
+
+
+    }
+
+
+
+}

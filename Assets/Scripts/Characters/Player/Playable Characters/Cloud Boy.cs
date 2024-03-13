@@ -6,7 +6,7 @@ public class CloudBoy : PlayableCharacters
 {
     void Awake(){
 
-        SetCharacterName("Cloud Boy");
+        SetCharacterName("CloudBoy");
     }
 
 // Update is called once per frame
