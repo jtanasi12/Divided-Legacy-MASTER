@@ -13,6 +13,11 @@ public class PlayerHealth : MonoBehaviour
     public int flickerAmnt;
     public float flickerDuration;
 
+    [SerializeField]
+    private PlayableCharacters playableCharacter;
+
+    private bool switchState;
+
     private bool isFlickering = false;
  
     [SerializeField]
@@ -31,7 +36,13 @@ public class PlayerHealth : MonoBehaviour
 
     #endregion
 
+   public bool GetSwitchedState()
+    {
 
+        switchState = playableCharacter.GetSwitchedState();
+
+        return switchState;
+    }
 
     public bool GetIsPlayerDead()
     {

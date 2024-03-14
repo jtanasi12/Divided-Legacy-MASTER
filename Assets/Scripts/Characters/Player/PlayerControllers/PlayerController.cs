@@ -318,6 +318,8 @@ public class PlayerController : BasicController
 
     #endregion
 
+   
+
     public void CalculatePhysics()
     {
         if (!isWallJumping)
@@ -408,6 +410,7 @@ public class PlayerController : BasicController
 
 
     }
+
 
     private void PlayerIsAlive()
     {

@@ -21,7 +21,7 @@ TagManager:
   - SplitCamera
   - EnemyHead
   - DeadPlayer
-  - Split
+  - SwitchedState
   - 
   - 
   - 

@@ -11,6 +11,9 @@ public class Split : PlayableCharacters
     {
 
         SetCharacterName("Split");
+
+        switchedState = true;
+        // Sets the default, we start at CloudBoy
     }
 
     // Called once per frame
