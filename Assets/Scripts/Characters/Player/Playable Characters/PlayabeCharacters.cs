@@ -19,8 +19,8 @@ public class PlayableCharacters : Characters
     [SerializeField]
     public PlayerController controller;
 
-
-
+    // Keeps track if the player has switched 
+    protected bool switchedState;
 
     #endregion
 
@@ -53,6 +53,10 @@ public class PlayableCharacters : Characters
         //character.SetState(CharacterState.Idle);
     }
 
+    public bool GetSwitchedState()
+    {
+        return switchedState;
+    }
     void OnEnable(){
         gamepad?.Gameplay.Enable();
     }
@@ -88,9 +92,16 @@ public class PlayableCharacters : Characters
     }
 
 
+    public void SetCharacterState(bool switched)
+    {
+        switchedState = switched;
+    }
+
     void SwapCharacter()
     {
         print("Character Swap Logic");
+
+        
     }
 
     protected void SetCharacterName(string name)

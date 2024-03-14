@@ -6,6 +6,8 @@ using UnityEngine;
 public class EnemyController : BasicController
 {
     #region Variables
+    [SerializeField]
+    PlayableCharacters mainPlayer;
 
     [SerializeField]
     private Transform[] patrolPoints;
@@ -146,8 +148,9 @@ public class EnemyController : BasicController
         speed = chaseSpeed;
 
         // If we start chasing the player and he goes out of bounds go back to patrolling
-        // If the player is dead, stop chasing 
-        if (PlayerOutOfBounds() || playerHealth.GetIsPlayerDead() == true) {
+        // If the player is dead, stop chasing
+        // If the player is in the switched state, stop chasing
+        if (PlayerOutOfBounds() || playerHealth.GetIsPlayerDead() == true || playerHealth.GetSwitchedState() ) {
 
             EnemyPatrol();
 

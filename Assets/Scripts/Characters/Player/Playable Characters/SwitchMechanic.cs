@@ -37,8 +37,14 @@ public class SwitchMechanic : MonoBehaviour
 
         isCloudBoyActive = !isCloudBoyActive;
 
+     
+
         if (isCloudBoyActive)
         {
+            // If we switch to Cloudboy set Split inactive
+            SwitchSplitInactive();
+            SwitchCloudBoyActive();
+
             cloudBoy.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
 
             split.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
@@ -53,6 +59,10 @@ public class SwitchMechanic : MonoBehaviour
         }
         else 
         {
+            // If we switch to Split, set CloudBoy inactive
+            SwitchCloudBoyInactive();
+            SwitchSplitActive();
+
             split.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
 
             cloudBoy.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
@@ -69,8 +79,39 @@ public class SwitchMechanic : MonoBehaviour
         cloudBoy.GetComponent<PlayableCharacters>().enabled = isCloudBoyActive;
 
         split.GetComponent<PlayableCharacters>().enabled = !isCloudBoyActive;
-        Debug.Log("SHOULD have toggled controls");
 
+
+
+    }
+
+    private void SwitchCloudBoyInactive()
+    {
+        cloudBoy.layer = LayerMask.NameToLayer("SwitchedState");
+
+        cloudBoy.GetComponent<PlayableCharacters>().SetCharacterState(true);
+
+        Debug.Log("TEST");
+    }
+
+    private void SwitchSplitInactive()
+    {
+        split.layer = LayerMask.NameToLayer("SwitchedState");
+
+        split.GetComponent<PlayableCharacters>().SetCharacterState(true);
+    }
+
+    private void SwitchCloudBoyActive()
+    {
+        cloudBoy.layer = LayerMask.NameToLayer("Player");
+
+        cloudBoy.GetComponent<PlayableCharacters>().SetCharacterState(false);
+    }
+
+    private void SwitchSplitActive()
+    {
+        split.layer = LayerMask.NameToLayer("Player");
+
+        split.GetComponent<PlayableCharacters>().SetCharacterState(false);
 
     }
 }
