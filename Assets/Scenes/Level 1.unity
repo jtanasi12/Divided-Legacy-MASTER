@@ -25579,7 +25579,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHealth: {fileID: 1486514962}
-  damageInterval: 2
+  damageInterval: 1
   damage: 1
 --- !u!43 &1653429984
 Mesh:
@@ -27194,7 +27194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHealth: {fileID: 1493239609}
-  damageInterval: 2
+  damageInterval: 1
   damage: 1
 --- !u!1 &1730296728
 GameObject:
