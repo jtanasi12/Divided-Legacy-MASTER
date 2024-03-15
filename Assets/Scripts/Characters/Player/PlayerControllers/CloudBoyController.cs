@@ -14,6 +14,8 @@ public class CloudBoyController : PlayerController
     // Serialized Fields
     [SerializeField]
     private TrailRenderer dashTrail;
+    [SerializeField]
+    CloudBoyAnimations cloudBoyAnimator;
 
     protected new void Awake()
     {
@@ -54,6 +56,17 @@ public class CloudBoyController : PlayerController
 
 
     }
+
+    public override void AttackMechanics()
+    {
+        // ***** Cloudboy *****
+            if (Input.GetMouseButtonDown(0)) // 0 for left mouse button, 1 for right mouse button, 2
+            {
+                cloudBoyAnimator.ShootBowState();
+            }
+
+    }
+
 
     public bool GetIsDashing()
     {

@@ -4,6 +4,25 @@ using UnityEngine;
 
 public class SplitController : PlayerController
 {
+    [SerializeField]
+    SplitAnimations splitAnimator;
+
+    [SerializeField]
+    private float attackDelay;
+
+    [SerializeField]
+    private Transform weaponTransform;
+
+    [SerializeField]
+    private float weaponRange;
+
+    [SerializeField]
+    private int weaponDamage;
+
+    [SerializeField]
+    private LayerMask enemyLayer;
+
+
     public void DoubleJump()
     {
         if (Input.GetButtonDown("Jump"))
@@ -22,4 +41,17 @@ public class SplitController : PlayerController
         }
     }
 
+    public override void AttackMechanics()
+    {
+        if (Input.GetMouseButtonDown(0)) // 0 for left mouse button, 1 for right mouse button, 2
+        {
+            splitAnimator.SetAttackState();
+        }
+
+        else if (Input.GetMouseButton(1))
+        {
+            splitAnimator.SetJab();
+
+        }
+    }
 }
