@@ -22,7 +22,7 @@ public class Enemy : Characters
         enemyController.InputMechanics();
     }
 
-  void OnCollisionEnter2D(Collision2D collision)
+  void OnCollisionStay2D(Collision2D collision)
     {
         enemyDamage.DealDamage(collision);
     }
