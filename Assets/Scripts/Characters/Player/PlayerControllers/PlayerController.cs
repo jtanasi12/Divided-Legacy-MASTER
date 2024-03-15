@@ -318,8 +318,6 @@ public class PlayerController : BasicController
 
     #endregion
 
-   
-
     public void CalculatePhysics()
     {
         if (!isWallJumping)
@@ -359,38 +357,9 @@ public class PlayerController : BasicController
 
         }
     }
-    private void AttackMechanics()
-    {
-        // ***** Split *****
 
-        if (playerAnimation is SplitAnimations splitAnimator)
-        {
+    public virtual void AttackMechanics() { }
 
-            if (Input.GetMouseButtonDown(0)) // 0 for left mouse button, 1 for right mouse button, 2
-            {
-                splitAnimator.SetAttackState();
-            }
-
-            else if (Input.GetMouseButton(1))
-            {
-                splitAnimator.SetJab();
-
-            }
-
-        }
-
-        // ***** Cloudboy *****
-        if (playerAnimation is CloudBoyAnimations cloudBoyAnimator)
-        {
-
-            if (Input.GetMouseButtonDown(0)) // 0 for left mouse button, 1 for right mouse button, 2
-            {
-                cloudBoyAnimator.ShootBowState();
-            }
-
-        }
-
-    }
     private void PlayerIsDead()
     {
        
@@ -410,7 +379,6 @@ public class PlayerController : BasicController
 
 
     }
-
 
     private void PlayerIsAlive()
     {
