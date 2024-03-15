@@ -38,6 +38,17 @@ public class PlayerHealth : MonoBehaviour
 
     #endregion
 
+    public int GetHealth() {
+
+        return currentHealth;
+    }
+
+    public int GetMaxHealth() {
+
+        return maxHealth;
+    }
+
+
     private void Awake()
     {
         flickerTime = (flickerDuration * flickerAmnt);
