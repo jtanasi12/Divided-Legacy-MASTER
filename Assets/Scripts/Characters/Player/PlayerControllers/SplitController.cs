@@ -45,7 +45,7 @@ public class SplitController : PlayerController
     {
         if (Input.GetMouseButtonDown(0)) // 0 for left mouse button, 1 for right mouse button, 2
         {
-            splitAnimator.SetAttackState();
+            StartCoroutine(MainAttack());
         }
 
         else if (Input.GetMouseButton(1))
@@ -54,4 +54,27 @@ public class SplitController : PlayerController
 
         }
     }
+
+
+    IEnumerator MainAttack() {
+
+        splitAnimator.SetAttackState();
+
+         
+        Collider2D enemyCollision = Physics2D.OverlapCircle(weaponTransform.position, weaponRange, enemyLayer);
+
+
+        // Check for collision from the sword, if it collides with an enemy
+        yield return new WaitForSeconds(attackDelay);
+
+        if(enemyCollision != null) {
+
+            enemyCollision.GetComponent<EnemyHealth>().TakeDamage(weaponDamage);
+
+        }
+
+
+
+    }
+
 }
