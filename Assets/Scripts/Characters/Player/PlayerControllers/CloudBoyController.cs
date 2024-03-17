@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CloudBoyController : PlayerController
 {
+    public Bow bow;
+
     private bool canDash = true;
     private bool isDashing;
     private readonly float dashingPower = 24f;
@@ -62,13 +64,20 @@ public class CloudBoyController : PlayerController
 
     public void StartDashCoRoutine()
     {
-
-
         if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
         {
-
             // Start a co-routine for dashing
             StartCoroutine(Dash());
+        }
+    }
+
+    public override void AttackMechanics()
+    {
+        base.AttackMechanics(); // Calling the base class method
+        Debug.Log("Attack Mechanics inherited function call for cloud boy");
+        if (Input.GetMouseButtonDown(0)) // 0 for left mouse button, 1 for right mouse button, 2
+        {
+            bow.shootArrow();
         }
     }
 }
