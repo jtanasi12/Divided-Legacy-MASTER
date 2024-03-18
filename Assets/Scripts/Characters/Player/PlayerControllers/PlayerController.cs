@@ -275,8 +275,6 @@ public class PlayerController : BasicController
     }
     public virtual void AttackMechanics()
     {
-        //testing inheritence 
-        Debug.Log("Attack Mechanics super function call");
         // ***** Split *****
         if (playerAnimation is SplitAnimations splitAnimator)
         {
