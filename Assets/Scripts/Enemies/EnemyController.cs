@@ -254,7 +254,7 @@ public class EnemyController : BasicController
 
         gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
 
-        StartCoroutine(DestroyAfterDelay(4f));
+        StartCoroutine(DestroyAfterDelay(3f));
     }
 
     private IEnumerator DestroyAfterDelay(float delay)
