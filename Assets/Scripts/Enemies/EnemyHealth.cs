@@ -4,20 +4,11 @@ using UnityEngine;
 
 public class EnemyHealth : Health
 {
-    
-    // Update is called once per frame
-    void Update()
+
+    private void Start()
     {
-        
+        currentHealth = maxHealth;
     }
 
-    public void TakeDamage(int amount)
-    {
-        currentHealth -= amount;
 
-        if(currentHealth <= 0)
-        {
-            Destroy(gameObject);
-        }
-    }
 }

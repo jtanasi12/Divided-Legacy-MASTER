@@ -34,12 +34,6 @@ public class MainAnimationController : MonoBehaviour
         }
     }
 
-    public void SetDeadEyes()
-    {
-       // FindSpriteItem("Common.Basic.Mouth.Zombie");
-      //  playerAnimation.FindSpriteItem("Common.Bonus.Mouth.11");
-
-    }
     public void SetIdleState()
     {
         character.SetState(CharacterState.Idle);

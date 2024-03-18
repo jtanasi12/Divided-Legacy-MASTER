@@ -46,6 +46,9 @@ public class EnemyController : BasicController
     private GameObject alert;
 
     [SerializeField]
+    private EnemyHealth enemyHealth;
+
+    [SerializeField]
     private float detectionPauseTime;
 
     private bool playerDetected;
@@ -54,6 +57,8 @@ public class EnemyController : BasicController
 
     [SerializeField]
     private PlayerHealth playerHealth;
+
+
     private void Start()
     {
         // A place holder for our regular speed 
@@ -62,9 +67,23 @@ public class EnemyController : BasicController
     // Update is called once per frame
     public void InputMechanics()
     {
+        if (!enemyHealth.GetIsPlayerDead())
+        {
+            EnemyIsAlive();
+        }
+        else {
+
+            EnemyIsDead();
+        }
+
+    }
+
+    private void EnemyIsAlive() {
+
         // If we land on the enemys head we have the enemy not move
         // Then break out the method so no enemy rotation is applied 
-        if (IsPlayerHeadCollision()) {
+        if (IsPlayerHeadCollision())
+        {
 
             enemyAnimation.SetIdleState();
             return;
@@ -73,9 +92,9 @@ public class EnemyController : BasicController
         if (isChasing)
         {
 
-         
-         ChasePlayer();
-         
+
+            ChasePlayer();
+
 
         }
         else
@@ -96,7 +115,9 @@ public class EnemyController : BasicController
             }
 
         }
+
     }
+
 
     private void EnemyPatrol()
     {
@@ -223,7 +244,24 @@ public class EnemyController : BasicController
     }
 
 
-   
+    private void EnemyIsDead() {
+
+        isChasing = false;
+
+        alert.SetActive(false);
+
+        body.constraints = RigidbodyConstraints2D.FreezeAll;
+
+        gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
+
+        StartCoroutine(DestroyAfterDelay(4f));
+    }
+
+    private IEnumerator DestroyAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(gameObject);
+    }
 
 }
 

@@ -46,6 +46,8 @@ public class SplitController : PlayerController
         if (Input.GetMouseButtonDown(0)) // 0 for left mouse button, 1 for right mouse button, 2
         {
             StartCoroutine(MainAttack());
+
+            
         }
 
         else if (Input.GetMouseButton(1))
@@ -67,9 +69,12 @@ public class SplitController : PlayerController
         // Check for collision from the sword, if it collides with an enemy
         yield return new WaitForSeconds(attackDelay);
 
+
+        splitAnimator.SetIdleState();
         if(enemyCollision != null) {
 
             enemyCollision.GetComponent<EnemyHealth>().TakeDamage(weaponDamage);
+           
 
         }
 

@@ -11,14 +11,16 @@ public class Enemy : Characters
     private EnemyDamage enemyDamage;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        SetCharacterName("Enemy");
+
     }
 
     // Update is called once per frame
     void Update()
     {
+     
         enemyController.InputMechanics();
     }
 

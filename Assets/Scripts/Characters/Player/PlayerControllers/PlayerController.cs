@@ -382,9 +382,20 @@ public class PlayerController : BasicController
 
     private void PlayerIsAlive()
     {
-
+       
         // -1 = LEFT, 0 = NO MOVEMENT, 1 = RIGHT
         horizontalInput = Input.GetAxisRaw("Horizontal");
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            horizontalInput = -1; // Move left 
+        }
+        else if (Input.GetKey(KeyCode.A))
+        {
+            horizontalInput = 1; // Move Right 
+        }
+
+
         isGrounded = IsGrounded(); // Update isGrounded
 
         // Don't allow player to move and flip during the state of wallJumping
@@ -419,7 +430,5 @@ public class PlayerController : BasicController
 
 
     }
-
-
 
 }

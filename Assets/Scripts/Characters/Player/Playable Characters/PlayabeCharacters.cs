@@ -14,7 +14,6 @@ public class PlayableCharacters : Characters
 { 
     #region basicMechanics
 
-    protected string characterName;
 
     [SerializeField]
     public PlayerController controller;
@@ -102,16 +101,6 @@ public class PlayableCharacters : Characters
         print("Character Swap Logic");
 
         
-    }
-
-    protected void SetCharacterName(string name)
-    {
-        characterName = name;
-    }
-
-    public String GetCharacterName()
-    {
-        return characterName;
     }
 
 
