@@ -7351,6 +7351,7 @@ GameObject:
   - component: {fileID: 8986015143610421702}
   - component: {fileID: 1938704407209218071}
   - component: {fileID: 9026402020591334552}
+  - component: {fileID: -6858031193116780555}
   m_Layer: 0
   m_Name: CloudBoyPrefab2
   m_TagString: Untagged
@@ -7872,10 +7873,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 2875674880914025597}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d71e92b36e2d41f1a88659cf0d447b5, type: 3}
+  m_Script: {fileID: 11500000, guid: 64f27a67ebb5f45ddbb6670b88729333, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxSpeed: 0
+  accelerationRate: 0
+  decelerationRate: 0
+  body: {fileID: 2097524410626508634}
+  groundCheck: {fileID: 1295293505958673754}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  speed: 0
+  playerHealth: {fileID: 0}
+  playerAnimation: {fileID: 0}
   character: {fileID: 6346689393398767643}
+  jumpingPower: 0
+  wallCheck: {fileID: 8097038008821109752}
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &9026402020591334552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7897,14 +7914,30 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   speed: 5
-  playerAnimation: {fileID: 1938704407209218071}
+  playerHealth: {fileID: 0}
+  playerAnimation: {fileID: 0}
   character: {fileID: 6346689393398767643}
   jumpingPower: 10
   wallCheck: {fileID: 8097038008821109752}
   wallLayer:
     serializedVersion: 2
     m_Bits: 1024
+  bow: {fileID: 0}
   dashTrail: {fileID: 8986015143610421702}
+--- !u!114 &-6858031193116780555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2875674880914025597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 504bd472a1d2b3b4698224debdb8e55d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arrowPrefab: {fileID: 876998572242358156, guid: 892fe754122c4f649a45b131a6e08edd,
+    type: 3}
 --- !u!1 &2899250663788669264
 GameObject:
   m_ObjectHideFlags: 0

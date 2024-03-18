@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CloudBoyController : PlayerController
 {
+    public Bow bow; //This script takes in a Bow object that has it's own public method for shooting the arrow
+
     private bool canDash = true;
     private bool isDashing;
     private readonly float dashingPower = 24f;
@@ -14,8 +16,6 @@ public class CloudBoyController : PlayerController
     // Serialized Fields
     [SerializeField]
     private TrailRenderer dashTrail;
-    [SerializeField]
-    CloudBoyAnimations cloudBoyAnimator;
 
     protected new void Awake()
     {
@@ -57,17 +57,6 @@ public class CloudBoyController : PlayerController
 
     }
 
-    public override void AttackMechanics()
-    {
-        // ***** Cloudboy *****
-            if (Input.GetMouseButtonDown(0)) // 0 for left mouse button, 1 for right mouse button, 2
-            {
-                cloudBoyAnimator.ShootBowState();
-            }
-
-    }
-
-
     public bool GetIsDashing()
     {
         return isDashing;
@@ -75,16 +64,21 @@ public class CloudBoyController : PlayerController
 
     public void StartDashCoRoutine()
     {
-
-
         if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
         {
-
             // Start a co-routine for dashing
             StartCoroutine(Dash());
         }
     }
 
-
- 
+//overrides the virtual AttackMechanics method from PlayerController
+    public override void AttackMechanics()
+    {
+        base.AttackMechanics(); // Calling the base class method so that everything called there also happens here
+        //then adds the specific differences that need to happen for just cloud boy below
+        if (Input.GetMouseButtonDown(0)) // 0 for left mouse button, 1 for right mouse button, 2
+        {
+            bow.shootArrow(); //This script takes in a Bow object that has it's own public method for shooting the arrow
+        }
+    }
 }
