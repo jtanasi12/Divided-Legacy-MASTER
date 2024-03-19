@@ -4,7 +4,7 @@ using Assets.HeroEditor.Common.Scripts.CharacterScripts;
 
 using UnityEngine;
 
-public class PlayerHealth : Health
+public class PlayerHealth : MonoBehaviour
 {
     #region Variables
 
@@ -22,15 +22,26 @@ public class PlayerHealth : Health
 
     private bool isFlickering = false;
  
+    [SerializeField]
+    private int currentHealth; // Keep track of current health
 
     [SerializeField]
     private int maxHealth = 3;
 
+    private bool playerIsDead = false;
 
+    [SerializeField]
+    private MainAnimationController playerAnimation;
+
+    [SerializeField]
+    private Character character;
 
     #endregion
 
-   
+    public int GetHealth() {
+
+        return currentHealth;
+    }
 
     public int GetMaxHealth() {
 

@@ -70,6 +70,7 @@ public class CloudBoyController : PlayerController
             StartCoroutine(Dash());
         }
     }
+<<<<<<< HEAD
 
     public override void AttackMechanics()
     {
@@ -79,4 +80,6 @@ public class CloudBoyController : PlayerController
             bow.shootArrow();
         }
     }
+=======
+>>>>>>> parent of 7cd7c718 (Added attack for split)
 }
