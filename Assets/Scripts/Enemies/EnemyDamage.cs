@@ -27,7 +27,7 @@ public class EnemyDamage : MonoBehaviour
 
             if (collision.gameObject.CompareTag("Player") && canDamage)
             {
-                                     enemyController.GetComponent<MainAnimationController>().SetAttackState();
+                                     //enemyController.GetComponent<MainAnimationController>().SetAttackState();
                 // Uses a timer to let the player become invulnerable for a few seconds
                 StartCoroutine(ApplyDamage(collision));
 
