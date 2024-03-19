@@ -122,6 +122,10 @@ public class MainAnimationController : MonoBehaviour
         character.SetState(CharacterState.Walk);
     }
 
+    public void SetAttackState()
+    {
+        character.Slash();
+    }
 }
 
 
