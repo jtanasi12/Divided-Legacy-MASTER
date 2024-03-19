@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.Intrinsics;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -304,14 +305,19 @@ public class EnemyController : BasicController
         {
             isStunned = true;
             enemyAnimation.SetIdleState();
+            enemyAnimation.FindSpriteItemEyes("Common.Emoji.Eyes.Dead");
+
             StartCoroutine(RecoverFromStun());
+
         }
     }
 
     private IEnumerator RecoverFromStun()
     {
+
         yield return new WaitForSeconds(stunDuration);
         isStunned = false;
+        enemyAnimation.FindSpriteItemEyes("Common.Undead.Eyes.ZombieEyes7");
+
     }
 }
-

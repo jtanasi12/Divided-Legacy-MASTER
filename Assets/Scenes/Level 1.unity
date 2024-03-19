@@ -27979,7 +27979,7 @@ MonoBehaviour:
   alert: {fileID: 1998893615}
   enemyHealth: {fileID: 1729957682}
   detectionPauseTime: 0
-  stunDuration: 0.75
+  stunDuration: 0.5
   playerHealth: {fileID: 1493239609}
 --- !u!114 &1729957668
 MonoBehaviour:

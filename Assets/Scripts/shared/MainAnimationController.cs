@@ -30,9 +30,25 @@ public class MainAnimationController : MonoBehaviour
 
             }
 
-
         }
     }
+
+
+    public void FindSpriteItemEyes(string spriteId)
+    {
+        for (int index = 0; index < character.SpriteCollection.Eyes.Count; ++index)
+        {
+            if (character.SpriteCollection.Eyes[index].Id == spriteId)
+            {
+                var eyesIndex = character.SpriteCollection.Eyes[index];
+                character.SetBody(eyesIndex, BodyPart.Eyes);
+
+            }
+
+            Debug.Log("FIND");
+        }
+    }
+
 
     public void SetIdleState()
     {
