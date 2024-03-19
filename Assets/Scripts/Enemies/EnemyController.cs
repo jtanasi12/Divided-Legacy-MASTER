@@ -297,7 +297,7 @@ public class EnemyController : BasicController
                 isInRange = true; // Player is in range
 
 
-                if (!isSwordAttackRunning)
+                if (!isSwordAttackRunning && !enemyHealth.GetIsPlayerDead())
                 {
 
                     isSwordAttackRunning = true;

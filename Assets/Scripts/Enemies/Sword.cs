@@ -8,6 +8,9 @@ public class Sword : MonoBehaviour
     [SerializeField]
     private int damage = 1; // Adjust the damage value as needed
 
+    [SerializeField]
+    private MainAnimationController enemyAnimation;
+
 
     [SerializeField]
     private EnemyHealth enemyHealth;
