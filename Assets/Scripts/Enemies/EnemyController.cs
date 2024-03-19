@@ -23,6 +23,9 @@ public class EnemyController : BasicController
     private int patrolDestination;
 
     [SerializeField]
+    private Sword sword;
+
+    [SerializeField]
     private MainAnimationController enemyAnimation;
 
     [SerializeField]
@@ -103,7 +106,7 @@ public class EnemyController : BasicController
     
         if (!enemyHealth.GetIsPlayerDead())
         {
-            if (!isStunned){
+            if (!isStunned ){
                  
                 EnemyIsAlive();
 
@@ -130,6 +133,8 @@ public class EnemyController : BasicController
             enemyAnimation.SetIdleState();
             return;
         }
+
+        if(!enemyHealth.GetIsPlayerDead())
             EnemyMovement();
 
 
@@ -270,6 +275,8 @@ public class EnemyController : BasicController
 
         isChasing = false;
 
+     
+
         alert.SetActive(false);
 
         body.constraints = RigidbodyConstraints2D.FreezeAll;
@@ -292,7 +299,7 @@ public class EnemyController : BasicController
         {
 
             // Check if the player is in range of the sword
-            if (Vector2.Distance(transform.position, playerTransform.position) <= swordRange )
+            if (Vector2.Distance(transform.position, playerTransform.position) <= swordRange  )
             {
                 isInRange = true; // Player is in range
 
@@ -368,7 +375,7 @@ public class EnemyController : BasicController
 
     private IEnumerator SwordAttack()
     {
-        while (isInRange)
+        while (isInRange && !enemyHealth.GetIsPlayerDead())
         {
              Debug.Log("In Range");
 
@@ -382,15 +389,22 @@ public class EnemyController : BasicController
             RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, distance, player);
 
             // Check if the raycast hits the player and if the sword is in the correct "Attack" Position 
-            if (hit.collider != null && hit.collider.CompareTag("Player") && !enemyHealth.GetIsPlayerDead())
+            if (hit.collider != null && hit.collider.CompareTag("Player"))
             {
-                // Trigger the attack animation
-                enemyAnimation.SetAttackState();
+                // Trigger the attack animation only if the enemy is not dead
+                if (!enemyHealth.GetIsPlayerDead())
+                {
+                    enemyAnimation.SetAttackState();
+                    sword.GetComponent<Collider2D>().enabled = true;
+                }
 
             }
 
 
-            yield return new WaitForSeconds(2f); // A once second delay
+            yield return new WaitForSeconds(2f); // A two second delay
+
+            sword.GetComponent<Collider2D>().enabled = false;
+
 
         }
     }
