@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CloudBoyController : PlayerController
 {
-    public Bow bow; //This script takes in a Bow object that has it's own public method for shooting the arrow
+    public Bow bow;
 
     private bool canDash = true;
     private bool isDashing;
@@ -71,14 +71,12 @@ public class CloudBoyController : PlayerController
         }
     }
 
-//overrides the virtual AttackMechanics method from PlayerController
     public override void AttackMechanics()
     {
-        base.AttackMechanics(); // Calling the base class method so that everything called there also happens here
-        //then adds the specific differences that need to happen for just cloud boy below
+        base.AttackMechanics(); // Calling the base class method
         if (Input.GetMouseButtonDown(0)) // 0 for left mouse button, 1 for right mouse button, 2
         {
-            bow.shootArrow(); //This script takes in a Bow object that has it's own public method for shooting the arrow
+            bow.shootArrow();
         }
     }
 }

@@ -273,8 +273,6 @@ public class PlayerController : BasicController
             playerAnimation.FindSpriteItem("Common.Bonus.Mouth.10");
         }
     }
-
-    //Virtual method that gets overridden in SplitController and CloudBoyController for their unique implementations of this method
     public virtual void AttackMechanics()
     {
         // ***** Split *****
