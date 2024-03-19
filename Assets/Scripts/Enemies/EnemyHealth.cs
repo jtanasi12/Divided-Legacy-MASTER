@@ -21,7 +21,7 @@ public class EnemyHealth : Health
         // If the player is stunned they canno't take more damage
         if (!isStunned)
         {
-            if (currentHealth <= 0)
+            if (currentHealth <= 0 && !isDead)
             {
                 // Player Dies
                 playerAnimation.DeathAState();

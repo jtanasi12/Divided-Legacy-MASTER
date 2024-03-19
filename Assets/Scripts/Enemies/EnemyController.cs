@@ -400,11 +400,21 @@ public class EnemyController : BasicController
 
             }
 
+            // If the player is dead, break out of the coroutine loop
+            if (enemyHealth.GetIsPlayerDead())
+            {
+                break;
+            }
 
             yield return new WaitForSeconds(2f); // A two second delay
 
             sword.GetComponent<Collider2D>().enabled = false;
 
+
+        }
+
+        if (enemyHealth.GetIsPlayerDead()){
+            enemyAnimation.DeathAState();
 
         }
     }
