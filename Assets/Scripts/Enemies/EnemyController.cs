@@ -53,23 +53,42 @@ public class EnemyController : BasicController
 
     private bool playerDetected;
 
-    #endregion
+    [SerializeField]
+    private float stunDuration = 1f;
+
+    protected bool isStunned;
+
+
 
     [SerializeField]
     private PlayerHealth playerHealth;
 
 
+    #endregion
+
+    public bool GetIsStunned()
+    {
+        return isStunned;
+    }
+
     private void Start()
     {
         // A place holder for our regular speed 
         normalSpeed = speed;
+
+        isStunned = false;
     }
     // Update is called once per frame
     public void InputMechanics()
     {
+    
         if (!enemyHealth.GetIsPlayerDead())
         {
-            EnemyIsAlive();
+            if (!isStunned){
+                EnemyIsAlive();
+
+            }
+
         }
         else {
 
@@ -78,7 +97,10 @@ public class EnemyController : BasicController
 
     }
 
+
     private void EnemyIsAlive() {
+
+      
 
         // If we land on the enemys head we have the enemy not move
         // Then break out the method so no enemy rotation is applied 
@@ -88,78 +110,58 @@ public class EnemyController : BasicController
             enemyAnimation.SetIdleState();
             return;
         }
+            EnemyMovement();
 
-        if (isChasing)
-        {
-
-
-            ChasePlayer();
-
-
-        }
-        else
-        // If the enemy is not chasing, the enemy will be patrolling
-        {
-
-            // If the enemys position and the players position is less than the chaseDistance
-            // We need to start chasing
-            if (Vector2.Distance(transform.position, playerTransform.position) < chaseDistance)
-            {
-                isChasing = true;
-
-            }
-            else
-            {
-                EnemyPatrol();
-
-            }
-
-        }
 
     }
 
-
     private void EnemyPatrol()
     {
-        alert.SetActive(false);
-        speed = normalSpeed;
-        // RESET
 
-        enemyAnimation.WalkAnimation();
-
-        // Represents the first point in the array of destinations 
-        if (patrolDestination == 0)
+        if (!isStunned)
         {
 
-            // The enemy will move toward the first destination position 
-            transform.position = Vector2.MoveTowards(transform.position, patrolPoints[0].position, speed * Time.deltaTime);
+            alert.SetActive(false);
+            speed = normalSpeed;
+            // RESET
 
-            // If the distance between the enemy and the destination is less than .2 we need to flip the character 
-            if (Vector2.Distance(transform.position, patrolPoints[0].position) < 0.2f)
+            enemyAnimation.WalkAnimation();
+
+            // Represents the first point in the array of destinations 
+            if (patrolDestination == 0)
             {
 
-                patrolDestination = 1;
+                // The enemy will move toward the first destination position 
+                transform.position = Vector2.MoveTowards(transform.position, patrolPoints[0].position, speed * Time.deltaTime);
 
-                FlipCharacter();
+                // If the distance between the enemy and the destination is less than .2 we need to flip the character 
+                if (Vector2.Distance(transform.position, patrolPoints[0].position) < 0.2f)
+                {
+
+                    patrolDestination = 1;
+
+                    FlipCharacter();
+                }
+
             }
-
-        }
-        if (patrolDestination == 1)
-        {
-            // The enemy will move toward the second (point B) destination position 
-            transform.position = Vector2.MoveTowards(transform.position, patrolPoints[1].position, speed * Time.deltaTime);
-
-            // If the distance between the enemy and the destination is less than .2 we need to flip the character 
-            if (Vector2.Distance(transform.position, patrolPoints[1].position) < 0.2f)
+            if (patrolDestination == 1)
             {
+                // The enemy will move toward the second (point B) destination position 
+                transform.position = Vector2.MoveTowards(transform.position, patrolPoints[1].position, speed * Time.deltaTime);
 
-                patrolDestination = 0;
+                // If the distance between the enemy and the destination is less than .2 we need to flip the character 
+                if (Vector2.Distance(transform.position, patrolPoints[1].position) < 0.2f)
+                {
+
+                    patrolDestination = 0;
 
 
-                FlipCharacter();
+                    FlipCharacter();
+                }
+
             }
-
         }
+        
 
     }
 
@@ -244,7 +246,7 @@ public class EnemyController : BasicController
     }
 
 
-    private void EnemyIsDead() {
+    public void EnemyIsDead() {
 
         isChasing = false;
 
@@ -263,5 +265,53 @@ public class EnemyController : BasicController
         Destroy(gameObject);
     }
 
+    private void EnemyMovement()
+    {
+
+        if (!isStunned){
+
+            if (isChasing)
+            {
+
+                ChasePlayer();
+            }
+
+            else
+            // If the enemy is not chasing, the enemy will be patrolling
+            {
+
+                // If the enemys position and the players position is less than the chaseDistance
+                // We need to start chasing
+                if (Vector2.Distance(transform.position, playerTransform.position) < chaseDistance)
+                {
+                    isChasing = true;
+
+                }
+                else
+                {
+                    EnemyPatrol();
+
+                }
+
+            }
+        }
+    }
+
+    // Method to stun the enemy for a short peroid of time/ pause movement
+    public void StunEnemy()
+    {
+        if (!isStunned)
+        {
+            isStunned = true;
+            enemyAnimation.SetIdleState();
+            StartCoroutine(RecoverFromStun());
+        }
+    }
+
+    private IEnumerator RecoverFromStun()
+    {
+        yield return new WaitForSeconds(stunDuration);
+        isStunned = false;
+    }
 }
 

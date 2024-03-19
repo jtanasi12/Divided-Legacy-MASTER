@@ -13,12 +13,12 @@ public class PlayerHealth : Health
 
     private bool switchState;
 
-   
+
 
 
     #endregion
 
-   
+  
 
     public int GetMaxHealth() {
 

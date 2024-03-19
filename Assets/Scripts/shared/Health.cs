@@ -25,7 +25,7 @@ public class Health : MonoBehaviour
     protected float flickerTime;
 
     [SerializeField]
-    private Characters character;
+    protected Characters character;
 
 
 
@@ -36,7 +36,7 @@ public class Health : MonoBehaviour
     }
 
 
-    public void TakeDamage(int damageAmount)
+    public virtual void TakeDamage(int damageAmount)
     {
 
         currentHealth -= damageAmount;
@@ -76,7 +76,7 @@ public class Health : MonoBehaviour
         return isDead;
     }
 
-    IEnumerator DamageFlicker()
+    protected IEnumerator DamageFlicker()
     {
         Color flickerColor;
 

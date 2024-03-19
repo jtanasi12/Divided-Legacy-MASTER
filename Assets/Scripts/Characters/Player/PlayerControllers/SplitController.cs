@@ -16,13 +16,14 @@ public class SplitController : PlayerController
     [SerializeField]
     private float weaponRange;
 
+
     [SerializeField]
     private int weaponDamage;
 
     [SerializeField]
     private LayerMask enemyLayer;
 
-
+   
     public void DoubleJump()
     {
         if (Input.GetButtonDown("Jump"))
@@ -62,23 +63,25 @@ public class SplitController : PlayerController
 
         splitAnimator.SetAttackState();
 
-         
         Collider2D enemyCollision = Physics2D.OverlapCircle(weaponTransform.position, weaponRange, enemyLayer);
+
 
 
         // Check for collision from the sword, if it collides with an enemy
         yield return new WaitForSeconds(attackDelay);
 
 
-        splitAnimator.SetIdleState();
         if(enemyCollision != null) {
 
             enemyCollision.GetComponent<EnemyHealth>().TakeDamage(weaponDamage);
-           
 
+            if(enemyCollision.GetComponent<EnemyHealth>().GetHealth() > 0)
+            {
+                // The enemy will be stunned and not able to move for a brief period of time 
+                enemyCollision.GetComponent<EnemyController>().StunEnemy();
+            }
+          
         }
-
-
 
     }
 

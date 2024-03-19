@@ -11,4 +11,34 @@ public class EnemyHealth : Health
     }
 
 
+    public override void TakeDamage(int damageAmount)
+    {
+        bool isStunned = character.GetComponent<EnemyController>().GetIsStunned();
+
+
+        currentHealth -= damageAmount;
+
+        // If the player is stunned they canno't take more damage
+        if (!isStunned)
+        {
+            if (currentHealth <= 0)
+            {
+                // Player Dies
+                playerAnimation.DeathAState();
+                isDead = true;
+            }
+            else
+            {
+                // Attack Animation
+                Debug.Log("Player takes damage");
+
+                if (!isFlickering)
+                {
+                    StartCoroutine(DamageFlicker());
+
+                }
+
+            }
+        }
+    }
 }
