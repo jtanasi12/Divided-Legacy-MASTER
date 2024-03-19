@@ -98,7 +98,7 @@ public class PlayerController : BasicController
 
     protected void SpeedMechanics()
     {
-        bool isRunButtonDown = Input.GetKey(KeyCode.X);
+        bool isRunButtonDown = Input.GetKey(KeyCode.W);
 
         bool isLeftOrRightPressed = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow);
 
