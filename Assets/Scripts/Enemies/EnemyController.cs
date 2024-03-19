@@ -11,7 +11,14 @@ public class EnemyController : BasicController
     PlayableCharacters mainPlayer;
 
     [SerializeField]
+    private float swordRange;
+
+    [SerializeField]
+    private Transform swordTransform; 
+
+    [SerializeField]
     private Transform[] patrolPoints;
+
     [SerializeField]
     private int patrolDestination;
 
@@ -27,6 +34,9 @@ public class EnemyController : BasicController
     [SerializeField]
     private Transform playerTransform;
 
+    private Coroutine swordRangeCoroutine; 
+
+
     [SerializeField]
     private PlayerController playerController;
 
@@ -40,8 +50,12 @@ public class EnemyController : BasicController
 
     [SerializeField]
     private bool isChasing;
+
     [SerializeField]
     private float chaseDistance;
+
+    // Flag to track if the SwordAttack coroutine is already running
+    private bool isSwordAttackRunning = false;
 
     [SerializeField]
     private GameObject alert;
@@ -59,6 +73,7 @@ public class EnemyController : BasicController
 
     protected bool isStunned;
 
+    private bool isInRange; // Flag to track if player is in range
 
 
     [SerializeField]
@@ -66,6 +81,7 @@ public class EnemyController : BasicController
 
 
     #endregion
+
 
     public bool GetIsStunned()
     {
@@ -78,6 +94,8 @@ public class EnemyController : BasicController
         normalSpeed = speed;
 
         isStunned = false;
+
+        isInRange = false;
     }
     // Update is called once per frame
     public void InputMechanics()
@@ -86,6 +104,7 @@ public class EnemyController : BasicController
         if (!enemyHealth.GetIsPlayerDead())
         {
             if (!isStunned){
+                 
                 EnemyIsAlive();
 
             }
@@ -269,7 +288,33 @@ public class EnemyController : BasicController
     private void EnemyMovement()
     {
 
-        if (!isStunned){
+        if (!isStunned)
+        {
+
+            // Check if the player is in range of the sword
+            if (Vector2.Distance(transform.position, playerTransform.position) <= swordRange )
+            {
+                isInRange = true; // Player is in range
+
+
+                if (!isSwordAttackRunning)
+                {
+
+                    isSwordAttackRunning = true;
+                    StartCoroutine(SwordAttack());
+
+                }
+            }
+            else if(Vector2.Distance(transform.position, playerTransform.position) > swordRange )
+            {
+              StopCoroutine(SwordAttack());
+              isSwordAttackRunning = false;
+          
+
+              isInRange = false;
+
+            }
+
 
             if (isChasing)
             {
@@ -320,4 +365,37 @@ public class EnemyController : BasicController
         enemyAnimation.FindSpriteItemEyes("Common.Undead.Eyes.ZombieEyes7");
 
     }
+
+    private IEnumerator SwordAttack()
+    {
+        while (isInRange)
+        {
+             Debug.Log("In Range");
+
+             // Calculate the direction from the enemy to the player
+              Vector2 direction = (playerTransform.position - transform.position).normalized;
+
+             // Calculate the distance between the enemy and the player 
+             float distance = Vector2.Distance(transform.position, playerTransform.position);
+
+            // Shoot a raycast from the enemy towards the player
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, distance, player);
+
+            // Check if the raycast hits the player and if the sword is in the correct "Attack" Position 
+            if (hit.collider != null && hit.collider.CompareTag("Player") && !enemyHealth.GetIsPlayerDead())
+            {
+                // Trigger the attack animation
+                enemyAnimation.SetAttackState();
+
+            }
+
+
+            yield return new WaitForSeconds(2f); // A once second delay
+
+        }
+    }
+
+
+
+
 }

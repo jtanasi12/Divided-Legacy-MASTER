@@ -24,9 +24,5 @@ public class Enemy : Characters
         enemyController.InputMechanics();
     }
 
-  void OnCollisionStay2D(Collision2D collision)
-    {
-        enemyDamage.DealDamage(collision);
-    }
 
 }
