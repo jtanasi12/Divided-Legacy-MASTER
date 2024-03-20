@@ -11,19 +11,37 @@ public class Sword : MonoBehaviour
     [SerializeField]
     private MainAnimationController enemyAnimation;
 
+    [SerializeField]
+    private PlayerController playerMovement;
+
 
     [SerializeField]
     private EnemyHealth enemyHealth;
 
     private bool canDamage = true;
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D player)
     {
-        if (canDamage && other.CompareTag("Player") && !enemyHealth.GetIsPlayerDead())
+        if (canDamage && player.CompareTag("Player") && !enemyHealth.GetIsPlayerDead())
         {
-            
-              other.GetComponent<PlayerHealth>().TakeDamage(damage);
-              StartCoroutine(DamageCooldown());
+            float totalTime = player.GetComponent<PlayerController>().GetKnockBackTotalTime();
+            player.GetComponent<PlayerController>().SetKnockBackCounter(totalTime);
+
+            // Check if the player is on the leftside of the enemy
+            // This means we are being hit from the rightside
+            if(player.transform.position.x <= transform.position.x)
+            {
+                player.GetComponent<PlayerController>().SetKnockFromRight(true);
+            }
+
+            // We are on the rightside of the enemy, and being hit to the left
+            else if(player.transform.position.x >= transform.position.x)
+            {
+                player.GetComponent<PlayerController>().SetKnockFromRight(false);
+            }
+
+            player.GetComponent<PlayerHealth>().TakeDamage(damage);
+            StartCoroutine(DamageCooldown());
             
         }
     }

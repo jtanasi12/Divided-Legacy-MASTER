@@ -77,7 +77,7 @@ public class CloudBoyController : PlayerController
     {
 
 
-        if (Input.GetKeyDown(KeyCode.E) && canDash)
+        if (Input.GetKeyDown(KeyCode.S) && canDash)
         {
 
             // Start a co-routine for dashing

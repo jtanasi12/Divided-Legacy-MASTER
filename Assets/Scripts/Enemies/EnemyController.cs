@@ -275,8 +275,6 @@ public class EnemyController : BasicController
 
         isChasing = false;
 
-     
-
         alert.SetActive(false);
 
         body.constraints = RigidbodyConstraints2D.FreezeAll;
@@ -366,10 +364,11 @@ public class EnemyController : BasicController
 
     private IEnumerator RecoverFromStun()
     {
+        enemyAnimation.FindSpriteItemEyes("Common.Undead.Eyes.ZombieEyes7");
+
 
         yield return new WaitForSeconds(stunDuration);
         isStunned = false;
-        enemyAnimation.FindSpriteItemEyes("Common.Undead.Eyes.ZombieEyes7");
 
     }
 

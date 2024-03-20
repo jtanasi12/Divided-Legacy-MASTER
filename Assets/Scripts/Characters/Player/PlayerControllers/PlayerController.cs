@@ -63,6 +63,21 @@ public class PlayerController : BasicController
     public float GetHorizontalInput() { return horizontalInput;  }
 
     #endregion
+
+    #region KnockBackRegion
+
+    [SerializeField]
+    private float knockBackForce;
+    [SerializeField]
+    private float knockBackCounter;
+    [SerializeField]
+    private float knockBackTotalTime;
+    [SerializeField]
+    private bool knockBackFromRight;
+
+    #endregion
+
+
     public void InputMechanics()
     {
         if (!playerHealth.GetIsPlayerDead())
@@ -323,7 +338,32 @@ public class PlayerController : BasicController
         if (!isWallJumping)
         {
             speed = Mathf.MoveTowards(speed, maxSpeed, Time.fixedDeltaTime * accelerationRate);
-            body.velocity = new Vector2(horizontalInput * speed, body.velocity.y);
+
+            // If the knockback if finished we are allowed to move
+            if (knockBackCounter <= 0)
+            {
+                body.velocity = new Vector2(horizontalInput * speed, body.velocity.y);
+
+            }
+            // Knockback is currently in effect
+            else
+            {
+                playerAnimation.SetJumpState();
+
+                if (knockBackFromRight)
+                {
+
+                    // If we are hit from the right we want to move to the left
+                    body.velocity = new Vector2((-knockBackForce * 2f), knockBackForce);
+                }
+                else
+                {
+                    // If we are hit from the left we want to move to the right
+                    body.velocity = new Vector2((knockBackForce * 2f), knockBackForce);
+                }
+
+                knockBackCounter -= Time.deltaTime;
+            }
 
         }
     }
@@ -427,6 +467,21 @@ public class PlayerController : BasicController
             }
         }
 
+    }
+
+    public void SetKnockBackCounter(float counter)
+    {
+        knockBackCounter = counter;
+    }
+
+    public float GetKnockBackTotalTime()
+    {
+        return knockBackTotalTime;
+    }
+
+    public void SetKnockFromRight(bool position)
+    {
+        knockBackFromRight = position;
     }
 
 }

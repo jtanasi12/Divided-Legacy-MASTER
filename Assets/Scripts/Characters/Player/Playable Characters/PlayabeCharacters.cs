@@ -48,8 +48,6 @@ public class PlayableCharacters : Characters
         gamepad.Gameplay.Skill.performed += ctx => ExecuteSkill(); // Register skill to a funtion
         gamepad.Gameplay.SwapActiveCharacter.performed += ctx => SwapCharacter(); // Register character swap to a funtion
 
-        // Set Character to an idle state when we first load up 
-        //character.SetState(CharacterState.Idle);
     }
 
     public bool GetSwitchedState()
