@@ -24,21 +24,6 @@ public class Sword : MonoBehaviour
     {
         if (canDamage && player.CompareTag("Player") && !enemyHealth.GetIsPlayerDead())
         {
-            float totalTime = player.GetComponent<PlayerController>().GetKnockBackTotalTime();
-            player.GetComponent<PlayerController>().SetKnockBackCounter(totalTime);
-
-            // Check if the player is on the leftside of the enemy
-            // This means we are being hit from the rightside
-            if(player.transform.position.x <= transform.position.x)
-            {
-                player.GetComponent<PlayerController>().SetKnockFromRight(true);
-            }
-
-            // We are on the rightside of the enemy, and being hit to the left
-            else if(player.transform.position.x >= transform.position.x)
-            {
-                player.GetComponent<PlayerController>().SetKnockFromRight(false);
-            }
 
             player.GetComponent<PlayerHealth>().TakeDamage(damage);
             StartCoroutine(DamageCooldown());
