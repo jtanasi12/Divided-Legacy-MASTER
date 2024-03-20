@@ -23480,7 +23480,7 @@ Transform:
   m_GameObject: {fileID: 1396947243}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.0018734627, w: 0.99999833}
-  m_LocalPosition: {x: 0.48, y: 1.54, z: 0}
+  m_LocalPosition: {x: 0.47339866, y: 1.2199998, z: 0}
   m_LocalScale: {x: 0.74392295, y: 0.71593004, z: 0.71593004}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -24832,7 +24832,7 @@ Transform:
   m_GameObject: {fileID: 1520222003}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -17.1034, y: 1.71, z: 0}
+  m_LocalPosition: {x: -17.11, y: 1.39, z: 0}
   m_LocalScale: {x: 0.74392295, y: 0.71593004, z: 0.71593004}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -26388,6 +26388,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1683692600}
+    - targetCorrespondingSourceObject: {fileID: 2896179262308021429, guid: 8ac98a4cbe20a459c9bf4557da82923c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1683692601}
   m_SourcePrefab: {fileID: 100100000, guid: 8ac98a4cbe20a459c9bf4557da82923c, type: 3}
 --- !u!4 &1650599184 stripped
 Transform:
@@ -26436,12 +26440,13 @@ MonoBehaviour:
     m_Bits: 256
   speed: 2
   mainPlayer: {fileID: 0}
-  swordRange: 2
+  swordRange: 1.5
   swordTransform: {fileID: 1683692599}
   patrolPoints:
   - {fileID: 1943013612}
   - {fileID: 1957878102}
   patrolDestination: 1
+  sword: {fileID: 1683692601}
   enemyAnimation: {fileID: 1650599186}
   player:
     serializedVersion: 2
@@ -26449,14 +26454,14 @@ MonoBehaviour:
   enemyHead: {fileID: 1053158500}
   playerTransform: {fileID: 295334932}
   playerController: {fileID: 1486514933}
-  rayCastDistance: 5
-  chaseSpeed: 3
+  rayCastDistance: 1.5
+  chaseSpeed: 2.5
   isChasing: 1
   chaseDistance: 4
   alert: {fileID: 1953642663}
   enemyHealth: {fileID: 1650599197}
   detectionPauseTime: 0
-  stunDuration: 0
+  stunDuration: 1
   playerHealth: {fileID: 1486514962}
 --- !u!114 &1650599188
 MonoBehaviour:
@@ -26574,7 +26579,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b649dec6ab44453abb8df89be20acd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 3
+  currentHealth: 2
   sprites:
   - {fileID: 1934606973}
   - {fileID: 1808422572}
@@ -26587,9 +26592,9 @@ MonoBehaviour:
   - {fileID: 774380222}
   - {fileID: 203937645}
   - {fileID: 784853491}
-  maxHealth: 3
+  maxHealth: 2
   playerAnimation: {fileID: 1650599186}
-  flickerAmnt: 3
+  flickerAmnt: 1
   flickerDuration: 0.125
   character: {fileID: 1650599188}
 --- !u!43 &1652419648
@@ -27084,12 +27089,27 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.03868691, y: 1.3800073}
-  m_Size: {x: 0.42689934, y: 1.7553426}
+  m_Offset: {x: 0.0040209233, y: 1.2998325}
+  m_Size: {x: 0.28454006, y: 1.5949897}
   m_Direction: 0
+--- !u!114 &1683692601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1683692596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4112ae978d1d748ba9144c11ec17606f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  enemyAnimation: {fileID: 1650599186}
+  enemyHealth: {fileID: 1650599197}
 --- !u!212 &1689534838 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 6660664899882651900, guid: c7fad19d92f4a460bb2e2a317c56eb77,
@@ -28358,6 +28378,7 @@ MonoBehaviour:
   - {fileID: 2107272793}
   - {fileID: 66035829}
   patrolDestination: 1
+  sword: {fileID: 1748883979}
   enemyAnimation: {fileID: 1729957677}
   player:
     serializedVersion: 2
@@ -28453,7 +28474,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b649dec6ab44453abb8df89be20acd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 3
+  currentHealth: 2
   sprites:
   - {fileID: 1553515526}
   - {fileID: 1151176992}
@@ -28468,7 +28489,7 @@ MonoBehaviour:
   - {fileID: 1517978555}
   - {fileID: 254782255}
   - {fileID: 996305725}
-  maxHealth: 3
+  maxHealth: 2
   playerAnimation: {fileID: 1729957677}
   flickerAmnt: 1
   flickerDuration: 0.125
@@ -28921,6 +28942,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+  enemyAnimation: {fileID: 1729957677}
+  enemyHealth: {fileID: 1729957682}
 --- !u!1 &1752627176
 GameObject:
   m_ObjectHideFlags: 0
