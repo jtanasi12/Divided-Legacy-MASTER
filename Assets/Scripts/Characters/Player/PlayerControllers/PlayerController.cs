@@ -59,6 +59,9 @@ public class PlayerController : BasicController
     public float GetJumpingPower() { return jumpingPower; }
     public float GetHorizontalInput() { return horizontalInput;  }
     #endregion
+
+
+
     public void InputMechanics()
     {
         if (!playerHealth.GetIsPlayerDead())
@@ -86,7 +89,8 @@ public class PlayerController : BasicController
     }
     protected void SpeedMechanics()
     {
-        bool isRunButtonDown = Input.GetKey(KeyCode.X);
+        bool isRunButtonDown = Input.GetKey(KeyCode.W);
+
         bool isLeftOrRightPressed = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow);
         if (isRunButtonDown && isLeftOrRightPressed)
         {
@@ -248,6 +252,7 @@ public class PlayerController : BasicController
         if (!isWallJumping)
         {
             speed = Mathf.MoveTowards(speed, maxSpeed, Time.fixedDeltaTime * accelerationRate);
+
             body.velocity = new Vector2(horizontalInput * speed, body.velocity.y);
         }
     }
@@ -313,6 +318,17 @@ public class PlayerController : BasicController
     {
         // -1 = LEFT, 0 = NO MOVEMENT, 1 = RIGHT
         horizontalInput = Input.GetAxisRaw("Horizontal");
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            horizontalInput = -1; // Move left 
+        }
+        else if (Input.GetKey(KeyCode.A))
+        {
+            horizontalInput = 1; // Move Right 
+        }
+
+
         isGrounded = IsGrounded(); // Update isGrounded
 
         // Don't allow player to move and flip during the state of wallJumping

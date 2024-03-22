@@ -14,7 +14,6 @@ public class PlayableCharacters : Characters
 { 
     #region basicMechanics
 
-    protected string characterName;
 
     [SerializeField]
     public PlayerController controller;
@@ -49,8 +48,6 @@ public class PlayableCharacters : Characters
         gamepad.Gameplay.Skill.performed += ctx => ExecuteSkill(); // Register skill to a funtion
         gamepad.Gameplay.SwapActiveCharacter.performed += ctx => SwapCharacter(); // Register character swap to a funtion
 
-        // Set Character to an idle state when we first load up 
-        //character.SetState(CharacterState.Idle);
     }
 
     public bool GetSwitchedState()
@@ -102,16 +99,6 @@ public class PlayableCharacters : Characters
         print("Character Swap Logic");
 
         
-    }
-
-    protected void SetCharacterName(string name)
-    {
-        characterName = name;
-    }
-
-    public String GetCharacterName()
-    {
-        return characterName;
     }
 
 

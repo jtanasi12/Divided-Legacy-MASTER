@@ -4,20 +4,41 @@ using UnityEngine;
 
 public class EnemyHealth : Health
 {
-    
-    // Update is called once per frame
-    void Update()
+
+    private void Start()
     {
-        
+        currentHealth = maxHealth;
     }
 
-    public void TakeDamage(int amount)
-    {
-        currentHealth -= amount;
 
-        if(currentHealth <= 0)
+    public override void TakeDamage(int damageAmount)
+    {
+        bool isStunned = character.GetComponent<EnemyController>().GetIsStunned();
+
+
+        currentHealth -= damageAmount;
+
+        // If the player is stunned they canno't take more damage
+        if (!isStunned)
         {
-            Destroy(gameObject);
+            if (currentHealth <= 0 && !isDead)
+            {
+                // Player Dies
+                playerAnimation.DeathAState();
+                isDead = true;
+            }
+            else
+            {
+                // Attack Animation
+                Debug.Log("Player takes damage");
+
+                if (!isFlickering)
+                {
+                    StartCoroutine(DamageFlicker());
+
+                }
+
+            }
         }
     }
 }

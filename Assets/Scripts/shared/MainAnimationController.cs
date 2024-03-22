@@ -30,16 +30,26 @@ public class MainAnimationController : MonoBehaviour
 
             }
 
-
         }
     }
 
-    public void SetDeadEyes()
-    {
-       // FindSpriteItem("Common.Basic.Mouth.Zombie");
-      //  playerAnimation.FindSpriteItem("Common.Bonus.Mouth.11");
 
+    public void FindSpriteItemEyes(string spriteId)
+    {
+        for (int index = 0; index < character.SpriteCollection.Eyes.Count; ++index)
+        {
+            if (character.SpriteCollection.Eyes[index].Id == spriteId)
+            {
+                var eyesIndex = character.SpriteCollection.Eyes[index];
+                character.SetBody(eyesIndex, BodyPart.Eyes);
+
+            }
+
+            Debug.Log("FIND");
+        }
     }
+
+
     public void SetIdleState()
     {
         character.SetState(CharacterState.Idle);
@@ -112,6 +122,10 @@ public class MainAnimationController : MonoBehaviour
         character.SetState(CharacterState.Walk);
     }
 
+    public void SetAttackState()
+    {
+        character.Slash();
+    }
 }
 
 

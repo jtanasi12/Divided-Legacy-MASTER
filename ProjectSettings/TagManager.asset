@@ -22,8 +22,8 @@ TagManager:
   - EnemyHead
   - DeadPlayer
   - SwitchedState
-  - 
-  - 
+  - DeadEnemy
+  - Sword
   - 
   - 
   - 

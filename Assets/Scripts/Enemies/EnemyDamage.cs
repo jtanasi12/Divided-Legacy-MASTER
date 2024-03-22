@@ -8,6 +8,9 @@ public class EnemyDamage : MonoBehaviour
     private PlayerHealth playerHealth;
 
     [SerializeField]
+    private EnemyController enemyController;
+
+    [SerializeField]
     private float damageInterval;
 
     private bool canDamage = true;
@@ -15,18 +18,36 @@ public class EnemyDamage : MonoBehaviour
     [SerializeField]
     private int damage = 2;
 
-
+    // With collision parameter
     public void DealDamage(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && canDamage)
+        // If the enemy is stunned, we do not deal damage
+        if (enemyController.GetIsStunned() == false)
         {
-            // Uses a timer to let the player become invulnerable for a few seconds
-            StartCoroutine(ApplyDamage(collision));
+
+            if (collision.gameObject.CompareTag("Player") && canDamage)
+            {
+                // Uses a timer to let the player become invulnerable for a few seconds
+                StartCoroutine(ApplyDamage());
+
+               
+            }
         }
     }
 
+    public void DealDamage(int damage)
+    {
+        // If the enemy is stunned, we do not deal damage
+        if (enemyController.GetIsStunned() == false)
+        {
+            // Deal damage to the player
+            playerHealth.TakeDamage(damage);
+        }
+    }
+
+
     // Apply Damage Timer
-    IEnumerator ApplyDamage(Collision2D collision)
+    IEnumerator ApplyDamage()
     {
         // Prevent further damage from happening until a certain time has passed
         canDamage = false;
