@@ -2022,7 +2022,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1594826846315242055}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ab80b716f6a3e4ea9bf01e0afa290dc1, type: 3}
   m_Name: 
@@ -2073,10 +2073,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 1594826846315242055}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91bbe5c016dc646739cdfa38b11798c1, type: 3}
+  m_Script: {fileID: 11500000, guid: 64f27a67ebb5f45ddbb6670b88729333, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxSpeed: 0
+  accelerationRate: 0
+  decelerationRate: 0
+  body: {fileID: 6064557265553256689}
+  groundCheck: {fileID: 6500779668187830849}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  speed: 0
+  playerHealth: {fileID: 0}
+  playerAnimation: {fileID: 0}
   character: {fileID: 2544099299912566945}
+  jumpingPower: 0
+  wallCheck: {fileID: 828003277515577691}
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &2628004429805623195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2089,22 +2105,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd3f69bc1c57d4e128e2aa2dbfc6b42c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxSpeed: 10
+  accelerationRate: 5
+  decelerationRate: 15
   body: {fileID: 6064557265553256689}
   groundCheck: {fileID: 6500779668187830849}
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
-  playerAnimation: {fileID: 5413328424941544849}
+  speed: 5
+  playerHealth: {fileID: 0}
+  playerAnimation: {fileID: 0}
   character: {fileID: 2544099299912566945}
   jumpingPower: 10
   wallCheck: {fileID: 828003277515577691}
   wallLayer:
     serializedVersion: 2
     m_Bits: 1024
-  maxSpeed: 10
-  accelerationRate: 5
-  decelerationRate: 15
-  speed: 5
 --- !u!1 &1840651950872662876
 GameObject:
   m_ObjectHideFlags: 0

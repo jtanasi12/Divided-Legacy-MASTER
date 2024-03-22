@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -12,17 +13,17 @@ TagManager:
   - Water
   - UI
   - 
-  - 
+  - Enemy
   - Main Ground
   - Player
   - Wall
   - CloudBoyCamera
   - SplitCamera
-  - 
-  - 
-  - 
-  - 
-  - 
+  - EnemyHead
+  - DeadPlayer
+  - SwitchedState
+  - DeadEnemy
+  - Sword
   - 
   - 
   - 

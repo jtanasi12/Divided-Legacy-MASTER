@@ -6,11 +6,17 @@ using UnityEngine;
 public class Split : PlayableCharacters
 {
 
+    void Awake()
+    {
 
+        SetCharacterName("Split");
 
+        switchedState = true;
+        // Sets the default, we start at CloudBoy
+    }
 
-// Called once per frame
-protected override void Update()
+    // Called once per frame
+    protected override void Update()
     {
         base.Update();
 

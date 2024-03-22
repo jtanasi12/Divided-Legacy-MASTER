@@ -10,18 +10,21 @@ using System;
 
 
 // Parent class of Split & Cloud Boy
-public class PlayableCharacters : MonoBehaviour
+public class PlayableCharacters : Characters
 { 
     #region basicMechanics
 
-    private string characterName;
 
     [SerializeField]
     public PlayerController controller;
 
+    // Keeps track if the player has switched 
+    protected bool switchedState;
 
     #endregion
 
+
+    [SerializeField]
 
     #region Controller Support
     private IA_Controller gamepad; // Reference to the IA_Controller (mappings for input to controller)
@@ -45,10 +48,12 @@ public class PlayableCharacters : MonoBehaviour
         gamepad.Gameplay.Skill.performed += ctx => ExecuteSkill(); // Register skill to a funtion
         gamepad.Gameplay.SwapActiveCharacter.performed += ctx => SwapCharacter(); // Register character swap to a funtion
 
-        // Set Character to an idle state when we first load up 
-        //character.SetState(CharacterState.Idle);
     }
 
+    public bool GetSwitchedState()
+    {
+        return switchedState;
+    }
     void OnEnable(){
         gamepad?.Gameplay.Enable();
     }
@@ -60,8 +65,12 @@ public class PlayableCharacters : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
+      
         if (!gameState.isPaused){
-            controller.InputMechanics();
+
+          controller.InputMechanics();
+           
+            
         }
     }
 
@@ -80,18 +89,18 @@ public class PlayableCharacters : MonoBehaviour
     }
 
 
+    public void SetCharacterState(bool switched)
+    {
+        switchedState = switched;
+    }
+
     void SwapCharacter()
     {
         print("Character Swap Logic");
-    }
 
-    protected void SetCharacterName(string name)
-    {
-        characterName = name;
+        
     }
 
 
-
-  
 
 }
