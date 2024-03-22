@@ -27,8 +27,6 @@ public class Health : MonoBehaviour
     [SerializeField]
     protected Characters character;
 
-
-
     public int GetHealth()
     {
 

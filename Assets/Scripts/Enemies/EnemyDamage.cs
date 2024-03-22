@@ -35,6 +35,13 @@ public class EnemyDamage : MonoBehaviour
         }
     }
 
+    public bool GetCanDamage()
+    {
+        return canDamage;
+
+    }
+
+
     public void DealDamage(int damage)
     {
         // If the enemy is stunned, we do not deal damage

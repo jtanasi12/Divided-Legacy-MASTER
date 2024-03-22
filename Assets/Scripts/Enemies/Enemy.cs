@@ -27,7 +27,7 @@ public class Enemy : Characters
     // Start is called before the first frame update
     void Awake()
     {
-        SetCharacterName("Enemy");
+     //   SetCharacterName("Enemy");
 
 
     }

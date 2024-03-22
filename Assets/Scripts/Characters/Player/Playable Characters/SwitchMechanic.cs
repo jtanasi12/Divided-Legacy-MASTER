@@ -37,7 +37,6 @@ public class SwitchMechanic : MonoBehaviour
 
         isCloudBoyActive = !isCloudBoyActive;
 
-     
 
         if (isCloudBoyActive)
         {
@@ -90,12 +89,14 @@ public class SwitchMechanic : MonoBehaviour
 
         cloudBoy.GetComponent<PlayableCharacters>().SetCharacterState(true);
 
-        Debug.Log("TEST");
+        Debug.Log("ClOUDBOY INACTIVE");
     }
 
     private void SwitchSplitInactive()
     {
         split.layer = LayerMask.NameToLayer("SwitchedState");
+
+        Debug.Log("SPLIT INACTIVE");
 
         split.GetComponent<PlayableCharacters>().SetCharacterState(true);
     }
@@ -105,6 +106,9 @@ public class SwitchMechanic : MonoBehaviour
         cloudBoy.layer = LayerMask.NameToLayer("Player");
 
         cloudBoy.GetComponent<PlayableCharacters>().SetCharacterState(false);
+
+        Debug.Log("CLOUDBOY ACTIVE");
+
     }
 
     private void SwitchSplitActive()
@@ -113,5 +117,8 @@ public class SwitchMechanic : MonoBehaviour
 
         split.GetComponent<PlayableCharacters>().SetCharacterState(false);
 
-    }
+        Debug.Log("SPLIT ACTIVE");
+
+
+    } 
 }
