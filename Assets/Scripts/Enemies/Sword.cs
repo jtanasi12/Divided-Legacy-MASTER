@@ -6,7 +6,7 @@ using UnityEngine;
 public class Sword : MonoBehaviour
 {
     [SerializeField]
-    private int damage = 1; // Adjust the damage value as needed
+    private int damage = 1; 
 
     [SerializeField]
     private MainAnimationController enemyAnimation;
@@ -34,7 +34,7 @@ public class Sword : MonoBehaviour
     private IEnumerator DamageCooldown()
     {
         canDamage = false;
-        yield return new WaitForSeconds(1f); // Adjust cooldown duration as needed
+        yield return new WaitForSeconds(1f); 
         canDamage = true;
     }
 
