@@ -4888,6 +4888,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2270531184054672892, guid: 591c872692b984584b4b99a51b659b9d,
+        type: 3}
+      propertyPath: loseMenu
+      value: 
+      objectReference: {fileID: 5038999368386242125, guid: d105f40853f6649f8b09f4fe6207eaba,
+        type: 3}
     - target: {fileID: 2380335325890457842, guid: 591c872692b984584b4b99a51b659b9d,
         type: 3}
       propertyPath: hearts.Array.data[0]
