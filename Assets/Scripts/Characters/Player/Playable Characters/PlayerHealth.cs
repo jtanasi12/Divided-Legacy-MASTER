@@ -11,23 +11,14 @@ public class PlayerHealth : Health
     [SerializeField]
     private PlayableCharacters playableCharacter;
 
+    [SerializeField]
+    private GameObject loseMenu;
+
     private bool switchState;
-
-    private bool isFlickering = false;
- 
-    [SerializeField]
-    private int currentHealth; // Keep track of current health
-
-    [SerializeField]
-    private int maxHealth = 3;
 
     private bool playerIsDead = false;
 
-    [SerializeField]
-    private MainAnimationController playerAnimation;
 
-    [SerializeField]
-    private Character character;
 
     #endregion
 

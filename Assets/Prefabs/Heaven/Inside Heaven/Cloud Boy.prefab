@@ -15129,10 +15129,6 @@ MonoBehaviour:
   flickerDuration: 0.125
   character: {fileID: 1247019122151636852}
   playableCharacter: {fileID: 1247019122151636852}
-  currentHealth: 4
-  maxHealth: 4
-  playerAnimation: {fileID: 8197132018631522814}
-  character: {fileID: 0}
 --- !u!114 &3780733415781912251
 MonoBehaviour:
   m_ObjectHideFlags: 0

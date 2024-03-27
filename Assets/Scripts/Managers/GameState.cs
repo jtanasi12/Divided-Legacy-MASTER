@@ -10,8 +10,13 @@ public class GameState : MonoBehaviour
   public GameObject pauseMenuUI;
 
 
-  // Update is called once per frame
-  void Update(){
+    private void Awake()
+    {
+        pauseMenuUI.SetActive(false);
+    }
+
+    // Update is called once per frame
+    void Update(){
     if (Input.GetKeyDown(KeyCode.Escape)){
       if (sharedState.isPaused) Resume();
       else PauseGame();
