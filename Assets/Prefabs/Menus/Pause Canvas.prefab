@@ -121,7 +121,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6173519347071187647}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameState, Assembly-CSharp
         m_MethodName: Resume
         m_Mode: 1
@@ -145,7 +145,6 @@ GameObject:
   - component: {fileID: 6362338673150340356}
   - component: {fileID: 4580111985650744194}
   - component: {fileID: 2629398239735891266}
-  - component: {fileID: 6173519347071187647}
   m_Layer: 5
   m_Name: Pause Canvas
   m_TagString: Untagged
@@ -236,20 +235,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &6173519347071187647
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2381712885141692123}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fdd695486b4ba047a6c2f7bdfcd42c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sharedState: {fileID: 11400000, guid: 36c94a5239dc8e240989c346ac24f9a0, type: 2}
-  pauseMenuUI: {fileID: 9178652844303564378}
 --- !u!1 &2557869584596321717
 GameObject:
   m_ObjectHideFlags: 0
