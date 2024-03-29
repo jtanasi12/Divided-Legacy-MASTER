@@ -8805,6 +8805,7 @@ MonoBehaviour:
   flickerDuration: 0.125
   character: {fileID: 1249013939304281093}
   playableCharacter: {fileID: 1249013939304281093}
+  loseMenu: {fileID: 0}
 --- !u!114 &2380335325890457842
 MonoBehaviour:
   m_ObjectHideFlags: 0

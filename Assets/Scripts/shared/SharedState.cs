@@ -11,4 +11,11 @@ public class SharedState : ScriptableObject
 
 
     public void togglePause() {isPaused = !isPaused;}
+
+    private void Awake()
+    {
+        isPaused = false;
+    }
 }
+
+
