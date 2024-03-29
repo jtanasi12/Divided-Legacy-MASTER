@@ -14,15 +14,44 @@ public class GameState : MonoBehaviour
   private GameObject loseMenuUI;
 
   [SerializeField]
+  private GameObject winMenuuUI;
+
+  [SerializeField]
   private PlayerHealth cloudBoy;
+
   [SerializeField]
   private PlayerHealth split;
 
+  [SerializeField]
+  private PlayableCharacters cloudBoyPlayer;
+
+  [SerializeField]
+  private PlayableCharacters splitPlayer;
+
+
+
+    [SerializeField]
+    private PlayerController cloudBoyController;
+
+    [SerializeField]
+    private PlayerController splitController;
+
+    private bool nextLevel = false;
+
+    // TESTING 3.0
     private void Awake()
     {
         pauseMenuUI.SetActive(false);
         loseMenuUI.SetActive(false);
+        winMenuuUI.SetActive(false);
     }
+
+    private void Start()
+    {
+        Time.timeScale = 1f;
+
+    }
+
 
     // Update is called once per frame
     void Update(){
@@ -36,11 +65,31 @@ public class GameState : MonoBehaviour
 
     private void FixedUpdate()
     {
+
         if(cloudBoy.GetIsPlayerDead() || split.GetIsPlayerDead())
         {
             // ALlow the death animation to play before pausing
             StartCoroutine(ActivateLoseMenuAfterDelay(1.5f));
         }
+
+        // If both cloud boy and split capture the flags the game is won!
+        if (cloudBoyPlayer.GetFlag() && splitPlayer.GetFlag() && !nextLevel)
+        {
+            winMenuuUI.SetActive(true);
+            Time.timeScale = 0f; // Pause the game
+            sharedState.togglePause();
+            nextLevel = true;
+
+
+        }
+      
+
+
+    }
+
+    public void NextLevel()
+    {
+        Debug.Log("Next level loaded..");
     }
 
     IEnumerator ActivateLoseMenuAfterDelay(float delay)
@@ -69,15 +118,7 @@ public class GameState : MonoBehaviour
     sharedState.togglePause();
   }
 
-    public void RetryGame()
-    {
-        Debug.Log("Restarting the game");
-        // Reload the scene
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        Time.timeScale = 1; // Unpause the game 
-        loseMenuUI.SetActive(false); // Ensure lose menu is deactivated
-
-    }
+  
 
     public void GoToMainMenu(){
     //This is where we should route to the main menu when we make one

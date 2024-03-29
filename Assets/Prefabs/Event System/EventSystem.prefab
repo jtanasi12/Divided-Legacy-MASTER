@@ -102,5 +102,10 @@ MonoBehaviour:
   sharedState: {fileID: 11400000, guid: 36c94a5239dc8e240989c346ac24f9a0, type: 2}
   pauseMenuUI: {fileID: 0}
   loseMenuUI: {fileID: 0}
+  winMenuuUI: {fileID: 0}
   cloudBoy: {fileID: 0}
   split: {fileID: 0}
+  cloudBoyPlayer: {fileID: 0}
+  splitPlayer: {fileID: 0}
+  cloudBoyController: {fileID: 0}
+  splitController: {fileID: 0}

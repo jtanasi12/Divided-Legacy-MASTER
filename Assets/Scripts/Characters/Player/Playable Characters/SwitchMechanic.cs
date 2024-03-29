@@ -15,6 +15,8 @@ public class SwitchMechanic : MonoBehaviour
 
     public bool isCloudBoyActive = true;
 
+    private bool flagIsCaptured = false;
+
     private void Awake()
     {
         
@@ -27,10 +29,20 @@ public class SwitchMechanic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if(Input.GetKeyDown(KeyCode.RightShift)){
+        if (cloudBoy.GetComponent<PlayableCharacters>().GetFlag() && !flagIsCaptured || split.GetComponent<PlayableCharacters>().GetFlag() && !flagIsCaptured)
+        {
             SwitchPlayer();
-        }   
+
+            flagIsCaptured = true;
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.RightShift) && !flagIsCaptured)
+            {
+                SwitchPlayer();
+            }
+
+        }
     }
 
     private void SwitchPlayer(){
@@ -120,5 +132,8 @@ public class SwitchMechanic : MonoBehaviour
         Debug.Log("SPLIT ACTIVE");
 
 
-    } 
+    }
+
+  
+
 }

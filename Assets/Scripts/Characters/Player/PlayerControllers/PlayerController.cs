@@ -60,7 +60,7 @@ public class PlayerController : BasicController
     public float GetHorizontalInput() { return horizontalInput;  }
     #endregion
 
-
+    private bool flagIsCaptured = false;
 
     public void InputMechanics()
     {
@@ -353,4 +353,5 @@ public class PlayerController : BasicController
             }
         }
     }
+  
 }
