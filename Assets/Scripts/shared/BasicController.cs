@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class BasicController : MonoBehaviour
 {
-    // Variables
-
     // Serialized Fields 
     [SerializeField]
     protected float maxSpeed;
@@ -22,29 +20,18 @@ public class BasicController : MonoBehaviour
     protected LayerMask groundLayer;
     [SerializeField]
     protected float speed;
-
     protected float baseSpeed;
-
-
-
     protected bool isFacingRight = true;
     protected bool isGrounded = true;
 
 
-    protected virtual void Awake()
-    {
+    protected virtual void Awake(){
         baseSpeed = speed; // Get the current speed before we move
-
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public bool GetIsFacingRight(){ return isFacingRight; }
 
-    protected void FlipCharacter()
-    {
+    protected void FlipCharacter(){
         isFacingRight = !isFacingRight; // Opposite value 
 
         // Retrieve the dimensions of the game objects coordinates
@@ -54,8 +41,7 @@ public class BasicController : MonoBehaviour
         // Flip the coordinates
     }
 
-    protected bool IsGrounded()
-    {
+    protected bool IsGrounded(){
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
         // Returns true if there is collision on the ground and false means that we are in the air
 

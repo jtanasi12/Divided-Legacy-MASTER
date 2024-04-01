@@ -6,6 +6,11 @@ using UnityEngine;
 
 public class EnemyController : BasicController
 {
+    /* for projectile spawning --*/
+    public float coolDown = 2.5f;
+    private float timer; 
+    public Enemy enemy;
+
     #region Variables
     [SerializeField]
     PlayableCharacters mainPlayer;
@@ -99,75 +104,69 @@ public class EnemyController : BasicController
         isStunned = false;
 
         isInRange = false;
+        
+        //initializes timer for the enemy's projectile firing
+        timer = coolDown; 
     }
     // Update is called once per frame
+    void Update(){
+        timer -= Time.deltaTime;
+        if(timer <= 0){
+        //isFacingRight is the inherited value indicating where player is facing
+
+            enemy.shootProjectile(GetIsFacingRight());
+            timer = coolDown;
+        }
+    }
+
     public void InputMechanics()
     {
     
         if (!enemyHealth.GetIsPlayerDead())
         {
             if (!isStunned ){
-                 
                 EnemyIsAlive();
-
             }
-
         }
         else {
-
             EnemyIsDead();
         }
-
     }
 
 
     private void EnemyIsAlive() {
-
-      
-
         // If we land on the enemys head we have the enemy not move
         // Then break out the method so no enemy rotation is applied 
         if (IsPlayerHeadCollision())
         {
-
             enemyAnimation.SetIdleState();
             return;
         }
 
         if(!enemyHealth.GetIsPlayerDead())
             EnemyMovement();
-
-
     }
 
     private void EnemyPatrol()
     {
-
         if (!isStunned)
         {
-
             alert.SetActive(false);
             speed = normalSpeed;
             // RESET
-
             enemyAnimation.WalkAnimation();
-
             // Represents the first point in the array of destinations 
             if (patrolDestination == 0)
             {
-
                 // The enemy will move toward the first destination position 
                 transform.position = Vector2.MoveTowards(transform.position, patrolPoints[0].position, speed * Time.deltaTime);
 
                 // If the distance between the enemy and the destination is less than .2 we need to flip the character 
                 if (Vector2.Distance(transform.position, patrolPoints[0].position) < 0.2f)
                 {
-
                     patrolDestination = 1;
-
                     FlipCharacter();
                 }
-
             }
             if (patrolDestination == 1)
             {
@@ -177,19 +176,12 @@ public class EnemyController : BasicController
                 // If the distance between the enemy and the destination is less than .2 we need to flip the character 
                 if (Vector2.Distance(transform.position, patrolPoints[1].position) < 0.2f)
                 {
-
                     patrolDestination = 0;
-
-
                     FlipCharacter();
                 }
-
             }
         }
-        
-
     }
-
 
     void ChasePlayer()
     {
@@ -199,28 +191,22 @@ public class EnemyController : BasicController
         // If the player is dead, stop chasing
         // If the player is in the switched state, stop chasing
         if (PlayerOutOfBounds() || playerHealth.GetIsPlayerDead() == true || playerHealth.GetSwitchedState() ) {
-
             EnemyPatrol();
-
         }
 
         // Enemy is in bounds 
         else
         {
-
             alert.SetActive(true);
             enemyAnimation.SetRunState(); // Have the enemy enter running state 
 
             // If the player is on the enemies left side, monster is on our right 
             if (transform.position.x > playerTransform.position.x)
             {
-
                 isFacingRight = false;
                 transform.position += Vector3.left * speed * Time.deltaTime;
                 patrolDestination = 0;
                 transform.localScale = new Vector3((float)-0.5, (float)0.5, 1);
-
-
             }
             // The player is on the right side of the enemy and enemy is on left
             else if (transform.position.x < playerTransform.position.x)
@@ -229,8 +215,6 @@ public class EnemyController : BasicController
                 patrolDestination = 1;
                 transform.localScale = new Vector3((float)0.5, (float)0.5, 1);
                 transform.position += Vector3.right * speed * Time.deltaTime;
-
-
             }
 
             // If chasing is true, but the player runs out of the distance
@@ -238,8 +222,6 @@ public class EnemyController : BasicController
             if (Vector2.Distance(transform.position, playerTransform.position) > chaseDistance)
             {
                 isChasing = false;
-
-
             }
         }
     }
@@ -250,7 +232,6 @@ public class EnemyController : BasicController
         // Player is too far to the left to chase 
         if (playerTransform.position.x < patrolPoints[0].position.x)
         {
-
             return true;
         }
 
@@ -259,7 +240,6 @@ public class EnemyController : BasicController
         {
             return true;
         }
-
         return false;
     }
 
@@ -398,26 +378,19 @@ public class EnemyController : BasicController
                 }
 
             }
-
             // If the player is dead, break out of the coroutine loop
             if (enemyHealth.GetIsPlayerDead())
             {
                 break;
             }
-
             yield return new WaitForSeconds(2f); // A two second delay
-
             sword.GetComponent<Collider2D>().enabled = false;
-
-
         }
 
         if (enemyHealth.GetIsPlayerDead()){
             enemyAnimation.DeathAState();
-
         }
     }
-
 
 
 
