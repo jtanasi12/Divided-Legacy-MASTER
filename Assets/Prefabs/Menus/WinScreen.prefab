@@ -91,8 +91,9 @@ GameObject:
   - component: {fileID: 182655328453303827}
   - component: {fileID: 5368846662709147097}
   - component: {fileID: 7889352557768916448}
+  - component: {fileID: 4710016116793040320}
   m_Layer: 5
-  m_Name: WinRetryButton
+  m_Name: WinNextLevelButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -199,7 +200,32 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5368846662709147097}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4710016116793040320}
+        m_TargetAssemblyTypeName: NextLevel, Assembly-CSharp
+        m_MethodName: LoadNextLevel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4710016116793040320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2946088325756418653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc8657e2118c04d2b9b1832ca8458580, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedState: {fileID: 11400000, guid: 36c94a5239dc8e240989c346ac24f9a0, type: 2}
 --- !u!1 &2948754906077902117
 GameObject:
   m_ObjectHideFlags: 0
@@ -258,7 +284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.4339623, b: 0.087492414, a: 1}
+  m_Color: {r: 1, g: 0.9340884, b: 0.051886797, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -267,20 +293,18 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 3
-    m_MaxSize: 50
-    m_Alignment: 1
+    m_MaxSize: 40
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'YOU WIN!!!
-
-    Congratulations'
+  m_Text: Defeated the "Ethereal Glade".
 --- !u!1 &3864886319435707524
 GameObject:
   m_ObjectHideFlags: 0
@@ -292,13 +316,14 @@ GameObject:
   - component: {fileID: 190473348513990979}
   - component: {fileID: 8536522055683937418}
   - component: {fileID: 7873294844743881224}
+  - component: {fileID: 4972006490928415556}
   m_Layer: 5
   m_Name: WinScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &190473348513990979
 RectTransform:
   m_ObjectHideFlags: 0
@@ -359,6 +384,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4972006490928415556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3864886319435707524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d9bc32608d5d449698e8c6a8b6af563, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5488419502543737620
 GameObject:
   m_ObjectHideFlags: 0
@@ -437,7 +474,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Play Again
+  m_Text: Next Level
 --- !u!1 &5862449265992606042
 GameObject:
   m_ObjectHideFlags: 0
