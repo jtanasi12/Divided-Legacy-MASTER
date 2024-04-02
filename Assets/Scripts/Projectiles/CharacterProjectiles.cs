@@ -5,6 +5,8 @@ using UnityEngine;
 public class CharacterProjectiles : MonoBehaviour{
     public Rigidbody2D projectileRB;
     public float speed;
+    public float range = 1;
+    private float timer;
 
     protected virtual float setSpeed(){
         // This method should be implemented by child classes
@@ -14,10 +16,17 @@ public class CharacterProjectiles : MonoBehaviour{
     // Start is called before the first frame update
     protected virtual void Start(){
         speed = setSpeed();
+        timer = range;
     }
 
     // Update is called once per frame
-    void Update(){}
+    void Update(){
+        timer -= Time.deltaTime;
+        if (timer < 0){
+            Destroy(gameObject);
+        }
+    }
+    
     public void SetVelocity(Vector2 direction){
         projectileRB.velocity = direction.normalized * speed;
         // Flip the arrow sprite if moving left

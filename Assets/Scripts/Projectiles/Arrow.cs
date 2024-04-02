@@ -8,7 +8,6 @@ public class Arrow : CharacterProjectiles{
     }
 
     // Update is called once per frame
-    void Update(){}
     protected override float setSpeed(){
         // Set the speed for the arrow
         return 4.5f;

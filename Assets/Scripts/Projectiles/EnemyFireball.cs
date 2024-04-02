@@ -8,7 +8,6 @@ public class EnemyFireball : CharacterProjectiles {
     }
 
     // Update is called once per frame
-    void Update(){}
     protected override float setSpeed(){
         // Set the speed for the enemy fireball
         return 6.5f;
