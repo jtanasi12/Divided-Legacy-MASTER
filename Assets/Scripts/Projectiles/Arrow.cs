@@ -12,4 +12,11 @@ public class Arrow : CharacterProjectiles{
         // Set the speed for the arrow
         return 4.5f;
     }
+
+    // Called when the fireball collides with another collider
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        // Destroy the fireball when it collides with any object
+        Destroy(gameObject);
+    }
 }

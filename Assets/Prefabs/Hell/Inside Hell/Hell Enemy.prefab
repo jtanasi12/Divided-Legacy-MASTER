@@ -2001,6 +2001,7 @@ MonoBehaviour:
   speed: 2
   coolDown: 2.5
   enemy: {fileID: 0}
+  shootingRange: 0
   mainPlayer: {fileID: 0}
   swordRange: 1.5
   swordTransform: {fileID: 1099820627471393718}

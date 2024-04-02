@@ -23,12 +23,12 @@ public class BasicController : MonoBehaviour
     protected float baseSpeed;
     protected bool isFacingRight = true;
     protected bool isGrounded = true;
-
+    protected bool isTurning = false;
 
     protected virtual void Awake(){
         baseSpeed = speed; // Get the current speed before we move
     }
-
+    public bool GetIsTurning() { return isTurning; }
     public bool GetIsFacingRight(){ return isFacingRight; }
 
     protected void FlipCharacter(){
@@ -38,7 +38,8 @@ public class BasicController : MonoBehaviour
         Vector3 localScale = transform.localScale;
         localScale.x *= -1f;
         transform.localScale = localScale;
-        // Flip the coordinates
+
+
     }
 
     protected bool IsGrounded(){
@@ -48,6 +49,4 @@ public class BasicController : MonoBehaviour
         // Physics2D.OverlapCircle checks for overlapping colliders within a circular area 
         // Get the position of our 'groundCheck' which is positioned at our players feet. The players feet will be the center inside of the circular area we are creating. The radius of the circle is 0.2 units. And we are checking if a groundLayer overlaps with the collider we created. If we collide with the ground we return true that we are on the ground if not false and we are in the air
     }
-
-
 }

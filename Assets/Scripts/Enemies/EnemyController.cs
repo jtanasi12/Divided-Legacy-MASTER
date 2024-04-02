@@ -8,10 +8,15 @@ public class EnemyController : BasicController
 {
     /* for projectile spawning --*/
     public float coolDown = 2.5f;
-    private float timer; 
+    private float timer;
+
     public Enemy enemy;
 
     #region Variables
+
+    [SerializeField]
+    private float shootingRange;
+
     [SerializeField]
     PlayableCharacters mainPlayer;
 
@@ -98,7 +103,9 @@ public class EnemyController : BasicController
 
     private void Start()
     {
-        // A place holder for our regular speed 
+        // A place holder for our regular speed
+
+
         normalSpeed = speed;
 
         isStunned = false;
@@ -112,10 +119,12 @@ public class EnemyController : BasicController
     void Update(){
         timer -= Time.deltaTime;
         if(timer <= 0){
-        //isFacingRight is the inherited value indicating where player is facing
+            //isFacingRight is the inherited value indicating where player is facing
 
-            enemy.shootProjectile(GetIsFacingRight());
-            timer = coolDown;
+                //isFacingRight is the inherited value indicating where player is facing
+                enemy.shootProjectile(GetIsFacingRight());
+                timer = coolDown;
+            
         }
     }
 
@@ -166,6 +175,7 @@ public class EnemyController : BasicController
                 {
                     patrolDestination = 1;
                     FlipCharacter();
+
                 }
             }
             if (patrolDestination == 1)
@@ -391,7 +401,6 @@ public class EnemyController : BasicController
             enemyAnimation.DeathAState();
         }
     }
-
 
 
 }
