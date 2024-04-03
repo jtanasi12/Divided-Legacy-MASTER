@@ -47,6 +47,6 @@ public class CharacterProjectiles : MonoBehaviour
     // Method to flip the arrow sprite horizontally
     public virtual void FlipSprite(bool isFlip){
         // Flip the arrow sprite horizontally
-        transform.localScale = new Vector3(1f, 1f, 1);
+        transform.localScale = new Vector3(-1f, 1f, 1);
     }
 }

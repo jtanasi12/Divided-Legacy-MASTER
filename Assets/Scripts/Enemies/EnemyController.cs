@@ -51,8 +51,7 @@ public class EnemyController : BasicController
     [SerializeField]
     private Transform playerTransform;
 
-    private Coroutine swordRangeCoroutine; 
-
+    private Coroutine swordRangeCoroutine;
 
     [SerializeField]
     private PlayerController playerController;
@@ -128,7 +127,7 @@ public class EnemyController : BasicController
         if (timer <= 0)
         {
 
-            if (Vector2.Distance(transform.position, playerTransform.position) > fireBallRange)
+            if (Vector2.Distance(transform.position, playerTransform.position) > fireBallRange && !enemyHealth.GetIsPlayerDead())
             {
                 Debug.Log("Shooting projectile.");
                 enemy.shootProjectile(isFacingRight);
@@ -137,7 +136,6 @@ public class EnemyController : BasicController
             }
         }
 
- 
     }
     // NOT CURRENTLY USING
     public void ShootingLogic() {

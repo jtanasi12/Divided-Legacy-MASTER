@@ -15,11 +15,6 @@ public class Enemy : Characters
     [SerializeField]
     private EnemyDamage enemyDamage;
 
-    // Start is called before the first frame update
-    void Awake()
-    {
-        //   SetCharacterName("Enemy");
-    }
 
     // Update is called once per frame
     void Update()
@@ -72,8 +67,6 @@ public class Enemy : Characters
             }
 
             enemyProjectile.SetVelocity(direction); // pass direction so that the enemy projectile gets flipped if necessary
-  
-
         }
         else
         {

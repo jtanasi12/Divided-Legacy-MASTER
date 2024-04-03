@@ -7,6 +7,8 @@ public class EnemyFireball  : MonoBehaviour{
     public float speed;
     public float range = 1;
     private float timer;
+    private int damage = 1;
+    private EnemyDamage enemyDamage;
 
     protected float setSpeed()
     {
@@ -20,6 +22,10 @@ public class EnemyFireball  : MonoBehaviour{
 
         speed = setSpeed();
         timer = range;
+
+        // Initialize object through scripting because we are loading
+        // the prefab dynamically
+        enemyDamage = FindObjectOfType<EnemyDamage>();
 
      
     }
@@ -80,7 +86,12 @@ public class EnemyFireball  : MonoBehaviour{
             Debug.Log("DESTORY");
         }
 
+        if (collision.CompareTag("Player"))
+        {
+            collision.GetComponent<PlayerHealth>().TakeDamage(damage);
+
+        }
+
     }
 }
- 
 

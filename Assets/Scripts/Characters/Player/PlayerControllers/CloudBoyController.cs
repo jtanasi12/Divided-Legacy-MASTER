@@ -67,4 +67,5 @@ public class CloudBoyController : PlayerController
           bow.shootArrow(GetIsFacingRight());
         }
     }
+    
 }
