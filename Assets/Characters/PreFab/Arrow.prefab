@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6342133037651655482}
   - component: {fileID: 4063614347868433113}
   - component: {fileID: 7666903103148252829}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,4 +172,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileRB: {fileID: 6342133037651655482}
-  speed: 4.5
+  speed: 7
+  range: 0.3

@@ -8,10 +8,19 @@ public class EnemyController : BasicController
 {
     /* for projectile spawning --*/
     public float coolDown = 2.5f;
-    private float timer; 
+    private float timer;
+
     public Enemy enemy;
 
     #region Variables
+
+    [SerializeField]
+    private float shootingRange;
+
+
+    [SerializeField]
+    private float fireBallRange;
+
     [SerializeField]
     PlayableCharacters mainPlayer;
 
@@ -42,8 +51,7 @@ public class EnemyController : BasicController
     [SerializeField]
     private Transform playerTransform;
 
-    private Coroutine swordRangeCoroutine; 
-
+    private Coroutine swordRangeCoroutine;
 
     [SerializeField]
     private PlayerController playerController;
@@ -83,7 +91,6 @@ public class EnemyController : BasicController
 
     private bool isInRange; // Flag to track if player is in range
 
-
     [SerializeField]
     private PlayerHealth playerHealth;
 
@@ -98,7 +105,9 @@ public class EnemyController : BasicController
 
     private void Start()
     {
-        // A place holder for our regular speed 
+        // A place holder for our regular speed
+
+
         normalSpeed = speed;
 
         isStunned = false;
@@ -111,11 +120,49 @@ public class EnemyController : BasicController
     // Update is called once per frame
     void Update(){
         timer -= Time.deltaTime;
-        if(timer <= 0){
-        //isFacingRight is the inherited value indicating where player is facing
 
-            enemy.shootProjectile(GetIsFacingRight());
-            timer = coolDown;
+        // Enemy will only shoot if the timer is below 0 and is
+        // in the state of chasing
+        // Enemy will only shoot if the timer is below 0 and is in the state of chasing
+        if (timer <= 0)
+        {
+
+            if (Vector2.Distance(transform.position, playerTransform.position) > fireBallRange && !enemyHealth.GetIsPlayerDead())
+            {
+                Debug.Log("Shooting projectile.");
+                enemy.shootProjectile(isFacingRight);
+                timer = coolDown;
+
+            }
+        }
+
+    }
+    // NOT CURRENTLY USING
+    public void ShootingLogic() {
+
+        // The player is on the right side of the enemy and enemy is on left AND the enemy is facing the left direction (he needs to turn around before shooting)
+        if (transform.position.x < playerTransform.position.x && !isFacingRight)
+        {
+            Debug.Log("Do not shoot");
+
+        }
+        // The player is on the left side of the enemy and the enemy is facing right (he needs to turn around before shooting)
+        else if (transform.position.x > playerTransform.position.x && isFacingRight)
+        {
+            Debug.Log("Do not shoot, wrong direction");
+        }
+
+        else
+        {
+
+            if (Vector2.Distance(transform.position, playerTransform.position) > fireBallRange)
+            {
+
+                Debug.Log("Shooting projectile.");
+                enemy.shootProjectile(isFacingRight);
+                timer = coolDown;
+
+            }
         }
     }
 
@@ -166,6 +213,7 @@ public class EnemyController : BasicController
                 {
                     patrolDestination = 1;
                     FlipCharacter();
+
                 }
             }
             if (patrolDestination == 1)
@@ -190,7 +238,8 @@ public class EnemyController : BasicController
         // If we start chasing the player and he goes out of bounds go back to patrolling
         // If the player is dead, stop chasing
         // If the player is in the switched state, stop chasing
-        if (PlayerOutOfBounds() || playerHealth.GetIsPlayerDead() == true || playerHealth.GetSwitchedState() ) {
+        if (PlayerOutOfBounds() || playerHealth.GetIsPlayerDead() == true || playerHealth.GetSwitchedState())
+        {
             EnemyPatrol();
         }
 
@@ -391,7 +440,6 @@ public class EnemyController : BasicController
             enemyAnimation.DeathAState();
         }
     }
-
 
 
 }

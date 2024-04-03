@@ -29,8 +29,21 @@ public class EnemyDamage : MonoBehaviour
             {
                 // Uses a timer to let the player become invulnerable for a few seconds
                 StartCoroutine(ApplyDamage());
+            }
+        }
+    }
 
-               
+    // Override
+    public void DealDamage(Collider2D collision)
+    {
+        // If the enemy is stunned, we do not deal damage
+        if (enemyController.GetIsStunned() == false)
+        {
+
+            if (collision.gameObject.CompareTag("Player") && canDamage)
+            {
+                // Uses a timer to let the player become invulnerable for a few seconds
+                StartCoroutine(ApplyDamage());
             }
         }
     }

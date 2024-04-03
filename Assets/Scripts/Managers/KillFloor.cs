@@ -3,7 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class KillFloor : MonoBehaviour {
-    private Vector3 respawnPosition = new Vector3(30f, -33f, 0f); //this is where the player goes if colliding with the kill floor
+
+    [SerializeField]
+    private GameObject respawnLocation;
+
+    [SerializeField]
+    private PlayerHealth playerHealth;
+
+    [SerializeField]
+    private Characters player;
+
+  //  private Vector3 respawnPosition = new Vector3(30f, -33f, 0f); //this is where the player goes if colliding with the kill floor
 
     private void OnTriggerEnter2D(Collider2D other) {
         // Check if the colliding object is the player character
@@ -14,13 +24,25 @@ public class KillFloor : MonoBehaviour {
             if (playerController != null){
                 Debug.Log("Player has collided with killfloor");
                 // Respawn the player at the specified respawn point, currently acts more like a teleport until the decrement health call is made
-                RespawnPlayer(other.gameObject);
-                //TODO add a decrementHealth() call here
+                DealDamage(other.gameObject);
             }
         }
     }
-    private void RespawnPlayer(GameObject player){
-        // Set the player's position to the respawn point
-        player.transform.position = respawnPosition;
+    private void DealDamage(GameObject player){
+       
+
+        // This means the player will die and we don't want to respawn back 
+        if(playerHealth.GetHealth() == 1)
+        {
+            playerHealth.TakeDamage(1);
+        }
+        else
+        {
+            playerHealth.TakeDamage(1);
+            // Set the player's position to the respawn point
+            player.transform.position = respawnLocation.transform.position;
+        }
+
     }
+
 }

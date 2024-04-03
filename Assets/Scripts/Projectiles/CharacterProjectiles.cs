@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterProjectiles : MonoBehaviour{
+public class CharacterProjectiles : MonoBehaviour
+{
     public Rigidbody2D projectileRB;
     public float speed;
     public float range = 1;
@@ -27,11 +28,15 @@ public class CharacterProjectiles : MonoBehaviour{
         }
     }
     
-    public void SetVelocity(Vector2 direction){
+    public virtual void SetVelocity(Vector2 direction){
+
+
         projectileRB.velocity = direction.normalized * speed;
+
+
         // Flip the arrow sprite if moving left
         if (direction.x < 0){
-            FlipSprite();
+            FlipSprite(true);
         }
         else{
             // Reset sprite to original orientation if moving right
@@ -40,8 +45,8 @@ public class CharacterProjectiles : MonoBehaviour{
     }
     
     // Method to flip the arrow sprite horizontally
-    private void FlipSprite(){
+    public virtual void FlipSprite(bool isFlip){
         // Flip the arrow sprite horizontally
-        transform.localScale = new Vector3(-1, 1, 1);
+        transform.localScale = new Vector3(-1f, 1f, 1);
     }
 }

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Enemy
   - Gem
+  - Arrow
+  - fireball
   layers:
   - Default
   - TransparentFX
@@ -26,8 +28,8 @@ TagManager:
   - DeadEnemy
   - Sword
   - Gem
-  - 
-  - 
+  - Fireball
+  - Arrow
   - 
   - 
   - 
