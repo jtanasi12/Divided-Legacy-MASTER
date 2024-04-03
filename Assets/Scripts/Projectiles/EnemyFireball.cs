@@ -7,7 +7,6 @@ public class EnemyFireball  : MonoBehaviour{
     public float speed;
     public float range = 1;
     private float timer;
-    private float direction;
 
     protected float setSpeed()
     {
@@ -70,10 +69,17 @@ public class EnemyFireball  : MonoBehaviour{
     }
 
     // Called when the fireball collides with another collider
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        // Destroy the fireball when it collides with any object
-        Destroy(gameObject);
+        // Check if the collided object has the "Arrow" tag
+        if (collision.gameObject.layer != LayerMask.NameToLayer("Arrow"))
+        {
+            Destroy(gameObject);
+            // If collided with an object tagged as "Arrow", do nothin
+
+            Debug.Log("DESTORY");
+        }
+
     }
 }
  

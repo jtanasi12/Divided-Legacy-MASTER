@@ -10,13 +10,22 @@ public class Arrow : CharacterProjectiles{
     // Update is called once per frame
     protected override float setSpeed(){
         // Set the speed for the arrow
-        return 4.5f;
+        return speed;
     }
 
     // Called when the fireball collides with another collider
     void OnCollisionEnter2D(Collision2D collision)
     {
+        // Check if the collided object has the "Arrow" tag
+        if (collision.gameObject.layer != LayerMask.NameToLayer("Fireball"))
+            {
+            Destroy(gameObject);
+            // If collided with an object tagged as "Arrow", do nothin
+        }
+
+
         // Destroy the fireball when it collides with any object
-        Destroy(gameObject);
+       // Destroy(gameObject);
+        
     }
 }

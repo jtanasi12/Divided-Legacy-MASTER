@@ -42,7 +42,6 @@ public class Enemy : Characters
         }
 
 
-        //THIS is the code for getting the bow to spawn the arrow
         Vector3 spawnPosition = projectileSpawnPoint.position + spawnOffset;
 
         // (1.)

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7910533174705153792}
   - component: {fileID: 6571924636430348747}
   - component: {fileID: 8531329141333963020}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: enemy_fireball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.42249689, y: 0.20766771}
@@ -173,4 +173,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileRB: {fileID: 6571924636430348747}
   speed: 4
-  range: 1.5
+  range: 2

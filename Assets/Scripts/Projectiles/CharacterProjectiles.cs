@@ -29,7 +29,11 @@ public class CharacterProjectiles : MonoBehaviour
     }
     
     public virtual void SetVelocity(Vector2 direction){
+
+
         projectileRB.velocity = direction.normalized * speed;
+
+
         // Flip the arrow sprite if moving left
         if (direction.x < 0){
             FlipSprite(true);

@@ -172,4 +172,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileRB: {fileID: 6342133037651655482}
-  speed: 4.5
+  speed: 7
+  range: 0.3
