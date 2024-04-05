@@ -10,6 +10,7 @@ public class SwitchMechanic : MonoBehaviour
     [SerializeField]
     private PlayerHealth cloudBoyHealth;
 
+
     [SerializeField]
     private PlayerHealth splitHealth;
 

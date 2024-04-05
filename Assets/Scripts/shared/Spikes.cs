@@ -22,11 +22,9 @@ public class Spikes : MonoBehaviour
 
             if(rigidBody != null && playerHealth != null)
             {
-                Debug.Log("TESTTTTTTTTT");
+              
                 // Calculate the bounce direction based on the player's current velocity
                 Vector2 currentDirection = rigidBody.velocity.normalized;
-
-              //  rigidBody.AddForce(currentDirection * bounceForce, ForceMode2D.Impulse);
 
                 collision.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * bounceForce, ForceMode2D.Impulse);
 
