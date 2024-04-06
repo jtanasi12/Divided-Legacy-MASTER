@@ -15,7 +15,6 @@ public class Enemy : Characters
     [SerializeField]
     private EnemyDamage enemyDamage;
 
-
     // Update is called once per frame
     void Update()
     {
@@ -73,9 +72,6 @@ public class Enemy : Characters
             Debug.LogWarning("enemy projectile component not found on the instantiated attack object.");
         }
     }
-    void OnCollisionStay2D(Collision2D collision)
-    {
-        enemyDamage.DealDamage(collision);
-    }
+   
 
 }

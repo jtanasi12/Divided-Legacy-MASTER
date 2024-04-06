@@ -28,7 +28,14 @@ public class PlayerHealth : Health
         return maxHealth;
     }
 
-
+    public void IncreaseHealth()
+    {
+        if(currentHealth < maxHealth)
+        {
+            currentHealth += 1;
+        }
+       
+    }
  
     public bool GetSwitchedState()
     {

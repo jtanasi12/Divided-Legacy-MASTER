@@ -119,6 +119,9 @@ public class PlayableCharacters : Characters
 
             controller.GetComponent<MainAnimationController>().VictoryAnimation();
         }
+
+
+  
     }
 
 
