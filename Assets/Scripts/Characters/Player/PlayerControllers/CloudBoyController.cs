@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CloudBoyController : PlayerController
 {
@@ -62,10 +63,15 @@ public class CloudBoyController : PlayerController
     }
 
     public override void AttackMechanics(){
-        base.AttackMechanics(); // Calling the base class method
-        if (Input.GetMouseButtonDown(0)){ // 0 for left mouse button, 1 for right mouse button, 2
-          bow.shootArrow(GetIsFacingRight());
+        // Dont trigger attack if we are clicking on a UI Object
+        if (!EventSystem.current.IsPointerOverGameObject())
+        {
+            base.AttackMechanics(); // Calling the base class method
+            if (Input.GetMouseButtonDown(0))
+            { // 0 for left mouse button, 1 for right mouse button, 2
+                bow.shootArrow(GetIsFacingRight());
+            }
         }
     }
-    
+
 }

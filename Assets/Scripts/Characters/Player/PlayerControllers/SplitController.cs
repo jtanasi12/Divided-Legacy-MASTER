@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class SplitController : PlayerController
 {
@@ -44,18 +45,26 @@ public class SplitController : PlayerController
 
     public override void AttackMechanics()
     {
-        if (Input.GetMouseButtonDown(0)) // 0 for left mouse button, 1 for right mouse button, 2
+        // Don't trigger attack if we are clicking on a UI Object
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-            StartCoroutine(MainAttack());
 
-            
+            if (Input.GetMouseButtonDown(0)) // 0 for left mouse button, 1 for right mouse button, 2
+            {
+                StartCoroutine(MainAttack());
+
+
+            }
+
+            else if (Input.GetMouseButton(1))
+            {
+                splitAnimator.SetJab();
+
+            }
+
+
         }
 
-        else if (Input.GetMouseButton(1))
-        {
-            splitAnimator.SetJab();
-
-        }
     }
 
 

@@ -5,6 +5,7 @@ using HeroEditor.Common;
 using Unity.Burst.Intrinsics;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
+using UnityEngine.EventSystems;
 
 public class PlayerController : BasicController {
     [SerializeField]
@@ -237,19 +238,28 @@ public class PlayerController : BasicController {
     public virtual void AttackMechanics() {   
         bool isFacingTheRight = GetIsFacingRight();
 
-        // ***** Split *****
-        if (playerAnimation is SplitAnimations splitAnimator) {
-            if (Input.GetMouseButtonDown(0)) { // 0 for left mouse button, 1 for right mouse button, 2
-                splitAnimator.SetAttackState();
+        // Don't trigger attack if the user clicks on a UI Object
+        if (!EventSystem.current.IsPointerOverGameObject())
+        {
+            // ***** Split *****
+            if (playerAnimation is SplitAnimations splitAnimator)
+            {
+                if (Input.GetMouseButtonDown(0))
+                { // 0 for left mouse button, 1 for right mouse button, 2
+                    splitAnimator.SetAttackState();
+                }
+                else if (Input.GetMouseButton(1))
+                {
+                    splitAnimator.SetJab();
+                }
             }
-            else if (Input.GetMouseButton(1)){
-                splitAnimator.SetJab();
-            }
-        }
-        // ***** Cloudboy *****
-        if (playerAnimation is CloudBoyAnimations cloudBoyAnimator){   
-            if (Input.GetMouseButtonDown(0)) { // 0 for left mouse button, 1 for right mouse button, 2
-                cloudBoyAnimator.ShootBowState();
+            // ***** Cloudboy *****
+            if (playerAnimation is CloudBoyAnimations cloudBoyAnimator)
+            {
+                if (Input.GetMouseButtonDown(0))
+                { // 0 for left mouse button, 1 for right mouse button, 2
+                    cloudBoyAnimator.ShootBowState();
+                }
             }
         }
     }

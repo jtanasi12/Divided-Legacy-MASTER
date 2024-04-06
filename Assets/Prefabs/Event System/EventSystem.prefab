@@ -85,6 +85,14 @@ MonoBehaviour:
   cloudBoy: {fileID: 0}
   split: {fileID: 0}
   cloudBoyHealth: {fileID: 0}
+  heavenEnemies:
+  - {fileID: 0}
+  hellEnemies:
+  - {fileID: 0}
+  heavenHearts:
+  - {fileID: 0}
+  hellHearts:
+  - {fileID: 0}
   splitHealth: {fileID: 0}
   isCloudBoyActive: 1
 --- !u!114 &4074563522694773937
