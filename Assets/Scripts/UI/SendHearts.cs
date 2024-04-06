@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI; 
+
 using UnityEngine;
 
 public class SendHearts : MonoBehaviour
@@ -11,23 +13,47 @@ public class SendHearts : MonoBehaviour
     [SerializeField]
     private PlayerHealth recieverPlayer;
 
+    [SerializeField]
+    private int LIMIT = 1;
+
+    [SerializeField]
+    private Image buttonImage;
+
+
+    private int current = 0;
+
     // Triggered when the button is clicked on
     public void SendHeart()
     {
         Debug.Log("Sending a heart to " + recieverPlayer.gameObject.GetComponent<Characters>().GetCharacterName());
 
-        // Make sure the player has more than 1 health before sending a heart 
-        if (mainPlayer.GetHealth() > 1)
+        // Allow this power to be used 3 times ONLY
+        if (current < LIMIT)
         {
-            // The receiving player canno't have maximum health
-            if(recieverPlayer.GetHealth() < recieverPlayer.GetMaxHealth())
+            // Make sure the player has more than 1 health before sending a heart 
+            if (mainPlayer.GetHealth() > 1)
             {
-                mainPlayer.DecrementHealth();
-                recieverPlayer.IncreaseHealth();
+                // The receiving player canno't have maximum health
+                if (recieverPlayer.GetHealth() < recieverPlayer.GetMaxHealth())
+                {
+                    mainPlayer.DecrementHealth();
+                    recieverPlayer.IncreaseHealth();
+                    current++;
+
+                    if(current == LIMIT)
+                    {
+                        buttonImage.color = Color.grey;
+                    }
+
+                }
 
             }
         }
-        
+        else
+        {
+            buttonImage.color = Color.grey;
+        }
+
     }
 
 
