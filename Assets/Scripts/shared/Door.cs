@@ -97,15 +97,26 @@ public class Door : MonoBehaviour
                 Debug.Log("Respawn player");
                 // Spawn the player to Door B, we treat the script as if it was Door A 
 
-                // Move the player
-                player.transform.position = respawnLocation2.transform.position;
 
 
-                StartCoroutine(SetStateWithDelay(false, 0.5f));
+                StartCoroutine(SetStateWithDelay(false, 1f));
+                StartCoroutine(MovePlayer(1f));
+
 
                 // Ensures we only spawn one time
                 hasRespawned = true;
             }
         }
     }
+
+    private IEnumerator MovePlayer(float delayTime)
+    {
+        yield return new WaitForSeconds(delayTime);
+
+        // Move the player
+        player.transform.position = respawnLocation2.transform.position;
+    }
+
+
+
 }
