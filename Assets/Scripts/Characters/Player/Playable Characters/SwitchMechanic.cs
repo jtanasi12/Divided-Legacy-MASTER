@@ -77,15 +77,21 @@ public class SwitchMechanic : MonoBehaviour
             // Loop through heaven enemies to unfreeze their rotation 
             foreach (Enemy heavenEnemy in heavenEnemies)
             {
-                Debug.Log("UFreezing heaven enemies");
-                heavenEnemy.GetComponent<EnemyController>().SetSwitchedState(false);
+               if(heavenEnemy != null)
+                {
+                    Debug.Log("UFreezing heaven enemies");
+                    heavenEnemy.GetComponent<EnemyController>().SetSwitchedState(false);
+                }
 
             }
 
             // Freeze hell hearts 
             foreach (HeartPickUp hearts in hellHearts)
             {
-                hearts.SetSwitchedState(true);
+                if(hearts != null)
+                {
+                    hearts.SetSwitchedState(true);
+                }
 
             }
 
@@ -93,7 +99,10 @@ public class SwitchMechanic : MonoBehaviour
             // Unfreeze heaven hearts 
             foreach (HeartPickUp hearts in heavenHearts)
             {
-                hearts.SetSwitchedState(false);
+               if(hearts != null)
+                {
+                    hearts.SetSwitchedState(false);
+                }
             }
 
 
@@ -128,17 +137,24 @@ public class SwitchMechanic : MonoBehaviour
             // Loop through heaven enemies to freeze their rotation 
             foreach(Enemy enemy in heavenEnemies)
             {
-                Debug.Log("Freezing heaven enemies");
-                enemy.GetComponent<EnemyController>().SetSwitchedState(true);
+                if (enemy != null)
+                {
+                    Debug.Log("Freezing heaven enemies");
+                    enemy.GetComponent<EnemyController>().SetSwitchedState(true);
 
-                enemy.GetComponent<MainAnimationController>().SetIdleState();
+                    enemy.GetComponent<MainAnimationController>().SetIdleState();
+                }
+               
 
             }
 
             // Freeze heaven hearts 
             foreach (HeartPickUp hearts in heavenHearts)
             {
-                hearts.SetSwitchedState(true);
+                if( hearts != null)
+                {
+                    hearts.SetSwitchedState(true);
+                }
 
             }
 
@@ -146,7 +162,10 @@ public class SwitchMechanic : MonoBehaviour
             // Unfreeze hell hearts 
             foreach (HeartPickUp hearts in hellHearts)
             {
-                hearts.SetSwitchedState(false);
+                if(hearts != null)
+                {
+                    hearts.SetSwitchedState(false);
+                }
             }
 
 
@@ -154,8 +173,13 @@ public class SwitchMechanic : MonoBehaviour
             // Loop through hell enemies to ufreeze their rotation 
             foreach (Enemy hellEnemy in hellEnemies)
             {
-                Debug.Log("Freezing hell enemies");
-                hellEnemy.GetComponent<EnemyController>().SetSwitchedState(false);
+              if(hellEnemy != null) {
+
+                  Debug.Log("Freezing hell enemies");
+                  hellEnemy.GetComponent<EnemyController>().SetSwitchedState(false);
+
+                }
+
             }
 
             // If the player is dead, we do not want to switch the animataion

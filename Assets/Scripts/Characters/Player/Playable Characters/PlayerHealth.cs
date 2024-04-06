@@ -36,6 +36,13 @@ public class PlayerHealth : Health
         }
        
     }
+
+    public void DecrementHealth() {
+
+        currentHealth -= 1;
+
+    }
+
  
     public bool GetSwitchedState()
     {
