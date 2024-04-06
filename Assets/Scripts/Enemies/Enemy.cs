@@ -15,7 +15,6 @@ public class Enemy : Characters
     [SerializeField]
     private EnemyDamage enemyDamage;
 
-
     // Update is called once per frame
     void Update()
     {

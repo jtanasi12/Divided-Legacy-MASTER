@@ -12,6 +12,8 @@ public class EnemyController : BasicController
 
     public Enemy enemy;
 
+    private bool switchedState = false;
+
     #region Variables
 
     [SerializeField]
@@ -127,7 +129,7 @@ public class EnemyController : BasicController
         if (timer <= 0)
         {
 
-            if (Vector2.Distance(transform.position, playerTransform.position) > fireBallRange && !enemyHealth.GetIsPlayerDead())
+            if (Vector2.Distance(transform.position, playerTransform.position) > fireBallRange && !enemyHealth.GetIsPlayerDead() && !switchedState)
             {
                 Debug.Log("Shooting projectile.");
                 enemy.shootProjectile(isFacingRight);
@@ -171,7 +173,8 @@ public class EnemyController : BasicController
     
         if (!enemyHealth.GetIsPlayerDead())
         {
-            if (!isStunned ){
+
+            if (!isStunned && !switchedState ){
                 EnemyIsAlive();
             }
         }
@@ -180,6 +183,15 @@ public class EnemyController : BasicController
         }
     }
 
+    public void SetSwitchedState(bool state)
+    {
+        switchedState = state;
+    }
+
+    public bool GetSwitchedState()
+    {
+        return switchedState;
+    }
 
     private void EnemyIsAlive() {
         // If we land on the enemys head we have the enemy not move
