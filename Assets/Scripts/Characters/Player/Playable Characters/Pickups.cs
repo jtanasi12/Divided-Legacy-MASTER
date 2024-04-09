@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Pickups : MonoBehaviour
 {
+    [SerializeField]
+    protected PlayerHealth playerHealth;
 
     [SerializeField]
     protected float moveSpeed = 2f;
@@ -18,6 +20,20 @@ public class Pickups : MonoBehaviour
 
     protected bool isMoving = true;
     protected bool movingToB = true; // Indicates whether the heart is currently moving towards point B
+
+    private void Update()
+    {
+        // Don't move the heart if we in a switched state 
+        if (!switchedState)
+        {
+            // Move the heart towards point B if movingToB is true, otherwise move towards point A
+            if (movingToB)
+                MoveTowards(pointB.position);
+            else
+                MoveTowards(pointA.position);
+        }
+    }
+
 
     protected void MoveTowards(Vector3 targetPosition)
     {
