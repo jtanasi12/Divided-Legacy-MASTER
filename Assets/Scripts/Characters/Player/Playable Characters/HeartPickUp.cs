@@ -31,18 +31,7 @@ public class HeartPickUp : Pickups
             Destroy(gameObject); // Destroy the heart once collected 
         }
     }
-    private void Update()
-    {
-        // Don't move the heart if we in a switched state 
-        if (!switchedState)
-        {
-            // Move the heart towards point B if movingToB is true, otherwise move towards point A
-            if (movingToB)
-                MoveTowards(pointB.position);
-            else
-                MoveTowards(pointA.position);
-        }
-    }
+ 
 
   
 
