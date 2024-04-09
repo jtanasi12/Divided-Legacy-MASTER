@@ -2,25 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeartPickUp : MonoBehaviour
+public class HeartPickUp : Pickups
 {
     [SerializeField]
     private PlayerHealth playerHealth;
-
-    [SerializeField]
-    private float moveSpeed = 2f;
-
-    [SerializeField]
-    private Transform pointA;
-
-    [SerializeField]
-    private Transform pointB;
-
-    private bool isMoving = true;
-    private bool movingToB = true; // Indicates whether the heart is currently moving towards point B
-
-
-    private bool switchedState = false;
 
 
     public bool GetSwitchedState()
@@ -59,21 +44,7 @@ public class HeartPickUp : MonoBehaviour
         }
     }
 
-    private void MoveTowards(Vector3 targetPosition)
-    {
-        // Calculate the distance and direction to the target position
-        Vector3 direction = (targetPosition - transform.position).normalized;
-        float distance = Vector3.Distance(transform.position, targetPosition);
-
-        // Move towards the target position
-        transform.position += direction * moveSpeed * Time.deltaTime;
-
-        // If the distance to the target is very small, switch the target position
-        if (distance < 0.1f)
-        {
-            movingToB = !movingToB;
-        }
-    }
+  
 
 }
 
