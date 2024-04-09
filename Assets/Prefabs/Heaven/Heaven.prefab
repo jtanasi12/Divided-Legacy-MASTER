@@ -9417,6 +9417,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainPlayer: {fileID: 2873426835545383211}
   recieverPlayer: {fileID: 0}
+  LIMIT: 1
+  buttonImage: {fileID: 0}
 --- !u!1 &6031703829426173857
 GameObject:
   m_ObjectHideFlags: 0
