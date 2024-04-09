@@ -11,9 +11,24 @@ public class SwitchMechanic : MonoBehaviour
     private PlayerHealth cloudBoyHealth;
 
     [SerializeField]
+    private Enemy[] heavenEnemies;
+
+    [SerializeField]
+    private Enemy[] hellEnemies;
+
+    [SerializeField]
+    private HeartPickUp[] heavenHearts;
+
+    [SerializeField]
+    private HeartPickUp[] hellHearts;
+
+
+    [SerializeField]
     private PlayerHealth splitHealth;
 
     public bool isCloudBoyActive = true;
+
+    private bool flagIsCaptured = false;
 
     private void Awake()
     {
@@ -27,10 +42,20 @@ public class SwitchMechanic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if(Input.GetKeyDown(KeyCode.RightShift)){
+        if (cloudBoy.GetComponent<PlayableCharacters>().GetFlag() && !flagIsCaptured || split.GetComponent<PlayableCharacters>().GetFlag() && !flagIsCaptured)
+        {
             SwitchPlayer();
-        }   
+
+            flagIsCaptured = true;
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.RightShift) && !flagIsCaptured)
+            {
+                SwitchPlayer();
+            }
+
+        }
     }
 
     private void SwitchPlayer(){
@@ -47,6 +72,49 @@ public class SwitchMechanic : MonoBehaviour
             cloudBoy.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
 
             split.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+
+
+            // Loop through heaven enemies to unfreeze their rotation 
+            foreach (Enemy heavenEnemy in heavenEnemies)
+            {
+               if(heavenEnemy != null)
+                {
+                    Debug.Log("UFreezing heaven enemies");
+                    heavenEnemy.GetComponent<EnemyController>().SetSwitchedState(false);
+                }
+
+            }
+
+            // Freeze hell hearts 
+            foreach (HeartPickUp hearts in hellHearts)
+            {
+                if(hearts != null)
+                {
+                    hearts.SetSwitchedState(true);
+                }
+
+            }
+
+
+            // Unfreeze heaven hearts 
+            foreach (HeartPickUp hearts in heavenHearts)
+            {
+               if(hearts != null)
+                {
+                    hearts.SetSwitchedState(false);
+                }
+            }
+
+
+            // Loop through hell enemies to freeze their rotation 
+            foreach (Enemy hellEnemy in hellEnemies)
+            {
+                Debug.Log("UFreezing hell enemies");
+                hellEnemy.GetComponent<EnemyController>().SetSwitchedState(true);
+
+                hellEnemy.GetComponent<MainAnimationController>().SetIdleState();
+
+            }
 
             // If the player is dead, we do not want to switch the animataion
             if (!splitHealth.GetIsPlayerDead())
@@ -66,9 +134,58 @@ public class SwitchMechanic : MonoBehaviour
 
             cloudBoy.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
 
+            // Loop through heaven enemies to freeze their rotation 
+            foreach(Enemy enemy in heavenEnemies)
+            {
+                if (enemy != null)
+                {
+                    Debug.Log("Freezing heaven enemies");
+                    enemy.GetComponent<EnemyController>().SetSwitchedState(true);
+
+                    enemy.GetComponent<MainAnimationController>().SetIdleState();
+                }
+               
+
+            }
+
+            // Freeze heaven hearts 
+            foreach (HeartPickUp hearts in heavenHearts)
+            {
+                if( hearts != null)
+                {
+                    hearts.SetSwitchedState(true);
+                }
+
+            }
+
+
+            // Unfreeze hell hearts 
+            foreach (HeartPickUp hearts in hellHearts)
+            {
+                if(hearts != null)
+                {
+                    hearts.SetSwitchedState(false);
+                }
+            }
+
+
+
+            // Loop through hell enemies to ufreeze their rotation 
+            foreach (Enemy hellEnemy in hellEnemies)
+            {
+              if(hellEnemy != null) {
+
+                  Debug.Log("Freezing hell enemies");
+                  hellEnemy.GetComponent<EnemyController>().SetSwitchedState(false);
+
+                }
+
+            }
+
             // If the player is dead, we do not want to switch the animataion
             if (!cloudBoyHealth.GetIsPlayerDead())
             {
+             
                 cloudBoy.GetComponent<CloudBoyAnimations>().SetIdleState();
 
             }
@@ -120,5 +237,8 @@ public class SwitchMechanic : MonoBehaviour
         Debug.Log("SPLIT ACTIVE");
 
 
-    } 
+    }
+
+  
+
 }

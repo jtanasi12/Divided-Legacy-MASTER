@@ -49,7 +49,10 @@ public class MainAnimationController : MonoBehaviour
         }
     }
 
-
+    public void VictoryAnimation()
+    {
+        character.Animator.SetBool("Victory", true);
+    }
     public void SetIdleState()
     {
         character.SetState(CharacterState.Idle);

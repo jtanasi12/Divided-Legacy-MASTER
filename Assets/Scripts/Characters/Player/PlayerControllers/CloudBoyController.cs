@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CloudBoyController : PlayerController
 {
@@ -17,15 +18,12 @@ public class CloudBoyController : PlayerController
     [SerializeField]
     private TrailRenderer dashTrail;
 
-    protected new void Awake()
-    {
+    protected new void Awake(){
         base.Awake();
         dashTrail.emitting = false;
-
     }
 
-    public IEnumerator Dash()
-    {
+    public IEnumerator Dash(){
         canDash = false;
         isDashing = true;
 
@@ -53,32 +51,27 @@ public class CloudBoyController : PlayerController
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
         dashTrail.emitting = false;
-
-
     }
 
-    public bool GetIsDashing()
-    {
-        return isDashing;
-    }
+    public bool GetIsDashing(){ return isDashing; }
 
-    public void StartDashCoRoutine()
-    {
-
-
-        if (Input.GetKeyDown(KeyCode.S) && canDash)
-        {
+    public void StartDashCoRoutine(){
+        if (Input.GetKeyDown(KeyCode.S) && canDash){
             // Start a co-routine for dashing
             StartCoroutine(Dash());
         }
     }
 
-    public override void AttackMechanics()
-    {
-        base.AttackMechanics(); // Calling the base class method
-        if (Input.GetMouseButtonDown(0)) // 0 for left mouse button, 1 for right mouse button, 2
+    public override void AttackMechanics(){
+        // Dont trigger attack if we are clicking on a UI Object
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-          // bow.shootArrow(); 
+            base.AttackMechanics(); // Calling the base class method
+            if (Input.GetMouseButtonDown(0))
+            { // 0 for left mouse button, 1 for right mouse button, 2
+                bow.shootArrow(GetIsFacingRight());
+            }
         }
     }
+
 }

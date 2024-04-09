@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Gem
+  - Arrow
+  - fireball
   layers:
   - Default
   - TransparentFX
@@ -24,13 +27,13 @@ TagManager:
   - SwitchedState
   - DeadEnemy
   - Sword
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Gem
+  - Fireball
+  - Arrow
+  - Door
+  - DoorCollider
+  - Heart
+  - Heart Collider
   - 
   - 
   - 

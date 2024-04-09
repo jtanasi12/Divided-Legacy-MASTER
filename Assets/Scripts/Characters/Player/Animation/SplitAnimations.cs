@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class SplitAnimations : MainAnimationController
 {
-    public void SetAttackState()
-    {
-        character.Slash();
-    }
 
     public void SetJab()
     {

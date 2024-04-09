@@ -8,13 +8,31 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Main.unity
     guid: a2b58d8c2e473104380da39b8eb2a7e5
-  - enabled: 1
+  - enabled: 0
     path: Assets/HeroEditor/Megapack/Scenes/TestRoom [Megapack].unity
     guid: 21494f4e4290f604c9776b4aa10ce143
   - enabled: 0
     path: Assets/HeroEditor/FantasyHeroes.unity
     guid: 97bd551564f449d89ed52d0cd06064b7
-  - enabled: 1
+  - enabled: 0
     path: Assets/HeroEditor/FantasyHeroes/Scenes/TestRoom [FH].unity
     guid: 9d7571c448164cb1844f98a17559942c
+  - enabled: 1
+    path: Assets/Scenes/Joes Scene.unity
+    guid: c944f5edd056e44f689d6dfe6c056474
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: f6c890da6f2211149a02ad076facccef
+  - enabled: 1
+    path: Assets/Scenes/Seans Scene.unity
+    guid: f4bb7a626cc0d413e93cf48d3414b698
+  - enabled: 1
+    path: Assets/Scenes/Level 2.2.unity
+    guid: d686c2972e2c146808cedd8a6e1822d1
+  - enabled: 1
+    path: Assets/Scenes/Level 1.unity
+    guid: 479b195b43e44456caa3479044549143
+  - enabled: 1
+    path: Assets/Scenes/Level 2.unity
+    guid: ff5f19edcab4c41dcb5490b591630b1b
   m_configObjects: {}

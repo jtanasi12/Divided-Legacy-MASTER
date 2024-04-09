@@ -17,9 +17,12 @@ public class PlayableCharacters : Characters
 
     [SerializeField]
     public PlayerController controller;
+    
 
     // Keeps track if the player has switched 
     protected bool switchedState;
+
+    protected bool flagIsCaptured = false;
 
     #endregion
 
@@ -40,7 +43,7 @@ public class PlayableCharacters : Characters
      
      void Awake()
     {
-        
+
 
         // Register the gamepad (Xbox, PlayStation, etc...)
         gamepad = new IA_Controller();
@@ -48,6 +51,11 @@ public class PlayableCharacters : Characters
         gamepad.Gameplay.Skill.performed += ctx => ExecuteSkill(); // Register skill to a funtion
         gamepad.Gameplay.SwapActiveCharacter.performed += ctx => SwapCharacter(); // Register character swap to a funtion
 
+    }
+
+    public bool GetFlag()
+    {
+        return flagIsCaptured;
     }
 
     public bool GetSwitchedState()
@@ -101,6 +109,20 @@ public class PlayableCharacters : Characters
         
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Gem"))
+        {
+            Debug.Log("Collided with a Gem Stone");
+
+            flagIsCaptured = true;
+
+            controller.GetComponent<MainAnimationController>().VictoryAnimation();
+        }
+
+
+  
+    }
 
 
 }

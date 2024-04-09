@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7794768791845532968}
   - component: {fileID: 2398655745808622180}
   - component: {fileID: 4313369967283302599}
+  - component: {fileID: 4074563522694773937}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -84,5 +85,35 @@ MonoBehaviour:
   cloudBoy: {fileID: 0}
   split: {fileID: 0}
   cloudBoyHealth: {fileID: 0}
+  heavenEnemies:
+  - {fileID: 0}
+  hellEnemies:
+  - {fileID: 0}
+  heavenHearts:
+  - {fileID: 0}
+  hellHearts:
+  - {fileID: 0}
   splitHealth: {fileID: 0}
   isCloudBoyActive: 1
+--- !u!114 &4074563522694773937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4001717315045835995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fdd695486b4ba047a6c2f7bdfcd42c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedState: {fileID: 11400000, guid: 36c94a5239dc8e240989c346ac24f9a0, type: 2}
+  pauseMenuUI: {fileID: 0}
+  loseMenuUI: {fileID: 0}
+  winMenuuUI: {fileID: 0}
+  cloudBoy: {fileID: 0}
+  split: {fileID: 0}
+  cloudBoyPlayer: {fileID: 0}
+  splitPlayer: {fileID: 0}
+  cloudBoyController: {fileID: 0}
+  splitController: {fileID: 0}

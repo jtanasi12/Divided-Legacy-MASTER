@@ -8805,10 +8805,7 @@ MonoBehaviour:
   flickerDuration: 0.125
   character: {fileID: 1249013939304281093}
   playableCharacter: {fileID: 1249013939304281093}
-  currentHealth: 4
-  maxHealth: 4
-  playerAnimation: {fileID: 1505901652995070511}
-  character: {fileID: 0}
+  loseMenu: {fileID: 0}
 --- !u!114 &2380335325890457842
 MonoBehaviour:
   m_ObjectHideFlags: 0

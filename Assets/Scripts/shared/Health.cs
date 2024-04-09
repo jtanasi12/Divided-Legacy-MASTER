@@ -33,7 +33,7 @@ public class Health : MonoBehaviour
         return currentHealth;
     }
 
-
+    
     public virtual void TakeDamage(int damageAmount)
     {
 

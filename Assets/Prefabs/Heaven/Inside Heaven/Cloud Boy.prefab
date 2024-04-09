@@ -15036,8 +15036,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 504bd472a1d2b3b4698224debdb8e55d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arrowSpawnPoint: {fileID: 0}
+  spawnOffset: {x: 0.5, y: 0, z: 0}
   arrowPrefab: {fileID: 876998572242358156, guid: 892fe754122c4f649a45b131a6e08edd,
     type: 3}
+  coolDown: 0.5
 --- !u!114 &3699419237509271405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15129,10 +15132,7 @@ MonoBehaviour:
   flickerDuration: 0.125
   character: {fileID: 1247019122151636852}
   playableCharacter: {fileID: 1247019122151636852}
-  currentHealth: 4
-  maxHealth: 4
-  playerAnimation: {fileID: 8197132018631522814}
-  character: {fileID: 0}
+  loseMenu: {fileID: 0}
 --- !u!114 &3780733415781912251
 MonoBehaviour:
   m_ObjectHideFlags: 0
