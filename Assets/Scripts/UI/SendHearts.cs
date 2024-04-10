@@ -18,9 +18,6 @@ public class SendHearts : MonoBehaviour
     [SerializeField]
     private Image buttonImage;
 
-    [SerializeField] private Button sendButton; // Reference to the button component
-
-    private bool inputEnabled = true; // Indicates whether keyboard input is enabled
 
 
     public void Reset()
@@ -48,11 +45,7 @@ public class SendHearts : MonoBehaviour
                     active = false;
 
                     buttonImage.color = Color.gray;
-                    sendButton.interactable = false; // Disable button interaction
-                    inputEnabled = false; // Disable keyboard input
 
-                    // Re-enable keyboard input after a short delay
-                    Invoke("EnableInput", 0.2f); // Adjust the delay as needed
                 }
 
             }
