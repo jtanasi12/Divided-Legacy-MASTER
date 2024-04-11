@@ -44,7 +44,7 @@ public class SendHearts : MonoBehaviour
     public void SendHeart()
     {
         Debug.Log("Sending a heart to " + recieverPlayer.gameObject.GetComponent<Characters>().GetCharacterName());
-
+        // TEST
         if (active)
 
         // Allow this power to be used X amount of times only
