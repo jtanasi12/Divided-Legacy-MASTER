@@ -19,12 +19,24 @@ public class SendHearts : MonoBehaviour
     private Image buttonImage;
 
 
-
     public void Reset()
     {
         active = true;
         buttonImage.color = Color.white;
 
+    }
+
+    private int current = 0;
+
+
+    public void SetCurrent(int newCurrent)
+    {
+        current = newCurrent;
+    }
+
+    public int GetCurrent()
+    {
+        return current;
     }
 
     // Triggered when the button is clicked on
@@ -33,7 +45,10 @@ public class SendHearts : MonoBehaviour
         Debug.Log("Sending a heart to " + recieverPlayer.gameObject.GetComponent<Characters>().GetCharacterName());
 
         if (active)
-        {
+
+        // Allow this power to be used X amount of times only
+        if (current < LIMIT)
+{
             // Make sure the player has more than 1 health before sending a heart 
             if (mainPlayer.GetHealth() > 1)
             {
@@ -54,5 +69,8 @@ public class SendHearts : MonoBehaviour
 
     }
 
-
+    public void ResetColor()
+    {
+        buttonImage.color = Color.white;
+    }
 }
