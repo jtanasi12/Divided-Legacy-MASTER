@@ -15,7 +15,7 @@ public class SendHearts : MonoBehaviour
     private PlayerHealth recieverPlayer;
 
     private bool active = true;
-
+    // For Button
     [SerializeField]
     private Image buttonImage;
 
