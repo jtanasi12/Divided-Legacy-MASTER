@@ -47,4 +47,16 @@ public class Pickups : MonoBehaviour
             movingToB = !movingToB;
         }
     }
+
+
+    public bool GetSwitchedState()
+    {
+        return switchedState;
+    }
+
+    public void SetSwitchedState(bool state)
+    {
+        switchedState = state;
+    }
+
 }

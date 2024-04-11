@@ -10,8 +10,6 @@ public class KillFloor : MonoBehaviour {
     [SerializeField]
     private PlayerHealth playerHealth;
 
-    [SerializeField]
-    private Characters player;
 
   //  private Vector3 respawnPosition = new Vector3(30f, -33f, 0f); //this is where the player goes if colliding with the kill floor
 
