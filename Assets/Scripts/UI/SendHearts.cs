@@ -13,13 +13,21 @@ public class SendHearts : MonoBehaviour
     [SerializeField]
     private PlayerHealth recieverPlayer;
 
-    [SerializeField]
-    private int LIMIT = 1;
+    private bool active = true;
 
     [SerializeField]
     private Image buttonImage;
 
+
+    public void Reset()
+    {
+        active = true;
+        buttonImage.color = Color.white;
+
+    }
+
     private int current = 0;
+
 
     public void SetCurrent(int newCurrent)
     {
@@ -36,9 +44,11 @@ public class SendHearts : MonoBehaviour
     {
         Debug.Log("Sending a heart to " + recieverPlayer.gameObject.GetComponent<Characters>().GetCharacterName());
 
+        if (active)
+
         // Allow this power to be used X amount of times only
         if (current < LIMIT)
-        {
+{
             // Make sure the player has more than 1 health before sending a heart 
             if (mainPlayer.GetHealth() > 1)
             {
@@ -47,21 +57,15 @@ public class SendHearts : MonoBehaviour
                 {
                     mainPlayer.DecrementHealth();
                     recieverPlayer.IncreaseHealth();
-                    current++;
+                    active = false;
 
-                    if(current == LIMIT)
-                    {
-                        buttonImage.color = Color.grey;
-                    }
+                    buttonImage.color = Color.gray;
 
                 }
 
             }
         }
-        else
-        {
-            buttonImage.color = Color.grey;
-        }
+      
 
     }
 

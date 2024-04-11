@@ -34,7 +34,6 @@ public class Pickups : MonoBehaviour
         }
     }
 
-
     protected void MoveTowards(Vector3 targetPosition)
     {
         // Calculate the distance and direction to the target position
@@ -50,4 +49,16 @@ public class Pickups : MonoBehaviour
             movingToB = !movingToB;
         }
     }
+
+
+    public bool GetSwitchedState()
+    {
+        return switchedState;
+    }
+
+    public void SetSwitchedState(bool state)
+    {
+        switchedState = state;
+    }
+
 }

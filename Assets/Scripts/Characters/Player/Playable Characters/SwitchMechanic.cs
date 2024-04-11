@@ -17,6 +17,12 @@ public class SwitchMechanic : MonoBehaviour
     private Enemy[] hellEnemies;
 
     [SerializeField]
+    private ShareHealthCoin[] heavenCoins;
+
+    [SerializeField]
+    private ShareHealthCoin[] hellCoins;
+
+    [SerializeField]
     private HeartPickUp[] heavenHearts;
 
     [SerializeField]
@@ -95,6 +101,25 @@ public class SwitchMechanic : MonoBehaviour
 
             }
 
+            // Freeze Hell Share Health Coins
+            foreach (ShareHealthCoin coin in hellCoins)
+            {
+                if (coin != null)
+                {
+                    coin.SetSwitchedState(true);
+                }
+
+            }
+
+
+            // Unfreeze heaven Share Health Coins
+            foreach (ShareHealthCoin coins in heavenCoins)
+            {
+                if (coins != null)
+                {
+                   coins.SetSwitchedState(false);
+                }
+            }
 
             // Unfreeze heaven hearts 
             foreach (HeartPickUp hearts in heavenHearts)
@@ -159,12 +184,31 @@ public class SwitchMechanic : MonoBehaviour
             }
 
 
+            // Freeze heaven Share Health Hearts 
+            foreach (ShareHealthCoin coins in heavenCoins)
+            {
+                if (coins != null)
+                {
+                    coins.SetSwitchedState(true);
+                }
+
+            }
+
             // Unfreeze hell hearts 
             foreach (HeartPickUp hearts in hellHearts)
             {
                 if(hearts != null)
                 {
                     hearts.SetSwitchedState(false);
+                }
+            }
+
+            // Unfreeze hell Share Health Hearts 
+            foreach (ShareHealthCoin coins in hellCoins)
+            {
+                if (coins != null)
+                {
+                    coins.SetSwitchedState(false);
                 }
             }
 

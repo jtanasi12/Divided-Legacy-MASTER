@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HeartPickUp : Pickups
-{
+
+    [SerializeField]
+    private PlayerHealth playerHealth;
+
  
 
     public bool GetSwitchedState()
@@ -15,6 +18,7 @@ public class HeartPickUp : Pickups
     {
         switchedState = state;
     }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -29,8 +33,6 @@ public class HeartPickUp : Pickups
             Destroy(gameObject); // Destroy the heart once collected 
         }
     }
- 
-
 
 
 }

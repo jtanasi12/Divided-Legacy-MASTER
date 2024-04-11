@@ -1427,7 +1427,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainPlayer: {fileID: 1929771752545241750}
   recieverPlayer: {fileID: 0}
-  LIMIT: 1
   buttonImage: {fileID: 0}
 --- !u!1 &1770118354677478439
 GameObject:
@@ -5658,10 +5657,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f548936bdba74b6ca1f297c606831eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: {fileID: 1929771752545241750}
   moveSpeed: 2
   pointA: {fileID: 5485781112236345397}
   pointB: {fileID: 5960092880943193638}
+  playerHealth: {fileID: 1929771752545241750}
 --- !u!1 &6248108474335680025
 GameObject:
   m_ObjectHideFlags: 0

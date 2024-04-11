@@ -66,7 +66,7 @@ public class SplitController : PlayerController
         }
 
     }
-
+    // TESTING PURSPOSES
 
     IEnumerator MainAttack() {
 
