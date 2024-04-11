@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class SendHearts : MonoBehaviour
 {
+    private int LIMIT = 1;
 
     [SerializeField]
     private PlayerHealth mainPlayer;
