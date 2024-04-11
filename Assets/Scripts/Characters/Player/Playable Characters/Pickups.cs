@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Pickups : MonoBehaviour
 {
+    [SerializeField]
+    protected PlayerHealth playerHealth;
 
     [SerializeField]
     protected float moveSpeed = 2f;
