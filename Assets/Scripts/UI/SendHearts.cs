@@ -31,7 +31,7 @@ public class SendHearts : MonoBehaviour
     public void SendHeart()
     {
         Debug.Log("Sending a heart to " + recieverPlayer.gameObject.GetComponent<Characters>().GetCharacterName());
-
+        // TEST
         if (active)
         {
             // Make sure the player has more than 1 health before sending a heart 
