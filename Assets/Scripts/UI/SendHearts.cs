@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class SendHearts : MonoBehaviour
 {
-    private int LIMIT = 1;
 
     [SerializeField]
     private PlayerHealth mainPlayer;
@@ -46,11 +45,8 @@ public class SendHearts : MonoBehaviour
         Debug.Log("Sending a heart to " + recieverPlayer.gameObject.GetComponent<Characters>().GetCharacterName());
         // TEST
         if (active)
-
-        // Allow this power to be used X amount of times only
-        if (current < LIMIT)
-{
-            // Make sure the player has more than 1 health before sending a heart 
+        
+        {             // Make sure the player has more than 1 health before sending a heart 
             if (mainPlayer.GetHealth() > 1)
             {
                 // The receiving player canno't have maximum health
