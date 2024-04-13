@@ -134,10 +134,14 @@ public class SwitchMechanic : MonoBehaviour
             // Loop through hell enemies to freeze their rotation 
             foreach (Enemy hellEnemy in hellEnemies)
             {
-                Debug.Log("UFreezing hell enemies");
-                hellEnemy.GetComponent<EnemyController>().SetSwitchedState(true);
+                if (hellEnemy != null)
+                {
+                    Debug.Log("UFreezing hell enemies");
+                    hellEnemy.GetComponent<EnemyController>().SetSwitchedState(true);
 
-                hellEnemy.GetComponent<MainAnimationController>().SetIdleState();
+                    hellEnemy.GetComponent<MainAnimationController>().SetIdleState();
+                }
+             
 
             }
 
