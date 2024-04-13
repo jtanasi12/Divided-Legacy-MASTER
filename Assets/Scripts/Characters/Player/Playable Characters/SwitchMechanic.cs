@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SwitchMechanic : MonoBehaviour
 {
+    // Variables
     public GameObject cloudBoy;
     public GameObject split;
 
