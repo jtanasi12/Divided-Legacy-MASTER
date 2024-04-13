@@ -94,7 +94,7 @@ TextureImporter:
     overridden: 0
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 2048
@@ -107,7 +107,7 @@ TextureImporter:
     overridden: 0
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
     maxTextureSize: 2048
@@ -133,7 +133,7 @@ TextureImporter:
     overridden: 0
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -141,10 +141,10 @@ TextureImporter:
       name: spider_web_0
       rect:
         serializedVersion: 2
-        x: 50
-        y: 1477
-        width: 677
-        height: 543
+        x: 109
+        y: 1518
+        width: 548
+        height: 435
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,10 +162,10 @@ TextureImporter:
       name: spider_web_1
       rect:
         serializedVersion: 2
-        x: 748
-        y: 1195
-        width: 1227
-        height: 828
+        x: 806
+        y: 1219
+        width: 794
+        height: 699
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -183,10 +183,10 @@ TextureImporter:
       name: spider_web_2
       rect:
         serializedVersion: 2
-        x: 61
-        y: 84
-        width: 571
-        height: 1238
+        x: 164
+        y: 127
+        width: 440
+        height: 1145
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -204,10 +204,10 @@ TextureImporter:
       name: spider_web_3
       rect:
         serializedVersion: 2
-        x: 642
-        y: 53
-        width: 492
-        height: 1010
+        x: 692
+        y: 1014
+        width: 13
+        height: 6
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -225,10 +225,10 @@ TextureImporter:
       name: spider_web_4
       rect:
         serializedVersion: 2
-        x: 1161
-        y: 50
-        width: 833
-        height: 991
+        x: 712
+        y: 141
+        width: 330
+        height: 824
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -238,6 +238,27 @@ TextureImporter:
       bones: []
       spriteID: 005c39c1e6f746f4e981c0fb7a1a24c3
       internalID: 21300008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spider_web_5
+      rect:
+        serializedVersion: 2
+        x: 1190
+        y: 139
+        width: 762
+        height: 710
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c9b025eb7c944cbe874653dfb84ff65
+      internalID: 1561876950
       vertices: []
       indices: 
       edges: []
@@ -258,6 +279,7 @@ TextureImporter:
       spider_web_2: 21300004
       spider_web_3: 21300006
       spider_web_4: 21300008
+      spider_web_5: 1561876950
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
