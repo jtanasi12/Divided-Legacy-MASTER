@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class SendHearts : MonoBehaviour
 {
+    [SerializeField]
+    private AudioSource heartsFX;
 
     [SerializeField]
     private PlayerHealth mainPlayer;
@@ -57,6 +59,8 @@ public class SendHearts : MonoBehaviour
                     active = false;
 
                     buttonImage.color = Color.gray;
+
+                    heartsFX.Play();
 
                 }
 

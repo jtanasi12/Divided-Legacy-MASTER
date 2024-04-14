@@ -7,7 +7,9 @@ public class SceneController : MonoBehaviour
 {
     public static SceneController instance;
 
+ 
 
+  
     private void Awake()
     {
         // If there is no instance of this, this is the first time
@@ -25,7 +27,7 @@ public class SceneController : MonoBehaviour
 
     public void NextLevel()
     {
-       // Time.timeScale = 1;
+
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
     }
 

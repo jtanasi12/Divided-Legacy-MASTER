@@ -15014,6 +15014,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   speed: 5
+  footStepsFX: {fileID: 0}
+  landJumpFX: {fileID: 0}
+  jumpFX: {fileID: 0}
   playerHealth: {fileID: 0}
   playerAnimation: {fileID: 0}
   character: {fileID: 7963034251427628512}
@@ -15062,6 +15065,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   speed: 5
+  footStepsFX: {fileID: 0}
+  landJumpFX: {fileID: 0}
+  jumpFX: {fileID: 0}
   playerHealth: {fileID: 540665972312614060}
   playerAnimation: {fileID: 8197132018631522814}
   character: {fileID: 7963034251427628512}

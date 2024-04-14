@@ -29,6 +29,9 @@ public class GameState : MonoBehaviour
   private PlayableCharacters splitPlayer;
 
 
+  [SerializeField]
+  private AudioSource backgroundMusic;
+
 
     [SerializeField]
     private PlayerController cloudBoyController;
@@ -38,7 +41,23 @@ public class GameState : MonoBehaviour
 
     private bool nextLevel = false;
 
-    // TESTING 3.0
+    [SerializeField]
+    private AudioSource ambienceMusic;
+
+    private void Start()
+    {
+        Time.timeScale = 1f;
+
+        if(backgroundMusic != null)
+        {
+           backgroundMusic.Play();
+        }
+
+        if(ambienceMusic != null)
+        {
+            ambienceMusic.Play();
+        }
+    }
     private void Awake()
     {
         pauseMenuUI.SetActive(false);
@@ -46,11 +65,6 @@ public class GameState : MonoBehaviour
         winMenuuUI.SetActive(false);
     }
 
-    private void Start()
-    {
-        Time.timeScale = 1f;
-
-    }
 
 
     // Update is called once per frame
