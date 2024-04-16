@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7910533174705153792}
   - component: {fileID: 6571924636430348747}
   - component: {fileID: 8531329141333963020}
+  - component: {fileID: 1598924803591288323}
   m_Layer: 19
   m_Name: enemy_fireball
   m_TagString: Untagged
@@ -174,3 +175,16 @@ MonoBehaviour:
   projectileRB: {fileID: 6571924636430348747}
   speed: 4
   range: 2
+--- !u!114 &1598924803591288323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4289591740764395565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2883a15001e9c4db9875376dc684ac34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireballSoundFX: {fileID: 0}

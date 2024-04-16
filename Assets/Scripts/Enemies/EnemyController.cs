@@ -14,6 +14,9 @@ public class EnemyController : BasicController
 
     private bool switchedState = false;
 
+    [SerializeField]
+    AudioSource swordSoundFX;
+
     #region Variables
 
     [SerializeField]
@@ -436,6 +439,8 @@ public class EnemyController : BasicController
                 {
                     enemyAnimation.SetAttackState();
                     sword.GetComponent<Collider2D>().enabled = true;
+
+                    swordSoundFX.Play();
                 }
 
             }

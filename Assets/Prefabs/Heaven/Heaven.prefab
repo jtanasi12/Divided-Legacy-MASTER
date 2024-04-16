@@ -8789,6 +8789,7 @@ MonoBehaviour:
   moveSpeed: 2
   pointA: {fileID: 8184032826753496453}
   pointB: {fileID: 3732220394508513869}
+  heartFX: {fileID: 0}
 --- !u!1 &5726341652117032459
 GameObject:
   m_ObjectHideFlags: 0
@@ -9415,6 +9416,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6022f3e77e2e46bbbad12cba4cf42c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heartsFX: {fileID: 0}
   mainPlayer: {fileID: 2873426835545383211}
   recieverPlayer: {fileID: 0}
   buttonImage: {fileID: 0}

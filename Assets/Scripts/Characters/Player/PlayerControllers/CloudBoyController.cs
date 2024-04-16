@@ -18,6 +18,9 @@ public class CloudBoyController : PlayerController
     [SerializeField]
     private TrailRenderer dashTrail;
 
+    [SerializeField]
+    private AudioSource arrowSoundFX; 
+
     protected new void Awake(){
         base.Awake();
         dashTrail.emitting = false;
@@ -70,6 +73,7 @@ public class CloudBoyController : PlayerController
             if (Input.GetMouseButtonDown(0))
             { // 0 for left mouse button, 1 for right mouse button, 2
                 bow.shootArrow(GetIsFacingRight());
+                arrowSoundFX.Play();
             }
         }
     }

@@ -21,6 +21,11 @@ public class SendHearts : MonoBehaviour
     private Image buttonImage;
 
 
+   public bool GetActive()
+    {
+        return active;
+    }
+
     public void Reset()
     {
         active = true;

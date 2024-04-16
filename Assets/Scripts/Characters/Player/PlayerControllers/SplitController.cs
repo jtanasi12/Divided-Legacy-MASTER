@@ -9,6 +9,9 @@ public class SplitController : PlayerController
     SplitAnimations splitAnimator;
 
     [SerializeField]
+    AudioSource swordSoundFX;
+
+    [SerializeField]
     private float attackDelay;
 
     [SerializeField]
@@ -52,7 +55,7 @@ public class SplitController : PlayerController
             if (Input.GetMouseButtonDown(0)) // 0 for left mouse button, 1 for right mouse button, 2
             {
                 StartCoroutine(MainAttack());
-
+                splitAnimator.SetAttackState();
 
             }
 
@@ -66,11 +69,12 @@ public class SplitController : PlayerController
         }
 
     }
-    // TESTING PURSPOSES
+
 
     IEnumerator MainAttack() {
 
-        splitAnimator.SetAttackState();
+       
+        swordSoundFX.Play(); 
 
         Collider2D enemyCollision = Physics2D.OverlapCircle(weaponTransform.position, weaponRange, enemyLayer);
 

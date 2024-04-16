@@ -7,6 +7,8 @@ public class HeartPickUp : Pickups
     [SerializeField]
     AudioSource heartFX;
 
+   
+
     private Renderer render; 
 
     private void Awake()
@@ -17,17 +19,24 @@ public class HeartPickUp : Pickups
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Heart Collider"))
         {
-            Debug.Log("FOUND A HEART");
+            // If the player has max health, we do not want to pick up the health 
+            if (playerHealth.GetHealth() != playerHealth.GetMaxHealth())
+            {
 
-            isMoving = false;
 
-            playerHealth.IncreaseHealth();
+                Debug.Log("FOUND A HEART");
 
-            heartFX.Play();
+                isMoving = false;
 
-            render.enabled = false; // Hide the object
+                playerHealth.IncreaseHealth();
 
-            StartCoroutine(DestroyAfterSound()); 
+                heartFX.Play();
+
+                render.enabled = false; // Hide the object
+
+                StartCoroutine(DestroyAfterSound());
+
+            }
         }
     }
 

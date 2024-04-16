@@ -20,17 +20,22 @@ public class ShareHealthCoin : Pickups
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Heart Collider"))
         {
-            Debug.Log("FOUND A Share Heart Coin");
+            // If we are not active, then we can pickup a coin
+            if (!sendHearts.GetActive())
+            {
 
-            sendHearts.Reset();
-            isMoving = false;
 
-            coinFX.Play(); // Play sound FX 
+                Debug.Log("FOUND A Share Heart Coin");
 
-            render.enabled = false; // Hide the object 
+                sendHearts.Reset();
+                isMoving = false;
 
-            StartCoroutine(DestroyAfterSound()); // delete object from memory after the sound FX has finished playing 
+                coinFX.Play(); // Play sound FX 
 
+                render.enabled = false; // Hide the object 
+
+                StartCoroutine(DestroyAfterSound()); // delete object from memory after the sound FX has finished playing 
+            }
         }
     }
 

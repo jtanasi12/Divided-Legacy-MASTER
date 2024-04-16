@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameState : MonoBehaviour
 {
+
   public SharedState sharedState;
   UnityEvent TogglePause;
   public GameObject pauseMenuUI;
@@ -31,6 +32,11 @@ public class GameState : MonoBehaviour
 
   [SerializeField]
   private AudioSource backgroundMusic;
+
+
+  [SerializeField]
+  private AudioSource victorySoundFX;
+
 
 
     [SerializeField]
@@ -94,6 +100,10 @@ public class GameState : MonoBehaviour
             sharedState.togglePause();
             nextLevel = true;
 
+            backgroundMusic.Stop();
+            ambienceMusic.Stop();
+
+            victorySoundFX.Play(); 
 
         }
       

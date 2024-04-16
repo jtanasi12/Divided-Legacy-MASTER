@@ -15027,6 +15027,7 @@ MonoBehaviour:
     m_Bits: 1024
   bow: {fileID: 0}
   dashTrail: {fileID: 6869654593668637429}
+  arrowSoundFX: {fileID: 0}
 --- !u!114 &3566517711902127206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15078,6 +15079,7 @@ MonoBehaviour:
     m_Bits: 1024
   bow: {fileID: 0}
   dashTrail: {fileID: 6869654593668637429}
+  arrowSoundFX: {fileID: 0}
 --- !u!114 &8197132018631522814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15139,6 +15141,8 @@ MonoBehaviour:
   character: {fileID: 1247019122151636852}
   playableCharacter: {fileID: 1247019122151636852}
   loseMenu: {fileID: 0}
+  hurtSoundFX: {fileID: 0}
+  deathSoundFX: {fileID: 0}
 --- !u!114 &3780733415781912251
 MonoBehaviour:
   m_ObjectHideFlags: 0
