@@ -19,7 +19,11 @@ public class CloudBoyController : PlayerController
     private TrailRenderer dashTrail;
 
     [SerializeField]
-    private AudioSource arrowSoundFX; 
+    private AudioSource arrowSoundFX;
+
+
+    [SerializeField]
+    private AudioSource dashSoundFX;
 
     protected new void Awake(){
         base.Awake();
@@ -60,6 +64,9 @@ public class CloudBoyController : PlayerController
 
     public void StartDashCoRoutine(){
         if (Input.GetKeyDown(KeyCode.S) && canDash){
+
+            dashSoundFX.Play();
+
             // Start a co-routine for dashing
             StartCoroutine(Dash());
         }

@@ -15017,6 +15017,7 @@ MonoBehaviour:
   footStepsFX: {fileID: 0}
   landJumpFX: {fileID: 0}
   jumpFX: {fileID: 0}
+  wallSlideFX: {fileID: 0}
   playerHealth: {fileID: 0}
   playerAnimation: {fileID: 0}
   character: {fileID: 7963034251427628512}
@@ -15028,6 +15029,7 @@ MonoBehaviour:
   bow: {fileID: 0}
   dashTrail: {fileID: 6869654593668637429}
   arrowSoundFX: {fileID: 0}
+  dashSoundFX: {fileID: 0}
 --- !u!114 &3566517711902127206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15069,6 +15071,7 @@ MonoBehaviour:
   footStepsFX: {fileID: 0}
   landJumpFX: {fileID: 0}
   jumpFX: {fileID: 0}
+  wallSlideFX: {fileID: 0}
   playerHealth: {fileID: 540665972312614060}
   playerAnimation: {fileID: 8197132018631522814}
   character: {fileID: 7963034251427628512}
@@ -15080,6 +15083,7 @@ MonoBehaviour:
   bow: {fileID: 0}
   dashTrail: {fileID: 6869654593668637429}
   arrowSoundFX: {fileID: 0}
+  dashSoundFX: {fileID: 0}
 --- !u!114 &8197132018631522814
 MonoBehaviour:
   m_ObjectHideFlags: 0

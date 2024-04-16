@@ -38,6 +38,10 @@ public class GameState : MonoBehaviour
   private AudioSource victorySoundFX;
 
 
+  [SerializeField]
+  private AudioSource gemStoneSoundFX;
+
+    private bool gemStoneCaught = false;
 
     [SerializeField]
     private PlayerController cloudBoyController;
@@ -92,9 +96,11 @@ public class GameState : MonoBehaviour
             StartCoroutine(ActivateLoseMenuAfterDelay(1.5f));
         }
 
+
         // If both cloud boy and split capture the flags the game is won!
         if (cloudBoyPlayer.GetFlag() && splitPlayer.GetFlag() && !nextLevel)
         {
+            
             winMenuuUI.SetActive(true);
             Time.timeScale = 0f; // Pause the game
             sharedState.togglePause();
@@ -105,6 +111,12 @@ public class GameState : MonoBehaviour
 
             victorySoundFX.Play(); 
 
+        }
+        else if ((cloudBoyPlayer.GetFlag() || splitPlayer.GetFlag()) && !gemStoneCaught)
+        {
+            gemStoneCaught = true;
+            gemStoneSoundFX.Play();
+            Debug.Log("One Flag captured!");
         }
       
 

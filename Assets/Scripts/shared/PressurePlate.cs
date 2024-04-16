@@ -16,6 +16,7 @@ public class PressurePlate : MonoBehaviour
 
     private bool exclamationState = true;
 
+
     private void Start()
     {
         DoorB.ToggleDoorState(); // Switch door B to be opened 
@@ -30,6 +31,7 @@ public class PressurePlate : MonoBehaviour
 
             exclamationMark.SetActive(false);
 
+
             DoorA.ToggleDoorState(true);
             // Toggle Door A which is initally a closed door to become an open door
 
@@ -42,6 +44,7 @@ public class PressurePlate : MonoBehaviour
 
         DoorA.ToggleDoorState(false);
         // Close the door again when the pressure plate is off
+
     }
 
 

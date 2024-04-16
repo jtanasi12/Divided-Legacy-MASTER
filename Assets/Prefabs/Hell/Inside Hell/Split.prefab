@@ -8707,6 +8707,7 @@ MonoBehaviour:
   footStepsFX: {fileID: 0}
   landJumpFX: {fileID: 0}
   jumpFX: {fileID: 0}
+  wallSlideFX: {fileID: 0}
   playerHealth: {fileID: 2270531184054672892}
   playerAnimation: {fileID: 1505901652995070511}
   character: {fileID: 1265282296949505986}

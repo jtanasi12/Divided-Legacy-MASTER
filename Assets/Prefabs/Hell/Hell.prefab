@@ -4276,6 +4276,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bounce: 22
+  boingFX: {fileID: 0}
 --- !u!1 &4533238127853978399
 GameObject:
   m_ObjectHideFlags: 0

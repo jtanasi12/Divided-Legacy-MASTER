@@ -229,6 +229,8 @@ public class EnemyController : BasicController
                     patrolDestination = 1;
                     FlipCharacter();
 
+                   
+
                 }
             }
             if (patrolDestination == 1)
@@ -258,6 +260,7 @@ public class EnemyController : BasicController
             EnemyPatrol();
         }
 
+      
         // Enemy is in bounds 
         else
         {
