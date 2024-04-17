@@ -7,7 +7,7 @@ public class HeartPickUp : Pickups
     [SerializeField]
     AudioSource heartFX;
 
-   
+    private int counter = 0;
 
     private Renderer render; 
 
@@ -24,17 +24,23 @@ public class HeartPickUp : Pickups
             {
 
 
-                Debug.Log("FOUND A HEART");
+                if( counter == 0)
+                {
+                    Debug.Log("FOUND A HEART");
 
-                isMoving = false;
+                    isMoving = false;
 
-                playerHealth.IncreaseHealth();
+                    playerHealth.IncreaseHealth();
 
-                heartFX.Play();
+                    ++counter; // Make sure we only increase the health 1 time if we collide with the heart multiple times while we are waiting for it to destroy after the sound plays 
 
-                render.enabled = false; // Hide the object
+                    heartFX.Play();
 
-                StartCoroutine(DestroyAfterSound());
+                    render.enabled = false; // Hide the object
+
+                    StartCoroutine(DestroyAfterSound());
+
+                }
 
             }
         }
