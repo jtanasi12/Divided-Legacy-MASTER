@@ -1978,6 +1978,8 @@ MonoBehaviour:
   attackObjectPrefab: {fileID: 0}
   enemyController: {fileID: 3844325552302195070}
   enemyDamage: {fileID: 4611908151742350984}
+  fireballRange: {fileID: 0}
+  fireballSoundFX: {fileID: 0}
 --- !u!114 &3844325552302195070
 MonoBehaviour:
   m_ObjectHideFlags: 0

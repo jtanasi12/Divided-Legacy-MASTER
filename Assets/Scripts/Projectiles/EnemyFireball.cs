@@ -10,6 +10,7 @@ public class EnemyFireball  : MonoBehaviour{
     private int damage = 1;
     private EnemyDamage enemyDamage;
 
+
     protected float setSpeed()
     {
         // This method should be implemented by child classes
@@ -58,7 +59,7 @@ public class EnemyFireball  : MonoBehaviour{
 
     }
 
-    // Method to flip the arrow sprite horizontally
+    // Method to flip the fireball sprite horizontally
     public void FlipSprite(bool isFlip)
     {
         if (isFlip)
@@ -77,14 +78,6 @@ public class EnemyFireball  : MonoBehaviour{
     // Called when the fireball collides with another collider
     void OnTriggerEnter2D(Collider2D collision)
     {
-        // Check if the collided object has the "Arrow" tag
-        if (collision.gameObject.layer != LayerMask.NameToLayer("Arrow"))
-        {
-            Destroy(gameObject);
-            // If collided with an object tagged as "Arrow", do nothin
-
-            Debug.Log("DESTORY");
-        }
 
         if (collision.CompareTag("Player"))
         {
@@ -92,6 +85,17 @@ public class EnemyFireball  : MonoBehaviour{
 
         }
 
+        // If the fireball collides with any other object destroy it on collision
+        // Except if it collides with another fireball
+        else if(collision.gameObject.layer != LayerMask.NameToLayer("Fireball"))
+        {
+            Destroy(gameObject);
+            // If collided with an object tagged as "fireball", do nothing
+
+            Debug.Log("DESTORY");
+        }
+
+       
     }
 }
 

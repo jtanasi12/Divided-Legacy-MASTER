@@ -73,7 +73,8 @@ public class SplitController : PlayerController
 
     IEnumerator MainAttack() {
 
-       
+        splitAnimator.SetAttackState();
+
         swordSoundFX.Play(); 
 
         Collider2D enemyCollision = Physics2D.OverlapCircle(weaponTransform.position, weaponRange, enemyLayer);

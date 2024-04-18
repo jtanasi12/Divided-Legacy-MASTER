@@ -17,6 +17,7 @@ public class EnemyController : BasicController
     [SerializeField]
     AudioSource swordSoundFX;
 
+
     #region Variables
 
     [SerializeField]
@@ -145,6 +146,9 @@ public class EnemyController : BasicController
     // NOT CURRENTLY USING
     public void ShootingLogic() {
 
+      
+
+
         // The player is on the right side of the enemy and enemy is on left AND the enemy is facing the left direction (he needs to turn around before shooting)
         if (transform.position.x < playerTransform.position.x && !isFacingRight)
         {
@@ -159,17 +163,19 @@ public class EnemyController : BasicController
 
         else
         {
-
+            
             if (Vector2.Distance(transform.position, playerTransform.position) > fireBallRange)
             {
 
                 Debug.Log("Shooting projectile.");
+
                 enemy.shootProjectile(isFacingRight);
                 timer = coolDown;
 
             }
         }
     }
+
 
     public void InputMechanics()
     {
