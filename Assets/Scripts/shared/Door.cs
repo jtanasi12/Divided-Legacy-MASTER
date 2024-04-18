@@ -27,6 +27,16 @@ public class Door : MonoBehaviour
     private bool hasRespawned = false;
 
 
+    [SerializeField]
+    AudioSource openDoor;
+
+
+    [SerializeField]
+    AudioSource closeDoor;
+
+
+    private int counter = 0;
+
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -47,6 +57,8 @@ public class Door : MonoBehaviour
     {
         isOpened = state;
         SetState(isOpened);
+
+       
     }
 
     private void SetState(bool isOpened)
@@ -54,7 +66,9 @@ public class Door : MonoBehaviour
         // Check if the spriteRenderer is not null and the object is not destroyed
         if (spriteRenderer != null)
         {
-            StartCoroutine(SetStateWithDelay(isOpened, 0.25f)); 
+            StartCoroutine(SetStateWithDelay(isOpened, 0.25f));
+           
+
         }
         else
         {
@@ -76,6 +90,24 @@ public class Door : MonoBehaviour
 
             // Set the sprite based on whether the door is open or closed
             spriteRenderer.sprite = isOpened ? openedDoor : closedDoor;
+
+            if(openDoor != null && closeDoor != null)
+            {
+                if (isOpened)
+                {
+                    openDoor.Play();
+
+                }
+                else
+                {
+                    if(counter > 0)
+                    {
+                        closeDoor.Play();
+                    }
+                }
+            }
+
+            counter++; // So we dont play the door closing on the first inital scene loading
         }
         else
         {
@@ -97,7 +129,7 @@ public class Door : MonoBehaviour
                 Debug.Log("Respawn player");
                 // Spawn the player to Door B, we treat the script as if it was Door A 
 
-
+              
 
                 StartCoroutine(SetStateWithDelay(false, 1f));
                 StartCoroutine(MovePlayer(1f));

@@ -15,6 +15,13 @@ public class Enemy : Characters
     [SerializeField]
     private EnemyDamage enemyDamage;
 
+    [SerializeField]
+    private FireBallRange fireballRange;
+
+
+    [SerializeField]
+    private AudioSource fireballSoundFX;
+
     // Update is called once per frame
     void Update()
     {
@@ -42,6 +49,20 @@ public class Enemy : Characters
         // Instantiate the fireball and ensure that it has no rotation using Quaternion.identity
         // Load the fireball prefab from the position of our spawn point 
         GameObject newProjectile = Instantiate(attackObjectPrefab, projectileSpawnPoint.transform.position, Quaternion.identity);
+
+         if(fireballRange != null)
+        {
+            if (fireballRange.GetSoundRange())
+            {
+                if (fireballSoundFX != null)
+                {
+
+                    fireballSoundFX.Play();
+                }
+
+            }
+        }
+  
 
         // (2.) 
         // New Projectile has a EnemyFireBall Script on it, so the new projectile that we create
@@ -73,5 +94,5 @@ public class Enemy : Characters
         }
     }
    
-
+   
 }

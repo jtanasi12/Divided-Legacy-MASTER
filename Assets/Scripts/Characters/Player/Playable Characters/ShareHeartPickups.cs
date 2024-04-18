@@ -23,7 +23,7 @@ public class ShareHeartPickups : Pickups
 
             isMoving = false;
 
-          Reset();
+             Reset();
 
             Destroy(gameObject); // Destroy the coin once collected 
         }

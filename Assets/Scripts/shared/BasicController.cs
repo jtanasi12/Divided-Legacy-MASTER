@@ -24,6 +24,7 @@ public class BasicController : MonoBehaviour
     protected bool isFacingRight = true;
     protected bool isGrounded = true;
     protected bool isTurning = false;
+    protected bool isJumping = false;
 
     protected virtual void Awake(){
         baseSpeed = speed; // Get the current speed before we move

@@ -14,6 +14,12 @@ public class PlayerHealth : Health
     [SerializeField]
     private GameObject loseMenu;
 
+    [SerializeField]
+    AudioSource hurtSoundFX;
+
+    [SerializeField]
+    AudioSource deathSoundFX;
+
     private bool switchState;
 
     private bool playerIsDead = false;
@@ -52,9 +58,36 @@ public class PlayerHealth : Health
         return switchState;
     }
 
-  
+    public override void TakeDamage(int damageAmount)
+    {
 
-    
+        currentHealth -= damageAmount;
+
+        if (currentHealth <= 0)
+        {
+            deathSoundFX.Play();
+
+            // Player Dies
+            playerAnimation.DeathAState();
+            isDead = true;
+        }
+        else
+        {
+            // Attack Animation
+            Debug.Log("Player takes damage");
+
+            hurtSoundFX.Play();
+
+            if (!isFlickering)
+            {
+                StartCoroutine(DamageFlicker());
+
+            }
+
+        }
+    }
+
+
 
 
 }

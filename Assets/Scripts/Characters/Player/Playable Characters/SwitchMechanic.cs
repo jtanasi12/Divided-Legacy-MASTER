@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class SwitchMechanic : MonoBehaviour
 {
-    // Variables --
     public GameObject cloudBoy;
     public GameObject split;
+
 
     [SerializeField]
     private PlayerHealth cloudBoyHealth;
@@ -39,6 +39,9 @@ public class SwitchMechanic : MonoBehaviour
 
     private void Awake()
     {
+        // Defaulted
+
+
         
         split.GetComponent<PlayableCharacters>().enabled = false;
 
@@ -72,6 +75,8 @@ public class SwitchMechanic : MonoBehaviour
 
         if (isCloudBoyActive)
         {
+  
+
             // If we switch to Cloudboy set Split inactive
             SwitchSplitInactive();
             SwitchCloudBoyActive();
@@ -154,8 +159,10 @@ public class SwitchMechanic : MonoBehaviour
             }
 
         }
-        else 
+        else  // SPLIT IS ACTIVE 
         {
+
+
             // If we switch to Split, set CloudBoy inactive
             SwitchCloudBoyInactive();
             SwitchSplitActive();
@@ -288,6 +295,5 @@ public class SwitchMechanic : MonoBehaviour
 
     }
 
-  
 
 }

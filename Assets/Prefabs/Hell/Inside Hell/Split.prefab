@@ -8704,6 +8704,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   speed: 5
+  footStepsFX: {fileID: 0}
+  landJumpFX: {fileID: 0}
+  jumpFX: {fileID: 0}
+  wallSlideFX: {fileID: 0}
   playerHealth: {fileID: 2270531184054672892}
   playerAnimation: {fileID: 1505901652995070511}
   character: {fileID: 1265282296949505986}
@@ -8713,6 +8717,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   splitAnimator: {fileID: 1505901652995070511}
+  swordSoundFX: {fileID: 0}
   attackDelay: 0.35
   weaponTransform: {fileID: 360031221393285353}
   weaponRange: 2
@@ -8806,6 +8811,8 @@ MonoBehaviour:
   character: {fileID: 1249013939304281093}
   playableCharacter: {fileID: 1249013939304281093}
   loseMenu: {fileID: 0}
+  hurtSoundFX: {fileID: 0}
+  deathSoundFX: {fileID: 0}
 --- !u!114 &2380335325890457842
 MonoBehaviour:
   m_ObjectHideFlags: 0
