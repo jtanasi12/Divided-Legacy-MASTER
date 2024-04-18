@@ -9,34 +9,26 @@ public class Spikes : MonoBehaviour
 
     private bool isInvulnerable = false;
 
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Check if the player is currently invulnerable
-        if (!isInvulnerable)
+        if (!isInvulnerable && collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
+            PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
+            Rigidbody2D rigidBody = collision.gameObject.GetComponent<Rigidbody2D>();
 
-            if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+            if (playerHealth != null && rigidBody != null)
             {
-                // A reference to the players health 
-                PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
-
-                // A reference to the players rigid body
-                Rigidbody2D rigidBody = collision.gameObject.GetComponent<Rigidbody2D>();
-
+                // Apply damage to the player
                 playerHealth.TakeDamage(1);
 
-                if (rigidBody != null && playerHealth != null)
-                {
-
-                    collision.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * bounceForce, ForceMode2D.Impulse);
-
-                }
+                // Apply bounce force to the player
+                rigidBody.AddForce(Vector2.up * bounceForce, ForceMode2D.Impulse);
 
                 // Start the invulnerability coroutine
                 StartCoroutine(InvulnerabilityCoroutine());
             }
         }
-
     }
     private IEnumerator InvulnerabilityCoroutine()
     {
