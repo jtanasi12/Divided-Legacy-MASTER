@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class EnemyHealth : Health
 {
+    [SerializeField]
+    AudioSource hurtSoundFX;
+
+    [SerializeField]
+    AudioSource deathSoundFX;
 
     private void Start()
     {
@@ -18,19 +23,22 @@ public class EnemyHealth : Health
 
         currentHealth -= damageAmount;
 
-        // If the player is stunned they canno't take more damage
+        // If the enemy is stunned they canno't take more damage
         if (!isStunned)
         {
             if (currentHealth <= 0 && !isDead)
             {
+                deathSoundFX.Play();                 
                 // Player Dies
                 playerAnimation.DeathAState();
                 isDead = true;
             }
             else
             {
+                hurtSoundFX.Play();
+
                 // Attack Animation
-                Debug.Log("Player takes damage");
+                Debug.Log("Enemy takes damage");
 
                 if (!isFlickering)
                 {

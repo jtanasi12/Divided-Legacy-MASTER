@@ -15014,6 +15014,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   speed: 5
+  footStepsFX: {fileID: 0}
+  landJumpFX: {fileID: 0}
+  jumpFX: {fileID: 0}
+  wallSlideFX: {fileID: 0}
   playerHealth: {fileID: 0}
   playerAnimation: {fileID: 0}
   character: {fileID: 7963034251427628512}
@@ -15024,6 +15028,8 @@ MonoBehaviour:
     m_Bits: 1024
   bow: {fileID: 0}
   dashTrail: {fileID: 6869654593668637429}
+  arrowSoundFX: {fileID: 0}
+  dashSoundFX: {fileID: 0}
 --- !u!114 &3566517711902127206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15062,6 +15068,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   speed: 5
+  footStepsFX: {fileID: 0}
+  landJumpFX: {fileID: 0}
+  jumpFX: {fileID: 0}
+  wallSlideFX: {fileID: 0}
   playerHealth: {fileID: 540665972312614060}
   playerAnimation: {fileID: 8197132018631522814}
   character: {fileID: 7963034251427628512}
@@ -15072,6 +15082,8 @@ MonoBehaviour:
     m_Bits: 1024
   bow: {fileID: 0}
   dashTrail: {fileID: 6869654593668637429}
+  arrowSoundFX: {fileID: 0}
+  dashSoundFX: {fileID: 0}
 --- !u!114 &8197132018631522814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15133,6 +15145,8 @@ MonoBehaviour:
   character: {fileID: 1247019122151636852}
   playableCharacter: {fileID: 1247019122151636852}
   loseMenu: {fileID: 0}
+  hurtSoundFX: {fileID: 0}
+  deathSoundFX: {fileID: 0}
 --- !u!114 &3780733415781912251
 MonoBehaviour:
   m_ObjectHideFlags: 0

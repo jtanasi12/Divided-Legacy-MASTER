@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameState : MonoBehaviour
 {
+
   public SharedState sharedState;
   UnityEvent TogglePause;
   public GameObject pauseMenuUI;
@@ -29,6 +30,18 @@ public class GameState : MonoBehaviour
   private PlayableCharacters splitPlayer;
 
 
+  [SerializeField]
+  private AudioSource backgroundMusic;
+
+
+  [SerializeField]
+  private AudioSource victorySoundFX;
+
+
+  [SerializeField]
+  private AudioSource gemStoneSoundFX;
+
+    private bool gemStoneCaught = false;
 
     [SerializeField]
     private PlayerController cloudBoyController;
@@ -38,7 +51,23 @@ public class GameState : MonoBehaviour
 
     private bool nextLevel = false;
 
-    // TESTING 3.0
+    [SerializeField]
+    private AudioSource ambienceMusic;
+
+    private void Start()
+    {
+        Time.timeScale = 1f;
+
+        if(backgroundMusic != null)
+        {
+           backgroundMusic.Play();
+        }
+
+        if(ambienceMusic != null)
+        {
+            ambienceMusic.Play();
+        }
+    }
     private void Awake()
     {
         pauseMenuUI.SetActive(false);
@@ -46,11 +75,6 @@ public class GameState : MonoBehaviour
         winMenuuUI.SetActive(false);
     }
 
-    private void Start()
-    {
-        Time.timeScale = 1f;
-
-    }
 
 
     // Update is called once per frame
@@ -72,15 +96,27 @@ public class GameState : MonoBehaviour
             StartCoroutine(ActivateLoseMenuAfterDelay(1.5f));
         }
 
+
         // If both cloud boy and split capture the flags the game is won!
         if (cloudBoyPlayer.GetFlag() && splitPlayer.GetFlag() && !nextLevel)
         {
+            
             winMenuuUI.SetActive(true);
             Time.timeScale = 0f; // Pause the game
             sharedState.togglePause();
             nextLevel = true;
 
+            backgroundMusic.Stop();
+            ambienceMusic.Stop();
 
+            victorySoundFX.Play(); 
+
+        }
+        else if ((cloudBoyPlayer.GetFlag() || splitPlayer.GetFlag()) && !gemStoneCaught)
+        {
+            gemStoneCaught = true;
+            gemStoneSoundFX.Play();
+            Debug.Log("One Flag captured!");
         }
       
 

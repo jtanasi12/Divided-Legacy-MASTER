@@ -1110,6 +1110,8 @@ MonoBehaviour:
   attackObjectPrefab: {fileID: 0}
   enemyController: {fileID: 6662540124847058451}
   enemyDamage: {fileID: 4979197804638154627}
+  fireballRange: {fileID: 0}
+  fireballSoundFX: {fileID: 0}
 --- !u!114 &6662540124847058451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1133,6 +1135,7 @@ MonoBehaviour:
   speed: 2
   coolDown: 2.5
   enemy: {fileID: 0}
+  swordSoundFX: {fileID: 0}
   shootingRange: 0
   fireBallRange: 0
   mainPlayer: {fileID: 0}
@@ -1218,6 +1221,8 @@ MonoBehaviour:
   flickerAmnt: 1
   flickerDuration: 0.125
   character: {fileID: 3594847542265202411}
+  hurtSoundFX: {fileID: 0}
+  deathSoundFX: {fileID: 0}
 --- !u!212 &4302569584115952976 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 3752246287756060472, guid: 8ac98a4cbe20a459c9bf4557da82923c,

@@ -8,8 +8,29 @@ using UnityEngine.InputSystem.XR;
 using UnityEngine.EventSystems;
 
 public class PlayerController : BasicController {
+
+    [SerializeField]
+    AudioSource footStepsFX;
+
+    [SerializeField]
+    AudioSource landJumpFX;
+
+    [SerializeField]
+    AudioSource jumpFX;
+
+    [SerializeField]
+    AudioSource wallSlideFX;
+
     [SerializeField]
     PlayerHealth playerHealth;
+
+    private float footstepCooldown = 0.3f; // Adjust this value as needed
+    private float nextFootstepTime = 0f;
+
+    private bool isRunning = false;
+
+    private bool wallContact = false;
+
 
     #region BasicMovement   
 
@@ -37,6 +58,7 @@ public class PlayerController : BasicController {
     protected readonly float jumpBufferTime = 0.2f; // allows us to jump .2 seconds before we land
     protected float jumpBufferCounter;
     protected float coyoteTimeCounter; // A short window after falling off plateform to jump
+    private bool hasJumped = true;
 
     // Serialized Fields
     [SerializeField]
@@ -58,8 +80,14 @@ public class PlayerController : BasicController {
     public float GetHorizontalInput() { return horizontalInput;  }
     #endregion
 
+    public bool GetWallContact()
+    {
+        return wallContact;
+    }
+
     private bool flagIsCaptured = false;
 
+    
     public void InputMechanics(){
         if (!playerHealth.GetIsPlayerDead()){
             PlayerIsAlive();
@@ -67,7 +95,7 @@ public class PlayerController : BasicController {
         // Only runs if the player is dead 
         else {
             PlayerIsDead();
-        }  
+        } 
     }
     protected void Flip(){
         // If we are facing right and the user hits left
@@ -77,6 +105,9 @@ public class PlayerController : BasicController {
         }
     }
     protected void SpeedMechanics() {
+
+        isRunning = true; // Running State Activated
+
         bool isRunButtonDown = Input.GetKey(KeyCode.W);
 
         bool isLeftOrRightPressed = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow);
@@ -92,6 +123,9 @@ public class PlayerController : BasicController {
             }
         }
         else {
+
+            isRunning = false; // Player is no longer running
+
             // If the player is not holding down the X key and not moving left or right, reset speed to base speed
             if (!isLeftOrRightPressed) {
                 speed = baseSpeed;           
@@ -104,6 +138,17 @@ public class PlayerController : BasicController {
     }
     #region JumpRegion
     protected void JumpMechanics() {
+
+        if (IsGrounded() && hasJumped )
+        {
+            if (Input.GetKey(KeyCode.RightShift)) // Implemented to fix an unknown bug
+            {
+                landJumpFX.mute = true;
+            }
+            hasJumped = false; // RESET
+            landJumpFX.Play();
+
+        }
         if (IsGrounded() && !Input.GetButton("Jump")) {
             doubleJump = false;
             // When the player returns to the ground, we must set doubleJump back to false
@@ -119,7 +164,26 @@ public class PlayerController : BasicController {
             // Giving the player .2 seconds to still make a last second jump
         }
         if (Input.GetButtonDown("Jump"))
+        {
+            isJumping = true;
+
             Jump();
+
+
+            if (isJumping && IsGrounded() || isJumping && doubleJump)
+            {
+                jumpFX.Play();
+            }
+
+       
+            if (isJumping && IsGrounded())
+            {
+                isJumping = false;
+            }
+
+
+        }
+
         else
             jumpBufferCounter -= Time.deltaTime;
         if (Input.GetButtonUp("Jump") && body.velocity.y > 0f)
@@ -131,6 +195,14 @@ public class PlayerController : BasicController {
             // Multiplication by a decimal makes the upward velocity smaller
             coyoteTimeCounter = 0f;
             // As soon as we jump we must reset the timer, reduce spamming
+        }
+        
+        // If play releases the jump button, the player has already jumped 
+        if (Input.GetButtonUp("Jump"))
+        {
+            hasJumped = true;
+            landJumpFX.mute = false;
+
         }
     }
     public void Jump(){
@@ -159,9 +231,14 @@ public class PlayerController : BasicController {
         // Creates an invisible circle around the position of the wall check with a radius of 0.2 and returns true if it makes collision with a wall layer 
     }
     private void WallSlide() {
+
+    
+
         // If there is wall collision, the player is no grounded and they are actively pushing left or right 
         if (IsWalled() && !IsGrounded() && horizontalInput != 0f) {
             isWallSliding = true;
+
+
             body.velocity = new Vector2(body.velocity.x, Mathf.Clamp(body.velocity.y, -wallSlidingSpeed, float.MaxValue));
             // Create a new velocity that ensures the players speed is clamped inside a range. The range should be negative wall sliding speed and canno't go faster. We allow float.MaxValue so theres no limit in upward range so the player can jump off the wall
             // LIMITS:
@@ -179,6 +256,8 @@ public class PlayerController : BasicController {
     private void WallJump() {
         if (isWallSliding) {
             playerAnimation.SetClimbState();
+
+   
             isWallJumping = false;
             wallJumpingDirection = -transform.localScale.x; // invert the characters position. -1 is left and 1 the character is facing the right
             wallJumpingCounter = wallJumpingTime;
@@ -194,6 +273,8 @@ public class PlayerController : BasicController {
             playerAnimation.SetJumpState();
             JumpAnimation();
             {
+                jumpFX.Play();
+
                 isWallJumping = true;
                 body.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
                 // Change the velocity the player will move horizontally off the wall AND vertically in the opposite direction they were facing hence the wallJumpingDirection is inversed
@@ -275,9 +356,21 @@ public class PlayerController : BasicController {
         gameObject.layer = LayerMask.NameToLayer("DeadPlayer");
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        wallContact = true;
+
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        wallContact = false;
+    }
     private void PlayerIsAlive() {
-        // -1 = LEFT, 0 = NO MOVEMENT, 1 = RIGHT
-        horizontalInput = Input.GetAxisRaw("Horizontal");
+
+        
+            // -1 = LEFT, 0 = NO MOVEMENT, 1 = RIGHT
+            horizontalInput = Input.GetAxisRaw("Horizontal");
 
         if (Input.GetKey(KeyCode.A)) {
             horizontalInput = -1; // Move left 
@@ -293,6 +386,29 @@ public class PlayerController : BasicController {
             if (isGrounded && !Input.GetButton("Jump")) {
                 // Call SetWalkAnimation after isGrounded has been updated
                 playerAnimation.SetWalkAnimation(horizontalInput, isGrounded);
+
+                // If current time from when we started game is 10 seconds
+                // The footstep sound FX will not play until after the current time
+                // has exceeded 10.3 seconds. Frames are called many times per second
+                // so we need to create a 'cool down' in between
+
+                if (isRunning)
+                {
+                    footstepCooldown = .2f; // Decrease the cool down period so the player can run faster
+                }
+                else
+                {
+                    footstepCooldown = 0.3f; // Increase cool down period for walking
+                }
+                if (Time.time >= nextFootstepTime)
+                {
+                    if (horizontalInput != 0)
+                    {
+                        footStepsFX.Play(); // Play footsteps animation when walking
+
+                        nextFootstepTime = Time.time + footstepCooldown;
+                    }
+                }
                 IdleAnimation();
             }
             EatSupplies();
