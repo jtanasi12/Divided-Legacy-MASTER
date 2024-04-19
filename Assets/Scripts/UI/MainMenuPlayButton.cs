@@ -4,10 +4,23 @@ using UnityEngine;
 using UnityEngine.SceneManagement; // Add this line to import the SceneManager namespace
 
 
-public class MainMenuPlayButton : MonoBehaviour {    
+public class MainMenuPlayButton : MonoBehaviour {
+
+    [SerializeField]
+    private AudioSource backGroundMusic;
+
+    private void Awake()
+    {
+        if(backGroundMusic != null)
+        {
+            backGroundMusic.Play();
+        }
+    }
+
     // Public method to be called when the button is clicked
     public void LoadScene(){
-        // Load the scene named "SeansScene"
-        SceneManager.LoadScene("Seans Scene"); //TODO swap this with whichever scene we want as our level 1
+        // Load the scene named "Level 1"
+        SceneManager.LoadScene("Level 1"); 
     }
+
 }

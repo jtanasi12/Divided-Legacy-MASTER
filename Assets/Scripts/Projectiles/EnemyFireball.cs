@@ -10,6 +10,9 @@ public class EnemyFireball  : MonoBehaviour{
     private int damage = 1;
     private EnemyDamage enemyDamage;
 
+    public GameObject explosionObject;
+    public float explosionDuration = 1.0f; // Default duration is 1 second
+
 
     protected float setSpeed()
     {
@@ -83,6 +86,9 @@ public class EnemyFireball  : MonoBehaviour{
         {
             collision.GetComponent<PlayerHealth>().TakeDamage(damage);
 
+            // Trigger Explosion Animation 
+            PlayExplosionAnimation();
+
         }
 
         // If the fireball collides with any other object destroy it on collision
@@ -96,6 +102,22 @@ public class EnemyFireball  : MonoBehaviour{
         }
 
        
+    }
+
+    private void PlayExplosionAnimation()
+    {
+        Animator animator = GetComponent<Animator>();
+
+        if( animator != null)
+        {
+            Debug.Log("EXPLOSION ANIMATION!!!");
+
+            GameObject explosionPrefab = Instantiate(explosionObject, transform.position, Quaternion.identity);
+
+            explosionPrefab.GetComponent<Animator>().Play("Explosion");
+
+            Destroy(explosionPrefab, explosionDuration);
+        }
     }
 }
 
