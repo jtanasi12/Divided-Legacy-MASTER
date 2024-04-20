@@ -86,22 +86,27 @@ public class EnemyFireball  : MonoBehaviour{
         {
             collision.GetComponent<PlayerHealth>().TakeDamage(damage);
 
+
             // Trigger Explosion Animation 
             PlayExplosionAnimation();
-
         }
 
         // If the fireball collides with any other object destroy it on collision
         // Except if it collides with another fireball
         else if(collision.gameObject.layer != LayerMask.NameToLayer("Fireball"))
         {
+            // Trigger Explosion Animation 
+            PlayExplosionAnimation();
+
             Destroy(gameObject);
             // If collided with an object tagged as "fireball", do nothing
 
             Debug.Log("DESTORY");
         }
 
-       
+      
+
+
     }
 
     private void PlayExplosionAnimation()
