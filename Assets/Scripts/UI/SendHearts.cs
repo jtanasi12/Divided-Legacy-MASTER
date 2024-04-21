@@ -13,6 +13,9 @@ public class SendHearts : MonoBehaviour
     private PlayerHealth mainPlayer;
 
     [SerializeField]
+    private PlayableCharacters player; 
+
+    [SerializeField]
     private PlayerHealth recieverPlayer;
 
     private bool active = true;
@@ -35,7 +38,16 @@ public class SendHearts : MonoBehaviour
 
     private int current = 0;
 
+    private void Update()
+    {
+        if (mainPlayer.gameObject.GetComponent<PlayableCharacters>().GetFlag())
 
+        {
+            active = false;
+
+            buttonImage.color = Color.gray;
+        }
+    }
     public void SetCurrent(int newCurrent)
     {
         current = newCurrent;
@@ -50,28 +62,34 @@ public class SendHearts : MonoBehaviour
     public void SendHeart()
     {
         Debug.Log("Sending a heart to " + recieverPlayer.gameObject.GetComponent<Characters>().GetCharacterName());
-        // TEST
-        if (active)
-        
-        {             // Make sure the player has more than 1 health before sending a heart 
-            if (mainPlayer.GetHealth() > 1)
+
+     
+            if (active)
+
             {
-                // The receiving player canno't have maximum health
-                if (recieverPlayer.GetHealth() < recieverPlayer.GetMaxHealth())
+            // Make sure the other player hasn't already completed the level
+            if (!recieverPlayer.gameObject.GetComponent<PlayableCharacters>().GetFlag())
+            {
+                // Make sure the player has more than 1 health before sending a heart 
+                if (mainPlayer.GetHealth() > 1)
                 {
-                    mainPlayer.DecrementHealth();
-                    recieverPlayer.IncreaseHealth();
-                    active = false;
+                    // The receiving player canno't have maximum health
+                    if (recieverPlayer.GetHealth() < recieverPlayer.GetMaxHealth())
+                    {
+                        mainPlayer.DecrementHealth();
+                        recieverPlayer.IncreaseHealth();
+                        active = false;
 
-                    buttonImage.color = Color.gray;
+                        buttonImage.color = Color.gray;
 
-                    heartsFX.Play();
+                        heartsFX.Play();
+
+                    }
 
                 }
-
             }
-        }
-      
+            }
+
 
     }
 

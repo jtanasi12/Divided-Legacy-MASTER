@@ -149,6 +149,9 @@ public class Door : MonoBehaviour
         player.transform.position = respawnLocation2.transform.position;
     }
 
-
+    public bool GetHasRespawned()
+    {
+        return hasRespawned; 
+    }
 
 }
