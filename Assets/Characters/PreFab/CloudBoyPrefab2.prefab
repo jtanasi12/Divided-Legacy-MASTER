@@ -7723,6 +7723,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 9026402020591334552}
+  doorSystem: {fileID: 0}
+  textDisplay: {fileID: 0}
   gameState: {fileID: 11400000, guid: 36c94a5239dc8e240989c346ac24f9a0, type: 2}
 --- !u!50 &2097524410626508634
 Rigidbody2D:
@@ -7885,6 +7887,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   speed: 0
+  footStepsFX: {fileID: 0}
+  landJumpFX: {fileID: 0}
+  jumpFX: {fileID: 0}
+  wallSlideFX: {fileID: 0}
   playerHealth: {fileID: 0}
   playerAnimation: {fileID: 0}
   character: {fileID: 6346689393398767643}
@@ -7914,6 +7920,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   speed: 5
+  footStepsFX: {fileID: 0}
+  landJumpFX: {fileID: 0}
+  jumpFX: {fileID: 0}
+  wallSlideFX: {fileID: 0}
   playerHealth: {fileID: 0}
   playerAnimation: {fileID: 0}
   character: {fileID: 6346689393398767643}
@@ -7924,6 +7934,8 @@ MonoBehaviour:
     m_Bits: 1024
   bow: {fileID: 0}
   dashTrail: {fileID: 8986015143610421702}
+  arrowSoundFX: {fileID: 0}
+  dashSoundFX: {fileID: 0}
 --- !u!114 &-6858031193116780555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7936,8 +7948,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 504bd472a1d2b3b4698224debdb8e55d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arrowSpawnPoint: {fileID: 0}
+  spawnOffset: {x: 1, y: 1.4, z: 0}
   arrowPrefab: {fileID: 876998572242358156, guid: 892fe754122c4f649a45b131a6e08edd,
     type: 3}
+  coolDown: 0.5
 --- !u!1 &2899250663788669264
 GameObject:
   m_ObjectHideFlags: 0
@@ -22031,7 +22046,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4516477160826811538
 Transform:
   m_ObjectHideFlags: 0

@@ -14852,6 +14852,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 3699419237509271405}
+  doorSystem: {fileID: 0}
+  textDisplay: {fileID: 0}
   gameState: {fileID: 11400000, guid: 36c94a5239dc8e240989c346ac24f9a0, type: 2}
 --- !u!50 &4846479344506422435
 Rigidbody2D:
