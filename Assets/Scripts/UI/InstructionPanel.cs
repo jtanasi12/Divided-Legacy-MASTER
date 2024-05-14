@@ -9,7 +9,7 @@ public class InstructionPanel : MonoBehaviour
 
     private void Start()
     {
-       // popupWindow.SetActive(false);
+       // popupWindow.SetActive(false); SET FALSE
     }
 
     public void ShowPopUp()

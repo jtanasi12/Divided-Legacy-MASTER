@@ -9419,6 +9419,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heartsFX: {fileID: 0}
   mainPlayer: {fileID: 2873426835545383211}
+  player: {fileID: 0}
   recieverPlayer: {fileID: 0}
   buttonImage: {fileID: 0}
 --- !u!1 &6031703829426173857
